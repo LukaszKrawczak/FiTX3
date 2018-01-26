@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:minHeight="250dp"
+tools:context="com.brus5.lukaszkrawczak.fitx.MenuMetaCalc">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <TextView
+                android:id="@+id/weightTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="152dp"
+                android:text="Weight" />
+
+            <TextView
+                android:id="@+id/heightTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/weightTextView"
+                android:layout_alignStart="@+id/weightTextView"
+                android:layout_below="@+id/weightTextView"
+                android:layout_marginTop="35dp"
+                android:text="Height" />
+
+            <TextView
+                android:id="@+id/ageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/heightTextView"
+                android:layout_alignStart="@+id/heightTextView"
+                android:layout_below="@+id/heightTextView"
+                android:layout_marginTop="35dp"
+                android:text="Age" />
+
+            <EditText
+                android:id="@+id/weightEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/weightTextView"
+                android:layout_alignBottom="@+id/weightTextView"
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_toEndOf="@+id/weightTextView"
+                android:layout_toRightOf="@+id/weightTextView"
+                android:ems="5"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/heightEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/heightTextView"
+                android:layout_alignBottom="@+id/heightTextView"
+                android:layout_alignLeft="@+id/weightEditText"
+                android:layout_alignStart="@+id/weightEditText"
+                android:ems="5"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/ageEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/ageTextView"
+                android:layout_alignBottom="@+id/ageTextView"
+                android:layout_alignLeft="@+id/heightEditText"
+                android:layout_alignStart="@+id/heightEditText"
+                android:ems="5"
+                android:inputType="number"
+                android:nextFocusDown="@id/switchIsGym" />
+
+            <TextView
+                android:id="@+id/resultTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/heightEditText"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="29dp"
+                android:layout_marginRight="29dp"
+                android:text="TextView" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/womanRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="22dp"
+                    android:checked="false"
+                    android:duplicateParentState="false"
+                    android:text="Woman" />
+
+                <RadioButton
+                    android:id="@+id/manRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/resultTextView"
+                    android:layout_alignStart="@+id/resultTextView"
+                    android:layout_below="@+id/womanRadioButton"
+                    android:defaultFocusHighlightEnabled="true"
+                    android:text="Man" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sbNEAT"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:text="Count Calories" />
+
+            <Switch
+                android:id="@+id/switchIsGym"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ageTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:allowUndo="false"
+                android:text="Gym"
+                android:checked="true"/>
+
+            <SeekBar
+                android:id="@+id/sbAreoTEA"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sbAreoTime"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="17dp"
+                android:layout_toLeftOf="@+id/tvGymTEA"
+                android:layout_toStartOf="@+id/tvGymTEA"
+                android:max="2"
+                android:progress="0" />
+
+            <SeekBar
+                android:id="@+id/sbGymTEA"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/sbGymTime"
+                android:layout_alignStart="@+id/sbGymTime"
+                android:layout_below="@+id/sbGymTime"
+                android:layout_marginTop="33dp"
+                android:max="2"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tvGymTEA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/sbGymTEA"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_toEndOf="@+id/sbGymTEA"
+                android:layout_toRightOf="@+id/sbGymTEA"
+                android:text="low intensity" />
+
+            <TextView
+                android:id="@+id/tvAreoTEA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvGymTEA"
+                android:layout_alignStart="@+id/tvGymTEA"
+                android:layout_alignTop="@+id/sbAreoTEA"
+                android:text="low intensity" />
+
+            <SeekBar
+                android:id="@+id/sbNEAT"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/ageTextView"
+                android:layout_alignStart="@+id/ageTextView"
+                android:layout_alignTop="@+id/ivNEAT"
+                android:layout_marginTop="117dp"
+                android:max="7"
+                android:progress="0" />
+
+            <ImageView
+                android:id="@+id/ivNEAT"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_below="@+id/sbAreoTEA"
+                android:layout_marginTop="41dp"
+                android:layout_toEndOf="@+id/heightTextView"
+                android:layout_toRightOf="@+id/heightTextView"
+                app:srcCompat="@drawable/mezomorph" />
+
+            <SeekBar
+                android:id="@+id/sbGymTime"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvGymTime"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:max="90"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tvGymTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switchIsGym"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="30" />
+
+            <SeekBar
+                android:id="@+id/sbAreoTime"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAreoTime"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:max="120"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tvAreoTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switchIsAreo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="30" />
+
+            <Switch
+                android:id="@+id/switchIsAreo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvGymTEA"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:checked="true"
+                android:text="Areo" />
+
+            <TextView
+                android:id="@+id/tvTEAresult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/btCount"
+                android:layout_alignEnd="@+id/sbAreoTime"
+                android:layout_alignRight="@+id/sbAreoTime"
+                android:text="tvTEAresult" />
+
+            <TextView
+                android:id="@+id/tvAREOresult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvTEAresult"
+                android:layout_alignStart="@+id/tvTEAresult"
+                android:layout_alignTop="@+id/btCount"
+                android:text="tvAREOresult" />
+
+        </RelativeLayout>
+
+    </ScrollView>
