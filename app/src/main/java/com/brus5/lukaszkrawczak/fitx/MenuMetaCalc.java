@@ -15,11 +15,13 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,8 +47,13 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
     ImageView ivNEAT;
     Button btCount;
 
-    Double AGE, weight, height, RESULT, GymTEA, AreoTEA, GymEPOC, AreoEPOC, TEF;
-    public double somatotype;
+    Double AGE, weight, height, RESULT, GymTEA, TEF;
+    double GymTime = 0d;
+    double AreoTime = 0d;
+    double GymEPOC = 0d;
+    double AreoTEA = 0d;
+    double AreoEPOC = 0d;
+    double somatotype;
     /* Gettings date from the program */
     Calendar c = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -61,8 +68,28 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_menu_meta_calc);
 
         init();
+
         GymTEAresult();
+
+
+//        if (switchIsGym.){
+//
+//        }
+//        else if (!switchIsGym.isChecked()){
+//
+//        }
+
+
         AreoTEAresult();
+
+//        if (switchIsAreo.isChecked()) {
+//            AreoTEA = 5d;
+//            AreoEPOC = 5d;
+//        }
+//        else if (!switchIsAreo.isChecked()){
+//            AreoTEA = 0d;
+//            AreoEPOC = 0d;
+//        }
 
         Intent intent1 = getIntent();
         name = intent1.getStringExtra("name");
@@ -119,36 +146,36 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
         Response.Listener<String> responseListener2 = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    boolean success = jsonObject.getBoolean("success");
-//
-//                    if (success) {
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(MenuMetaCalc.this);
-//                        builder.setMessage("username up to date")
-//                                .setNegativeButton("OK", null)
-//                                .create()
-//                                .show();
-//                    } else {
-//
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-                //TODO RIGHT HERE :)
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    boolean noresult = jsonObject.getBoolean("noresult");
+
+                    Toast.makeText(MenuMetaCalc.this, "Nice! Now fill the empty fields, and let us calculate your result.", Toast.LENGTH_LONG).show();
+                    
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray server_response = jsonObject.getJSONArray("server_response");
+
                 Log.e("HEHE RESPONSE",""+response);
                 String result;
                 result = response.replaceAll("[\\p{Punct}&&[^@.]]"," ");
                 String[] words;
                 words = result.split("\\s+");
-                String username = words[4];
-                String weight = words[6];
-                String height = words[8];
-                somatotypeS = words[10];
-                somatotype = Double.parseDouble(String.valueOf(words[10]));
-//                String somatotype = words[10];
-                String date = words[12];
-
+                String username = words[words.length-9];
+                String weight = words[words.length-7];
+                String height = words[words.length-5];
+                somatotypeS = words[words.length-3];
+                somatotype = Double.parseDouble(somatotypeS);
+                String date = words[words.length-1];
+                Log.e("last index of array ",""+words[words.length-1]);
                 Log.e("somatotype w response ",""+somatotype);
                 Log.e("somatotype w response ",""+somatotypeS);
 
@@ -157,16 +184,16 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
 
                 etWeight.setText(weight);
                 etHeight.setText(height);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         };
 
         UpdateRequestShowUserInfo updateRequestShowUserInfo = new UpdateRequestShowUserInfo(username, responseListener2);
         RequestQueue queue2 = Volley.newRequestQueue(MenuMetaCalc.this);
         queue2.add(updateRequestShowUserInfo);
-
-
-
-
 
         switchIsGym.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -176,12 +203,19 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
                     tvGymTime.setVisibility(View.VISIBLE);
                     sbGymTime.setVisibility(View.VISIBLE);
                     tvGymTEA.setVisibility(View.VISIBLE);
+                    GymTEA = 7d;
+                    GymEPOC = 0.04d;
+                    System.out.println("CHECKING: "+GymTEA+" "+GymEPOC);
                 }
                 else {
                     sbGymTEA.setVisibility(View.INVISIBLE);
                     tvGymTime.setVisibility(View.INVISIBLE);
                     sbGymTime.setVisibility(View.INVISIBLE);
                     tvGymTEA.setVisibility(View.INVISIBLE);
+                    GymTEA = 0d;
+                    GymEPOC = 0d;
+                    System.out.println("CHECKING: "+GymTEA+" "+GymEPOC);
+
                 }
             }
         });
@@ -193,12 +227,18 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
                     tvAreoTime.setVisibility(View.VISIBLE);
                     sbAreoTime.setVisibility(View.VISIBLE);
                     tvAreoTEA.setVisibility(View.VISIBLE);
+                    AreoTEA = 5d;
+                    AreoEPOC = 5d;
+                    System.out.println("CHECKING: "+AreoTEA+" "+AreoEPOC);
                 }
                 else {
                     sbAreoTEA.setVisibility(View.INVISIBLE);
                     sbAreoTime.setVisibility(View.INVISIBLE);
                     tvAreoTime.setVisibility(View.INVISIBLE);
                     tvAreoTEA.setVisibility(View.INVISIBLE);
+                    AreoTEA = 0d;
+                    AreoEPOC = 0d;
+                    System.out.println("CHECKING: "+AreoTEA+" "+AreoEPOC);
                 }
             }
         });
@@ -212,19 +252,29 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
             rbWoman.setChecked(true);
             rbMan.setChecked(false);
         }
+    }
 
+    private void init2() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("somatotype przed ifami",""+somatotype);
+                int somatotypeINT = Integer.valueOf((int) somatotype);
+
+            }
+        },2000);
     }
 
     private void AreoTEAresult() {
-
-        AreoTEA = 5d;
-        AreoEPOC = 5d;
-
         sbAreoTEA = findViewById(R.id.sbAreoTEA);
+
         sbAreoTEA.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+//TODO AreoEPOC must equal 0 not 5d.
+
 
                 if (i==0){
                     AreoTEA = 5d;
@@ -257,9 +307,7 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
 
     public void GymTEAresult(){
 
-        GymTEA = 7d;
-        GymEPOC = 0.04d;
-        GymEPOC = 4d;
+
         sbGymTEA = findViewById(R.id.sbGymTEA);
 
         sbGymTEA.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -302,19 +350,19 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                sbNEAT = findViewById(R.id.sbNEAT);
+
                 Log.e("somatotype w seekbar ",""+somatotype);
                 Log.e("somatotype w seekbar ",""+somatotypeS);
 
-                sbNEAT.setProgress(4);
+//                sbNEAT.setProgress(4);
 
 
-
+                sbNEAT = findViewById(R.id.sbNEAT);
                 sbNEAT.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                    final int somatotypeINT = Integer.parseInt(somatotypeS);
-                        Log.e("somatotype w seekbar ",""+somatotypeINT);
+//                    final int somatotypeINT = Integer.parseInt(somatotypeS);
+//                        Log.e("somatotype w seekbar ",""+somatotypeINT);
                         if (i==0){
                             ivNEAT.setImageResource(R.drawable.ectomorph);
                             somatotype = 900d;
@@ -346,14 +394,41 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
                     }
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
-                        if (somatotype == 400.0) {
-                            seekBar.setProgress(4);
-                        }
                     }
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
                     }
                 });
+                Log.e("somatotype przed ifami",""+somatotype);
+                Log.e("somatotype INT",""+somatotype);
+                if (somatotype==900){
+                    ivNEAT.setImageResource(R.drawable.ectomorph);
+                    sbNEAT.setProgress(0);
+                }
+                if (somatotype==800){
+                    ivNEAT.setImageResource(R.drawable.ectomorph);
+                    sbNEAT.setProgress(1);
+                }
+                if (somatotype==700){
+                    ivNEAT.setImageResource(R.drawable.ectomorph);
+                    sbNEAT.setProgress(2);
+                }
+                if (somatotype==500){
+                    ivNEAT.setImageResource(R.drawable.mezomorph);
+                    sbNEAT.setProgress(3);
+                }
+                if (somatotype==400){
+                    ivNEAT.setImageResource(R.drawable.mezomorph);
+                    sbNEAT.setProgress(4);
+                }
+                if (somatotype==300){
+                    ivNEAT.setImageResource(R.drawable.endomorph);
+                    sbNEAT.setProgress(5);
+                }
+                if (somatotype==200){
+                    ivNEAT.setImageResource(R.drawable.endomorph);
+                    sbNEAT.setProgress(6);
+                }
             }
         },3000);
 
@@ -363,7 +438,7 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
             @SuppressLint("SetTextI18n")
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                tvGymTime.setText(""+(++i+29));
+                tvGymTime.setText(""+(++i+10));
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -377,7 +452,7 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
             @SuppressLint("SetTextI18n")
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                tvAreoTime.setText(""+(++i+19));
+                tvAreoTime.setText(""+(++i+10));
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -386,6 +461,9 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
+
+
         btCount = findViewById(R.id.btCount);
         btCount.setOnClickListener(this);
         rbWoman = findViewById(R.id.womanRadioButton);
@@ -420,9 +498,18 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
                     etAge.setSelected(false);
 
                     double BMR = ((9.99 * weight) + (6.25 * height) - (4.92 * AGE)) + 5d;
+//                    if (GymTime != 0d){
+//                    GymTime = Double.valueOf(tvGymTime.getText().toString());
+//                    }
+//                    else GymTime = 0d;
+//
+//                    if (AreoTime != 0d){
+//                        AreoTime = Double.valueOf(tvAreoTime.getText().toString());
+//                    }
+//                    else AreoTime = 0d;
 
-                    double GymTime = Double.valueOf(tvGymTime.getText().toString());
-                    double AreoTime = Double.valueOf(tvAreoTime.getText().toString());
+                    System.out.println("GymTime:"+GymTime+"GymTEA:"+GymTEA+"AreoTime:"+AreoTime+"AreoTEA:"+AreoTEA+"GymEPOC:"+GymEPOC+"AreoEPOC:"+AreoEPOC+"somatotype:"+somatotype+"BMR:"+BMR);
+
                     TEF = BMR + (GymTime * GymTEA) + (AreoTime * AreoTEA) + (GymEPOC * BMR) + AreoEPOC + somatotype;
                     RESULT = TEF + (0.1d * TEF);
                     tvResult.setText(""+RESULT);
@@ -452,15 +539,9 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
                     Log.e("MyStringID",""+id);
                     Log.e("MyINTid",""+id1);
 
-
-
                     UpdateRequestCalResult updateRequestCalResult = new UpdateRequestCalResult(id1, username, SResult, date, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(MenuMetaCalc.this);
                     queue.add(updateRequestCalResult);
-
-
-
-
 
                     UpdateRequestUserInfo updateRequestUserInfo = new UpdateRequestUserInfo(id1, username, weight, height, somatotype, date, responseListener);
                     RequestQueue queue1 = Volley.newRequestQueue(MenuMetaCalc.this);
@@ -468,12 +549,27 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
 
                     return;
                 }
+
+
                 else if (rbWoman.isChecked()){
                     weight = Double.valueOf(etWeight.getText().toString());
+                    etWeight.setSelected(false);
                     height = Double.valueOf(etHeight.getText().toString());
+                    etHeight.setSelected(false);
                     AGE = Double.valueOf(etAge.getText().toString());
+                    etAge.setSelected(false);
 
                     double BMR = ((9.99 * weight) + (6.25 * height) - (4.92 * AGE)) - 161d;
+
+                    if (GymTime != 0d){
+                    GymTime = Double.valueOf(tvGymTime.getText().toString());
+                    }
+                    else GymTime = 0d;
+
+                    if (AreoTime != 0d){
+                        AreoTime = Double.valueOf(tvAreoTime.getText().toString());
+                    }
+                    else AreoTime = 0d;
 
                     double GymTime = Double.valueOf(tvGymTime.getText().toString());
                     double AreoTime = Double.valueOf(tvAreoTime.getText().toString());
@@ -484,15 +580,43 @@ public class MenuMetaCalc extends AppCompatActivity implements View.OnClickListe
 
                     tvResult.setText(""+String.format("%.0f", RESULT));
 
+                    System.out.println("GymTime:"+GymTime+"GymTEA:"+GymTEA+"AreoTime:"+AreoTime+"AreoTEA:"+AreoTEA+"GymEPOC:"+GymEPOC+"AreoEPOC:"+AreoEPOC+"somatotype:"+somatotype+"BMR:"+BMR+"TEF:"+TEF+"RESULT:"+RESULT);
+
                     tvTEAresult.setText("AreoEPOC "+GymEPOC);
                     tvAREOresult.setText("AreoTEA "+GymTEA);
 
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.e("Response",""+response);
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                jsonObject.getString("success");
+                                boolean success = jsonObject.getBoolean("success");
+                                if (success){
+                                    Log.e("boolean",""+success);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Log.e("Response",""+response);
+                        }
+                    };
 
+                    String SResult = String.format("%.0f",RESULT);
+                    Log.e("MyStringID",""+id);
+                    Log.e("MyINTid",""+id1);
+
+                    UpdateRequestCalResult updateRequestCalResult = new UpdateRequestCalResult(id1, username, SResult, date, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(MenuMetaCalc.this);
+                    queue.add(updateRequestCalResult);
+
+                    UpdateRequestUserInfo updateRequestUserInfo = new UpdateRequestUserInfo(id1, username, weight, height, somatotype, date, responseListener);
+                    RequestQueue queue1 = Volley.newRequestQueue(MenuMetaCalc.this);
+                    queue1.add(updateRequestUserInfo);
 
                     return;
                 }
-
-
                 break;
         }
 
