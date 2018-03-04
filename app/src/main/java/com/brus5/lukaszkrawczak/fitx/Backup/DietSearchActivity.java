@@ -41,7 +41,7 @@ import java.util.List;
 public class DietSearchActivity extends AppCompatActivity{
 
     private static final String TAG = "SearchForMeal.java";
-
+    // I was here from Windows10
     // Generating some useful variables
     String name, username, age, password, email, male, somatotypeS;
     int id;
