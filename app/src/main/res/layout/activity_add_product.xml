@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/etProductName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Product name"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/etProteins"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/etProductName"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Proteins"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/etName"
+        app:layout_constraintRight_toRightOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etProductName" />
+
+    <EditText
+        android:id="@+id/etCarbs"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Carbs"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@+id/etProteins"
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/etFats"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Fats"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@+id/etCarbs"
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints" />
+
+
+</android.support.constraint.ConstraintLayout>

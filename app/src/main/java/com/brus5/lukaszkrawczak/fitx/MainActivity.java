@@ -13,11 +13,15 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.brus5.lukaszkrawczak.fitx.Graph.GraphShowKcalRequest;
+import com.brus5.lukaszkrawczak.fitx.User.UserInfoShowRequest;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import junit.framework.Test;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,13 +35,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity{
 
-    String UserInfo = "", name, username, age, password, email, male;
+    private static final String TAG = "MainActivity";
 
+    String UserInfo = "", name, username, age, password, email, male, id1;
+    int id;
 
     ArrayList<String> graphDATE = new ArrayList<>();
     ArrayList<String> graphRESULT = new ArrayList<>();
@@ -74,6 +79,7 @@ public class MainActivity extends AppCompatActivity{
         final Button btMetaCalc = findViewById(R.id.btMetaCalc);
         final Button btTraining = findViewById(R.id.btTraining);
         final Button btDiet =  findViewById(R.id.btDiet);
+        final Button btTest =  findViewById(R.id.btTest);
 
         final GraphView graph = findViewById(R.id.graph);
 
@@ -86,35 +92,37 @@ public class MainActivity extends AppCompatActivity{
                 String[] words;
 
                 words = UserInfo.split("\\s+");
+                id1 = words[5];
+                id = Integer.parseInt(id1);
+                name = words[7];
+                username = words[9];
+                age = words[11];
+                password = words[13];
+                email = words[15];
+                male = words[17];
 
-                name = words[4];
-                username = words[6];
-                age = words[8];
-                password = words[10];
-                email = words[12];
-                male = words[14];
-
-                Log.e("MenuUserProfile",   "Arrays.toString(words) "    + Arrays.toString(words));
-                Log.e("MenuUserProfile",   "name "                      + name);
-                Log.e("MenuUserProfile",   "username "                  + username);
-                Log.e("MenuUserProfile",   "age "                       + age);
-                Log.e("MenuUserProfile",   "password "                  + password);
-                Log.e("MenuUserProfile",   "email "                     + email);
-                Log.e("MenuUserProfile",   "male "                      + male);
+                Log.e(TAG,   "Arrays.toString(words): " + Arrays.toString(words));
+                Log.e(TAG,   "id:                     " + id);
+                Log.e(TAG,   "name:                   " + name);
+                Log.e(TAG,   "username:               " + username);
+                Log.e(TAG,   "age:                    " + age);
+                Log.e(TAG,   "password:               " + password);
+                Log.e(TAG,   "email:                  " + email);
+                Log.e(TAG,   "male:                   " + male);
 
                 System.out.println("HELLO "+UserInfo);
 
             }
         };
 
-        GetInfoRequest getInfoRequest = new GetInfoRequest(username, responseListner);
+        UserInfoShowRequest userInfoShowRequest = new UserInfoShowRequest(username, responseListner);
         RequestQueue queue1 = Volley.newRequestQueue(MainActivity.this);
-        queue1.add(getInfoRequest);
+        queue1.add(userInfoShowRequest);
 
         btUserProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this,MenuUserProfile.class);
+                Intent intent1 = new Intent(MainActivity.this,UserProfileActivity.class);
                 intent1.putExtra("username",username);
                 MainActivity.this.startActivity(intent1);
             }
@@ -123,7 +131,8 @@ public class MainActivity extends AppCompatActivity{
         btMetaCalc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent metacalcIntent = new Intent(MainActivity.this, MenuMetaCalc.class);
+                Intent metacalcIntent = new Intent(MainActivity.this, MetacalcActivity.class);
+                metacalcIntent.putExtra("id",id);
                 metacalcIntent.putExtra("name",name);
                 metacalcIntent.putExtra("username",username);
                 metacalcIntent.putExtra("age",age);
@@ -137,7 +146,12 @@ public class MainActivity extends AppCompatActivity{
         btTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent trainingIntent = new Intent(MainActivity.this, MenuTraining.class);
+                Intent trainingIntent = new Intent(MainActivity.this, TrainingActivity.class);
+                trainingIntent.putExtra("id",id);
+                trainingIntent.putExtra("name",name);
+                trainingIntent.putExtra("username",username);
+                trainingIntent.putExtra("age",age);
+                trainingIntent.putExtra("male",male);
                 MainActivity.this.startActivity(trainingIntent);
             }
         });
@@ -145,7 +159,20 @@ public class MainActivity extends AppCompatActivity{
         btDiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent dietIntent = new Intent(MainActivity.this,MenuDiet.class);
+                Intent dietIntent = new Intent(MainActivity.this,DietActivity.class);
+                dietIntent.putExtra("id",id);
+                dietIntent.putExtra("name",name);
+                dietIntent.putExtra("username",username);
+                dietIntent.putExtra("age",age);
+                dietIntent.putExtra("male",male);
+                MainActivity.this.startActivity(dietIntent);
+            }
+        });
+
+        btTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent dietIntent = new Intent(MainActivity.this,Test.class);
                 MainActivity.this.startActivity(dietIntent);
             }
         });
@@ -246,16 +273,6 @@ public class MainActivity extends AppCompatActivity{
 
 
                     LineGraphSeries<DataPoint> series5 = new LineGraphSeries<>(new DataPoint[]{});
-//                    Log.e("dates.get",""+dates.get(dates.size() - 2));
-
-//                    for (int i = 1; i<count; i++){
-//
-//                        Date x = dates.get(dates.size()-i);
-//                        Double y = Double.parseDouble(graphRESULT.get(graphRESULT.size()-i));
-//                        DataPoint v = new DataPoint(x,y);
-//                        series5.appendData(v,true,count,false);
-//                        values[i] = v;
-//                    }
 
                     int count = dates.size();
                     DataPoint[] values = new DataPoint[count];
@@ -273,7 +290,7 @@ public class MainActivity extends AppCompatActivity{
                     series5.setThickness(2);
                     series5.setAnimated(true);
                     series5.setDrawDataPoints(true);
-                    series5.setDataPointsRadius(5);
+                    series5.setDataPointsRadius(4);
 
                     calendar.add(Calendar.DATE,-120);
                     final Date d3 = calendar.getTime();
@@ -289,53 +306,22 @@ public class MainActivity extends AppCompatActivity{
                     Log.e("SPRAWdzAM",""+l8);
 
 
-//                    graph.getViewport().setMinX(d2.getTime());
-//                    graph.getGridLabelRenderer().setNumHorizontalLabels(6);
-//                    graph.getViewport().setMaxX(l8);
-//                    graph.getViewport().setMinY(1000);
-//                    graph.getViewport().setMaxY(5000);
-//                    graph.getViewport().setMaxXAxisSize(l8);
-//                    graph.getGridLabelRenderer().setVerticalLabelsVisible(true);
                     graph.getGridLabelRenderer().setHorizontalLabelsAngle(150);
                     graph.getGridLabelRenderer().setTextSize(25);
                     graph.getGridLabelRenderer().setLabelsSpace(20);
                     graph.getGridLabelRenderer().setLabelHorizontalHeight(80);
-//                    graph.getViewport().setMinX(l7);
-//                    graph.getViewport().isScrollable();
-                    graph.getViewport().isScalable();
-//                    graph.onDataChanged(true,false);
-//                    graph.computeScroll();
-//                    graph.getGridLabelRenderer().setHorizontalLabelsColor(100);
+                    graph.getGridLabelRenderer().isHumanRounding();
+
 
                     Viewport viewport = graph.getViewport();
-//                    viewport.setYAxisBoundsManual(true);
-//                    viewport.setXAxisBoundsManual(true);
-//                    viewport.setMinX(l7);
-//                    viewport.setMaxX(l9);
-//                    viewport.isScrollable();
-//                    viewport.setScrollable(true);
 
                     viewport.setScalable(true);
                     viewport.setScalableY(true);
+                    viewport.setYAxisBoundsManual(true);
+                    viewport.setXAxisBoundsManual(true);
 
-//                    viewport.computeScroll();
-//                    viewport.getXAxisBoundsStatus();
-//                    graph.getGridLabelRenderer().setHumanRounding(true);
-//                    viewport.scrollToEnd();
-//                    viewport.setScalableY(true);
-//                    viewport.setScrollableY(true);
 
-//                    viewport.setMinY(1000);
-//                    viewport.setMaxX(5000);
-//                    viewport.computeScroll();
-//                    viewport.setMaxX(l8);
-//                    graph.getViewport().setScrollable(true);
-//                    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-//                    staticLabelsFormatter.setVerticalLabels(new String[]{"old", "middle", "new"});
-//                    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-//                    staticLabelsFormatter.setHorizontalLabels(new String[]  {"old", "middle", "new"});
 
-//                    graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
                     graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()){
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
@@ -348,62 +334,6 @@ public class MainActivity extends AppCompatActivity{
 
                         }
                     });
-
-
-/*
-                    series5.setThickness(3);
-                    series5.setAnimated(true);
-                    series5.setDrawDataPoints(true);
-                    series5.setDataPointsRadius(7);
-                    graph.addSeries(series5);
-                    System.out.println(dates);
-
-//                    graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()));
-                    graph.getGridLabelRenderer().setLabelsSpace(75);
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(10);
-                    graph.getGridLabelRenderer().setHorizontalLabelsAngle(125);
-                    graph.getGridLabelRenderer().setPadding(75); //75
-                    graph.getGridLabelRenderer().setTextSize(25);
-
-//                    graph.getViewport().setMinX(dates.get(dates.size()-5).getTime());
-//                    graph.getViewport().setMaxX(d5.getTime());
-                    graph.getViewport().setXAxisBoundsManual(true);
-//                    graph.getViewport().setScrollable(true);
-//                    graph.getGridLabelRenderer().setHumanRounding(true);
-
-                    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-                    staticLabelsFormatter.setHorizontalLabels(new String[]  {"old", "middle", "new"});
-                    staticLabelsFormatter.setDynamicLabelFormatter(new LabelFormatter() {
-                        @Override
-                        public String formatLabel(double value, boolean isValueX) {
-                            return null;
-                        }
-
-                        @Override
-                        public void setViewport(Viewport viewport) {
-
-                        }
-                    });
-                    graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-                    graph.getGridLabelRenderer().reloadStyles();
-                    graph.getGridLabelRenderer().setHumanRounding(true);
-//
-                    graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()){
-
-
-                        @Override
-                        public String formatLabel(double value, boolean isValueX) {
-                            if(isValueX){
-                                return simpleDateFormat.format(new Date((long) value));
-                            }
-                            else {
-                                return super.formatLabel(value, false);
-                            }
-
-                        }
-                    });
-                    */
-
             }
             catch (JSONException e) {
                     e.printStackTrace();
@@ -414,19 +344,17 @@ public class MainActivity extends AppCompatActivity{
                 }
             }};
 
-        UpdateRequestShowKcal updateRequestShowKcal = new UpdateRequestShowKcal(username, responseListener);
+        GraphShowKcalRequest graphShowKcalRequest = new GraphShowKcalRequest(username, responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        queue.add(updateRequestShowKcal);
+        queue.add(graphShowKcalRequest);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                generateData();
-                Log.e("generateData()",""+generateData());
                 generateData2();
                 Log.e("generateData2()",""+generateData2());
             }
-        },2000);
+        },100);
 
     }
 
@@ -447,21 +375,20 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    private DataPoint[] generateData() {
-        Random rand = new Random();
-        int count = 30;
-        DataPoint[] values = new DataPoint[count];
-        for (int i=0; i<count; i++) {
-            double x = i;
-            double f = rand.nextDouble()*0.15+0.3;
-            double y = Math.sin(i*f+2) + rand.nextDouble()*0.3;
-            DataPoint v = new DataPoint(x, y);
-            values[i] = v;
-        }
-        Log.e("values",""+values);
-        return values;
-
-    }
+//    private DataPoint[] generateData() {
+//        Random rand = new Random();
+//        int count = 30;
+//        DataPoint[] values = new DataPoint[count];
+//        for (int i=0; i<count; i++) {
+//            double x = i;
+//            double f = rand.nextDouble()*0.15+0.3;
+//            double y = Math.sin(i*f+2) + rand.nextDouble()*0.3;
+//            DataPoint v = new DataPoint(x, y);
+//            values[i] = v;
+//        }
+//        Log.e("values",""+values);
+//        return values;
+//    }
 
     private DataPoint[] generateData2(){
         int count = dates.size();
@@ -478,28 +405,9 @@ public class MainActivity extends AppCompatActivity{
             Log.e("DataPoint v",""+values);
         }
         for (int j = count; j>=0; j--){
-
             values = new DataPoint[j];
-
             Log.e("Od tylu",""+values);
         }
-/*
-        Log.e("dates.size()",""+dates.size());
-        Log.e("graphDATE.size()",""+graphDATE.size());
-        Log.e("graphDATE.size()",""+graphDATE.get(7));
-        Log.e("graphDATE.size()",""+dates.get(dates.size() - 1));
-        Date date1 = dates.get(dates.size() - 1);
-        Date date2 = dates.get(dates.size() - 2);
-        long i2 = date2.getTime();
-        long i1 = (date1.getTime()-i2)/3600000;
-        int i3 = (int) date2.getTime()-3*3600*24;
-        Log.e("graphDATE.size()",""+i1);
-        Log.e("graphDATE.size()",""+i2);
-        Log.e("graphDATE.size()",""+i3);
-*/
-
-
-//            DataPoint v = new DataPoint(date,value);
         Log.e("values",""+values);
         return values;
     }
@@ -507,15 +415,4 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
-
-//    public int v2 (int var, int var2){
-//
-//
-//
-//
-//
-//
-//        return result;
-//
-//    }
 

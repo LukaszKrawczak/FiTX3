@@ -54,6 +54,15 @@
         app:layout_constraintTop_toBottomOf="@+id/btTraining"
         tools:layout_editor_absoluteX="16dp" />
 
+    <Button
+        android:id="@+id/btTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:text="Test"
+        app:layout_constraintStart_toEndOf="@+id/btDiet"
+        tools:layout_editor_absoluteY="219dp" />
+
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
         android:layout_width="338dp"

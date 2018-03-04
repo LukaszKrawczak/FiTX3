@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".UserLoginActivity"
+                  android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,11 +25,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MenuUserProfile" />
-        <activity android:name=".MenuTraining" />
-        <activity android:name=".MenuDiet" />
-        <activity android:name=".MenuMetaCalc"></activity>
+        <activity android:name=".UserRegisterActivity" />
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".TrainingActivity" />
+        <activity android:name=".DietActivity" />
+        <activity android:name=".MetacalcActivity" />
+        <activity android:name=".DietSearchActivity"></activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>

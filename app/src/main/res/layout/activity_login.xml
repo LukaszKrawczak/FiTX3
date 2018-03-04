@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context="com.brus5.lukaszkrawczak.fitx.LoginActivity">
+    tools:context="com.brus5.lukaszkrawczak.fitx.UserLoginActivity">
 
     <EditText
         android:id="@+id/etLogin"
@@ -52,6 +52,22 @@
         android:inputType="textPassword"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="46dp" />
+
+    <TextView
+        android:id="@+id/tvLoginStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:gravity="center"
+        android:text="Login status"
+        android:textStyle="bold" />
+
+    <com.facebook.login.widget.LoginButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btFbLogin"
+        android:layout_centerInParent="true">
+    </com.facebook.login.widget.LoginButton>
 
     <ProgressBar
         android:id="@+id/progressBar"

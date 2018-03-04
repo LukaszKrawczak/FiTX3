@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:minHeight="250dp"
-tools:context="com.brus5.lukaszkrawczak.fitx.MenuMetaCalc">
+tools:context="com.brus5.lukaszkrawczak.fitx.MetacalcActivity">
 
 
 
@@ -226,7 +226,7 @@ tools:context="com.brus5.lukaszkrawczak.fitx.MenuMetaCalc">
                 android:layout_below="@+id/switchIsGym"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="0" />
+                android:text="10" />
 
             <SeekBar
                 android:id="@+id/sbAreoTime"
@@ -245,7 +245,7 @@ tools:context="com.brus5.lukaszkrawczak.fitx.MenuMetaCalc">
                 android:layout_below="@+id/switchIsAreo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="0" />
+                android:text="10" />
 
             <Switch
                 android:id="@+id/switchIsAreo"

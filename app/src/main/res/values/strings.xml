@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">FiTX</string>
     <string name="title_activity_menu_meta_calc">Sign in</string>
+    <string name="facebook_app_id">199490150600145</string>
+    <string name="fb_login_protocol_scheme">fb199490150600145</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
