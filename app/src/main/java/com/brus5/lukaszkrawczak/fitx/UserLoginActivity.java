@@ -80,7 +80,7 @@ public class UserLoginActivity extends AppCompatActivity {
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-                updateWithToken(newAccessToken);
+//                updateWithToken(newAccessToken);
             }
         };
 
@@ -186,6 +186,8 @@ public class UserLoginActivity extends AppCompatActivity {
                 UserLoginActivity.this.startActivity(intent);
             }
         });
+
+
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,21 +344,5 @@ public class UserLoginActivity extends AppCompatActivity {
         }
     }
 
-//    private FacebookCallback<loginResult> mFacebookCallback = new FacebookCallback<loginResult>() {
-//        @Override
-//        public void onSuccess(loginResult loginResult) {
-//
-//        }
-//
-//        @Override
-//        public void onCancel() {
-//
-//        }
-//
-//        @Override
-//        public void onError(FacebookException error) {
-//
-//        }
-//
-//    };
+
 }
