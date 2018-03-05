@@ -56,6 +56,13 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        String loginResult = intent.getStringExtra("loginResult");
+        String welcome = "Hello, " + username + " " + ". " + "Here is the menu. The choice is yours.";
+
+
+
         System.out.println(v1(3,0));
         Calendar calendar = Calendar.getInstance();
         Date d1 = calendar.getTime();
@@ -67,11 +74,9 @@ public class MainActivity extends AppCompatActivity{
 
         Log.e("Dates",""+dates);
 
+
         final TextView tvWelcome = findViewById(R.id.tvWelcome);
 
-        final Intent intent = getIntent();
-        username = intent.getStringExtra("username");
-        String welcome = "Hello, " + username + " " + ". " + "Here is the menu. The choice is yours.";
 
         tvWelcome.setText(welcome);
 

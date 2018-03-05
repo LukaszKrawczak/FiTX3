@@ -113,6 +113,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         tools:layout_editor_absoluteX="16dp" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btFbLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btSaveSettings"
+        android:layout_alignStart="@+id/btSaveSettings"
+        android:layout_below="@+id/etEmail"
+        android:layout_marginTop="13dp">
+    </com.facebook.login.widget.LoginButton>
     <Button
         android:id="@+id/btSaveSettings"
         android:layout_width="wrap_content"

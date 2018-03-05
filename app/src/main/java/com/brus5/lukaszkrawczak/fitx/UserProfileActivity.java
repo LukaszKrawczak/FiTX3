@@ -15,6 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.User.UserInfoShowRequest;
 import com.brus5.lukaszkrawczak.fitx.User.UserProfileUpdateRequest;
+import com.facebook.login.LoginManager;
+import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +45,18 @@ public class UserProfileActivity extends AppCompatActivity {
         final Button btSaveSettings = findViewById(R.id.btSaveSettings);
         final Button btRestoreData = findViewById(R.id.btRestoreData);
 
+        LoginButton loginButton = findViewById(R.id.btFbLogin);
+        // TODO need to add logout to UserProfileActivity
+        LoginManager.getInstance().logOut();
 
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//                Intent intent = new Intent(UserProfileActivity.this,UserLoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         final Intent intent = getIntent();
         username = intent.getStringExtra("username");
@@ -323,6 +336,11 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
     }*/
+@Override
+public void onDestroy() {
+    super.onDestroy();
+    LoginManager.getInstance().logOut();
 
+}
 }
 
