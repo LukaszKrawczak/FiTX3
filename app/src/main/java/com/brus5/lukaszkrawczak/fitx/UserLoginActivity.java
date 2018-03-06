@@ -1,5 +1,6 @@
 package com.brus5.lukaszkrawczak.fitx;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,8 +32,6 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Arrays;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -84,69 +83,91 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         };
 
-//        new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//
-//                Log.e(TAG,"loginResult: "+"Login success \n" + loginResult.getAccessToken().getUserId() + "\n" + loginResult.getAccessToken().getToken());
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//
-//            }
-//        };
-
-//        setFacebookData();
-
-
-
-        loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday","user_friends"));
-
+//        loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends","user_birthday","id"));
+//        loginButton.setReadPermissions("email");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-//                textView.setText("Login success \n" + loginResult.getAccessToken().getUserId() + "\n" + loginResult.getAccessToken().getToken());
-                final AccessToken accessToken = loginResult.getAccessToken();
+            public void onSuccess(final LoginResult loginResult) {
+                textView.setText("Login success \n" + loginResult.getAccessToken().getUserId() + "\n" + loginResult.getAccessToken().getToken());
 
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
+
+
+                GraphRequest request =  GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("LoginActivity", response.toString());
+                            public void onCompleted(JSONObject me, GraphResponse response) {
 
-                                // Application code
-                                try {
-                                    String email = object.getString("email");
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                try {
-                                    String birthday = object.getString("birthday"); // 01/31/1980 format
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                if (response.getError() != null) {
+                                    // handle error
+                                } else {
+
+
+                                    String user_lastname = me.optString("last_name");
+                                    String user_firstname = me.optString("first_name");
+                                    String user_email = response.getJSONObject().optString("email");
+                                    String birthday = me.optString("birthday");
+                                    String gender = me.optString("gender");
+
+                                    Log.e(TAG,"user_email: "+user_email);
+                                    Log.e(TAG,"user_lastname: "+user_lastname);
+                                    Log.e(TAG,"user_firstname: "+user_firstname);
+                                    Log.e(TAG,"birthday: "+birthday);
+                                    Log.e(TAG,"gender: "+gender);
+
+                                    if (gender.equals("male")){
+                                        gender = "m";
+                                    }
+                                    if (gender.equals("female")){
+                                        gender = "w";
+                                    }
+                                    Log.e(TAG,"gender: "+gender);
+
+                                    String day = birthday.substring(3,5);
+                                    String month = birthday.substring(0,2);
+                                    String year = birthday.substring(6,10);
+
+                                    String converted_birthday = day+"."+month+"."+year;
+                                    Log.e(TAG,"converted_birthday: "+converted_birthday);
+
+                                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    };
+
+//                                    FacebookRegisterRequest facebookRegisterRequest = new FacebookRegisterRequest(user_firstname,String.valueOf(loginResult.getAccessToken().getUserId()),16,"123",gender,user_email,responseListener);
+//                                    RequestQueue queue = Volley.newRequestQueue(UserLoginActivity.this);
+//                                    queue.add(facebookRegisterRequest);
                                 }
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
+//                parameters.putString("fields", "last_name,first_name,email,birthday");
+                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
                 request.setParameters(parameters);
                 request.executeAsync();
 
+                Log.e(TAG,"request: "+request);
+
+//                setFacebookData(loginResult);
 
 
                 loginButton.setVisibility(View.INVISIBLE);
                 Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
                 intent.putExtra("loginResult",loginResult.toString());
+//                intent.putExtra("username",loginResult.getAccessToken().getUserId());
                 startActivity(intent);
-                finish();
+
+                final ProgressDialog dialog=new ProgressDialog(UserLoginActivity.this);
+                dialog.setMessage("Loading data");
+                dialog.setCancelable(false);
+                dialog.setInverseBackgroundForced(true);
+                dialog.show();
+
+//                finish();
                 Log.e(TAG,"loginResult: "+loginResult);
+                dialog.hide();
             }
 
             @Override
@@ -237,6 +258,7 @@ public class UserLoginActivity extends AppCompatActivity {
                                 if (success) {
                                     Intent intent = new Intent(UserLoginActivity.this, MainActivity.class);
                                     intent.putExtra("username", username);
+                                    intent.putExtra("defaultLogin",true);
                                     UserLoginActivity.this.startActivity(intent);
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(UserLoginActivity.this);
@@ -324,12 +346,22 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
+
                     Log.e(TAG,"run1");
                     Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile().getId());
                     Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile().getFirstName());
                     Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile().getMiddleName());
                     Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile().getLastName());
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile());
+
+//                    Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
+//                    intent.putExtra("username",com.facebook.Profile.getCurrentProfile().getId());
+//
+//                    Log.e(TAG,"intent "+intent);
+
+//                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(UserLoginActivity.this);
+//                    SharedPreferences.Editor editor = prefs.edit();
+//                    editor.putString("string_id", com.facebook.Profile.getCurrentProfile().getId()); //InputString: from the EditText
+//                    editor.commit();
                 }
             }, 1000);
         } else {

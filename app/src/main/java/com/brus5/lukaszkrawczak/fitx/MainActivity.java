@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity{
     String UserInfo = "", name, username, age, password, email, male, id1;
     int id;
 
+    boolean defaultLogin = true;
+
     ArrayList<String> graphDATE = new ArrayList<>();
     ArrayList<String> graphRESULT = new ArrayList<>();
 
@@ -57,11 +59,15 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         final Intent intent = getIntent();
-        username = intent.getStringExtra("username");
-        String loginResult = intent.getStringExtra("loginResult");
-        String welcome = "Hello, " + username + " " + ". " + "Here is the menu. The choice is yours.";
 
+        defaultLogin = intent.getBooleanExtra("defaultLogin",false);
 
+        if (defaultLogin){
+            username = intent.getStringExtra("username");
+        }
+        else {
+            username = com.facebook.Profile.getCurrentProfile().getId();
+        }
 
         System.out.println(v1(3,0));
         Calendar calendar = Calendar.getInstance();
@@ -74,9 +80,19 @@ public class MainActivity extends AppCompatActivity{
 
         Log.e("Dates",""+dates);
 
-
         final TextView tvWelcome = findViewById(R.id.tvWelcome);
 
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+//                String data = prefs.getString("string_id", "no id"); //no id: default value
+////                username = data;
+//            }
+//        },200);
+
+        String welcome = "Hello, " + username + " " + ". " + "Here is the menu. The choice is yours.";
 
         tvWelcome.setText(welcome);
 
@@ -129,6 +145,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Intent intent1 = new Intent(MainActivity.this,UserProfileActivity.class);
                 intent1.putExtra("username",username);
+                intent1.putExtra("defaultLogin",defaultLogin);
                 MainActivity.this.startActivity(intent1);
             }
         });
@@ -352,8 +369,8 @@ public class MainActivity extends AppCompatActivity{
         GraphShowKcalRequest graphShowKcalRequest = new GraphShowKcalRequest(username, responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(graphShowKcalRequest);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
             @Override
             public void run() {
                 generateData2();

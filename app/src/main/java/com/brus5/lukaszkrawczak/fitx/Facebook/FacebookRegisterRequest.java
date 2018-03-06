@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 public class FacebookRegisterRequest extends StringRequest{
-    private static final String REGISTER_REQUEST_URL = "http://justfitx.xyz/User/UserRegisterRequest.php";
+    private static final String REGISTER_REQUEST_URL = "http://justfitx.xyz/Facebook/FacebookRegisterRequest.php";
 
     private Map<String,String> params;
 
@@ -32,5 +32,6 @@ public class FacebookRegisterRequest extends StringRequest{
     @Override
     public Map<String, String> getParams() {
         return params;
+
     }
 }

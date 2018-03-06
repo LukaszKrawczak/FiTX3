@@ -27,6 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private final static String TAG = "UserProfileActivity";
 
     String UserInfo = "", name, username, age, password, email, male, id1;
+    boolean defaultLogin = false;
     int id;
     String wynik;
 
@@ -82,8 +83,13 @@ public class UserProfileActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         username = intent.getStringExtra("username");
+        defaultLogin = intent.getBooleanExtra("defaultLogin",false);
         final String username1 = username;
         etUsername.setText(username1);
+        etUsername.setEnabled(false);
+        if (defaultLogin){
+            etUsername.setEnabled(true);
+        }
 
         Response.Listener<String> responseListener1 = new Response.Listener<String>() {
             @Override
