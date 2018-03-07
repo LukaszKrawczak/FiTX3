@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.User.UserInfoShowRequest;
 import com.brus5.lukaszkrawczak.fitx.User.UserProfileUpdateRequest;
+import com.facebook.login.LoginManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private final static String TAG = "UserProfileActivity";
 
     String UserInfo = "", name, username, age, password, email, male, id1;
+    boolean defaultLogin = false;
     int id;
     String wynik;
 
@@ -43,12 +45,51 @@ public class UserProfileActivity extends AppCompatActivity {
         final Button btSaveSettings = findViewById(R.id.btSaveSettings);
         final Button btRestoreData = findViewById(R.id.btRestoreData);
 
+        Button btLogout = findViewById(R.id.btFbLogout);
+//        LoginButton loginButton = findViewById(R.id.btFbLogin);
+        // TODO need to add logout to UserProfileActivity
 
+        btLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(UserProfileActivity.this);
+                alert.setTitle("Logout")
+                        .setMessage("Do you want to Logout?")
+                        .setNegativeButton("Cancel",null)
+                        .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                LoginManager.getInstance().logOut();
+                                Intent intent = new Intent(UserProfileActivity.this,UserLoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .show();
+
+
+            }
+        });
+
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//                Intent intent = new Intent(UserProfileActivity.this,UserLoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         final Intent intent = getIntent();
         username = intent.getStringExtra("username");
+        defaultLogin = intent.getBooleanExtra("defaultLogin",false);
         final String username1 = username;
         etUsername.setText(username1);
+        etUsername.setEnabled(false);
+        if (defaultLogin){
+            etUsername.setEnabled(true);
+        }
 
         Response.Listener<String> responseListener1 = new Response.Listener<String>() {
             @Override
@@ -323,6 +364,26 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
     }*/
+@Override
+public void onDestroy() {
+    super.onDestroy();
+//    LoginManager.getInstance().logOut();
+}
+//    private void logout(){
+//        // clear any user information
+//        mApp.clearUserPrefs();
+//        // find the active session which can only be facebook in my app
+//        PackageInstaller.Session session = PackageInstaller.Session.getActiveSession();
+//        // run the closeAndClearTokenInformation which does the following
+//        // DOCS : Closes the local in-memory Session object and clears any persistent
+//        // cache related to the Session.
+//        session.closeAndClearTokenInformation();
+//        // return the user to the login screen
+//        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//        // make sure the user can not access the page after he/she is logged out
+//        // clear the activity stack
+//        finish();
+//    }
 
 }
 
