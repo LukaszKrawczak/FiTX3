@@ -2,10 +2,14 @@ package com.brus5.lukaszkrawczak.fitx;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -33,6 +37,9 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class UserLoginActivity extends AppCompatActivity {
 
 //    EditText etLogin;
@@ -59,6 +66,17 @@ public class UserLoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_login);
+
+        // generate keyhash
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.brus5.lukaszkrawczak.fitx",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }  } catch (PackageManager.NameNotFoundException e) { } catch (NoSuchAlgorithmException e) { }
 
         updateWithToken(AccessToken.getCurrentAccessToken());
 
@@ -88,9 +106,15 @@ public class UserLoginActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
+
+                final ProgressDialog dialog=new ProgressDialog(UserLoginActivity.this);
+                dialog.setMessage("Loading data");
+                dialog.setCancelable(false);
+                dialog.setInverseBackgroundForced(true);
+                dialog.show();
+
                 textView.setText("Login success \n" + loginResult.getAccessToken().getUserId() + "\n" + loginResult.getAccessToken().getToken());
-
-
+                Log.e(TAG,"TESTUJE");
 
                 GraphRequest request =  GraphRequest.newMeRequest(
                         loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -100,7 +124,6 @@ public class UserLoginActivity extends AppCompatActivity {
                                 if (response.getError() != null) {
                                     // handle error
                                 } else {
-
 
                                     String user_lastname = me.optString("last_name");
                                     String user_firstname = me.optString("first_name");
@@ -122,12 +145,15 @@ public class UserLoginActivity extends AppCompatActivity {
                                     }
                                     Log.e(TAG,"gender: "+gender);
 
+                                    // constricting my new data type from 09/04/1989 to converted_birthday: 04.09.1989
                                     String day = birthday.substring(3,5);
                                     String month = birthday.substring(0,2);
                                     String year = birthday.substring(6,10);
 
                                     String converted_birthday = day+"."+month+"."+year;
                                     Log.e(TAG,"converted_birthday: "+converted_birthday);
+                                    Log.e(TAG,"TESTUJE");
+
 
                                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                                         @Override
@@ -142,6 +168,9 @@ public class UserLoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
+
+
                 Bundle parameters = new Bundle();
 //                parameters.putString("fields", "last_name,first_name,email,birthday");
                 parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
@@ -149,21 +178,24 @@ public class UserLoginActivity extends AppCompatActivity {
                 request.executeAsync();
 
                 Log.e(TAG,"request: "+request);
-
+                Log.e(TAG,"TESTUJE");
 //                setFacebookData(loginResult);
 
 
                 loginButton.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
-                intent.putExtra("loginResult",loginResult.toString());
-//                intent.putExtra("username",loginResult.getAccessToken().getUserId());
-                startActivity(intent);
 
-                final ProgressDialog dialog=new ProgressDialog(UserLoginActivity.this);
-                dialog.setMessage("Loading data");
-                dialog.setCancelable(false);
-                dialog.setInverseBackgroundForced(true);
-                dialog.show();
+                // starting activity after 1s delay, because need to batch all data
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
+                        intent.putExtra("loginResult",loginResult.toString());
+                        startActivity(intent);
+
+                    }
+                },1000);
+
 
 //                finish();
                 Log.e(TAG,"loginResult: "+loginResult);
