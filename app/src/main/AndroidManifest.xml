@@ -30,6 +30,7 @@
         <activity android:name=".TrainingActivity" />
         <activity android:name=".DietActivity" />
         <activity android:name=".MetacalcActivity" />
+        <activity android:name=".MetacalcActivity2" />
         <activity android:name=".DietSearchActivity"></activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>

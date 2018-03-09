@@ -138,7 +138,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 Log.e(TAG,   "id:                     " + id);
                 Log.e(TAG,   "name:                   " + name);
                 Log.e(TAG,   "username:               " + username);
-                Log.e(TAG,   "age:                    " + age);
+                Log.e(TAG,   "birthday:                    " + age);
                 Log.e(TAG,   "password:               " + password);
                 Log.e(TAG,   "email:                  " + email);
                 Log.e(TAG,   "male:                   " + male);
@@ -167,14 +167,14 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final String updatename = etName.getText().toString();
                 final String updateusername = etUsername.getText().toString();
-                final int updateage = Integer.parseInt(etAge.getText().toString());
+                final String updatebirthday = etAge.getText().toString();
                 final String updatepassword = etPassword.getText().toString();
                 final String updateemail = etEmail.getText().toString();
 
                 Log.e("UserProfileActivity",    "updatename "        + updatename);
                 Log.e("UserProfileActivity",    "username "          + username);
                 Log.e("UserProfileActivity",    "updateusername "    + updateusername);
-                Log.e("UserProfileActivity",    "int updateage "     + String.valueOf(updateage));
+                Log.e("UserProfileActivity",    "updatebirthday "    + updatebirthday);
                 Log.e("UserProfileActivity",    "updatepassword "    + updatepassword);
                 Log.e("UserProfileActivity",    "updateemail "       + updateemail);
 
@@ -247,7 +247,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 };
 
-                UserProfileUpdateRequest userProfileUpdateRequest = new UserProfileUpdateRequest(updatename, username, updateusername, updateage, updatepassword, updateemail, responseListener);
+                UserProfileUpdateRequest userProfileUpdateRequest = new UserProfileUpdateRequest(updatename, username, updateusername, updatebirthday, updatepassword, updateemail, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(UserProfileActivity.this);
                 queue.add(userProfileUpdateRequest);
 
@@ -332,14 +332,14 @@ public class UserProfileActivity extends AppCompatActivity {
 
             String name = words[4];
             String username = words[6];
-            String age = words[8];
+            String birthday = words[8];
             String password = words[10];
             String email = words[12];
 
             Log.e("WYNIK",""+ Arrays.toString(words));
             Log.e("name",""+name);
             Log.e("username",""+username);
-            Log.e("age",""+age);
+            Log.e("birthday",""+birthday);
             Log.e("password",""+password);
             Log.e("email",""+email);
 
@@ -349,7 +349,7 @@ public class UserProfileActivity extends AppCompatActivity {
             etEmail = (EditText) findViewById(R.id.etEmail);
 
             etName.setText(name);
-            etAge.setText(age);
+            etAge.setText(birthday);
             etPassword.setText(password);
             etEmail.setText(email);*//*
         }

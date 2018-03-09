@@ -17,10 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.brus5.lukaszkrawczak.fitx.Facebook.FacebookRegisterRequest;
 import com.brus5.lukaszkrawczak.fitx.User.UserLoginRequest;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -30,7 +32,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -50,19 +51,18 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private static final String TAG = "UserLoginActivity";
 
-    public int SPLASH_TIME_OUT = 10;
 
     LoginButton loginButton;
     AccessToken accessToken;
     AccessTokenTracker accessTokenTracker;
     TextView textView;
     CallbackManager callbackManager;
-    LoginResult loginResult;
-    int isLogged = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // initializing FacebookSdk
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_login);
@@ -78,6 +78,9 @@ public class UserLoginActivity extends AppCompatActivity {
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }  } catch (PackageManager.NameNotFoundException e) { } catch (NoSuchAlgorithmException e) { }
 
+        // releasing method updateWithToken
+        // if connected via Facebook the first handler is gonna run up after one second
+        // if not connected via Facebook the second handler is gonna run up after one second
         updateWithToken(AccessToken.getCurrentAccessToken());
 
         final int statusChecker = 0;
@@ -97,22 +100,19 @@ public class UserLoginActivity extends AppCompatActivity {
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-//                updateWithToken(newAccessToken);
             }
         };
 
 //        loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends","user_birthday","id"));
 //        loginButton.setReadPermissions("email");
+
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
-
-                final ProgressDialog dialog=new ProgressDialog(UserLoginActivity.this);
-                dialog.setMessage("Loading data");
-                dialog.setCancelable(false);
-                dialog.setInverseBackgroundForced(true);
+                ProgressDialog dialog = ProgressDialog.show(UserLoginActivity.this,"Loading...",
+                        "Loading application View, please wait...", false, false);
                 dialog.show();
-
                 textView.setText("Login success \n" + loginResult.getAccessToken().getUserId() + "\n" + loginResult.getAccessToken().getToken());
                 Log.e(TAG,"TESTUJE");
 
@@ -124,18 +124,19 @@ public class UserLoginActivity extends AppCompatActivity {
                                 if (response.getError() != null) {
                                     // handle error
                                 } else {
-
                                     String user_lastname = me.optString("last_name");
                                     String user_firstname = me.optString("first_name");
                                     String user_email = response.getJSONObject().optString("email");
                                     String birthday = me.optString("birthday");
                                     String gender = me.optString("gender");
+                                    String location = me.optString("location");
 
                                     Log.e(TAG,"user_email: "+user_email);
                                     Log.e(TAG,"user_lastname: "+user_lastname);
                                     Log.e(TAG,"user_firstname: "+user_firstname);
                                     Log.e(TAG,"birthday: "+birthday);
                                     Log.e(TAG,"gender: "+gender);
+                                    Log.e(TAG,"location: "+location);
 
                                     if (gender.equals("male")){
                                         gender = "m";
@@ -158,62 +159,76 @@ public class UserLoginActivity extends AppCompatActivity {
                                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(response);
+                                                boolean success = jsonObject.getBoolean("success");
+                                                if (success) {
+                                                    Toast.makeText(UserLoginActivity.this,"Created new account",Toast.LENGTH_LONG).show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
 
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(response);
+                                                    boolean userused = jsonObject.getBoolean("userused");
+                                                    if (userused){
+                                                        Toast.makeText(UserLoginActivity.this,"Logged in with existing account",Toast.LENGTH_LONG).show();
+                                                    }
+                                                } catch (JSONException e1) {
+                                                    e1.printStackTrace();
+                                                }
+
+                                            }
+                                            Log.e("RESPONSE",""+response);
                                         }
                                     };
 
-//                                    FacebookRegisterRequest facebookRegisterRequest = new FacebookRegisterRequest(user_firstname,String.valueOf(loginResult.getAccessToken().getUserId()),16,"123",gender,user_email,responseListener);
-//                                    RequestQueue queue = Volley.newRequestQueue(UserLoginActivity.this);
-//                                    queue.add(facebookRegisterRequest);
+                                    FacebookRegisterRequest facebookRegisterRequest = new FacebookRegisterRequest(user_firstname,String.valueOf(loginResult.getAccessToken().getUserId()),16,"123",gender,user_email,responseListener);
+                                    RequestQueue queue = Volley.newRequestQueue(UserLoginActivity.this);
+
+                                    queue.add(facebookRegisterRequest);
                                 }
                             }
                         });
-
-
-
-                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "last_name,first_name,email,birthday");
-                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                Log.e(TAG,"TESTUJE");
+                final Bundle parameters = new Bundle();
+                parameters.putString("fields", "id, first_name, last_name, email, gender, birthday, location"); // pushing parameters from facebook
                 request.setParameters(parameters);
                 request.executeAsync();
-
-                Log.e(TAG,"request: "+request);
                 Log.e(TAG,"TESTUJE");
-//                setFacebookData(loginResult);
+                Log.e(TAG,"request: "+request);
 
 
                 loginButton.setVisibility(View.INVISIBLE);
 
-                // starting activity after 1s delay, because need to batch all data
+                // starting activity after 2 seconds delay, because need to batch all data
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
                         intent.putExtra("loginResult",loginResult.toString());
+                        intent.putExtras(parameters);
                         startActivity(intent);
-
+                        finish();
                     }
-                },1000);
+                },2000);
 
-
-//                finish();
                 Log.e(TAG,"loginResult: "+loginResult);
-                dialog.hide();
             }
 
             @Override
             public void onCancel() {
+                Toast.makeText(UserLoginActivity.this,"Facebook login cancelled by user",Toast.LENGTH_LONG).show();
                 Log.d("LOGIN_CANCEL", "Cancel");
             }
 
             @Override
             public void onError(FacebookException error) {
+                Toast.makeText(UserLoginActivity.this,"Cannot connect with Facebook account",Toast.LENGTH_LONG).show();
                 Log.d("LOGIN_ERROR", "Error");
             }
         });
-
-
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -222,15 +237,16 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         };
 
+        // getting accesstoken
         accessToken = AccessToken.getCurrentAccessToken();
 
+        // if accesstoken isn't null then start new Activity which is MainActivity.class
+        // after that, closing UserLoginActivity with finish();
         if (accessToken != null){
             Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
         }
-
-//        isConnected();
 
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,8 +256,6 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         });
 
-
-
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -249,38 +263,11 @@ public class UserLoginActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
-
-//                Handler handler1 = new Handler();
-//                handler1.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                    }
-//                },5000);
-//
-//                etLogin.setVisibility(View.INVISIBLE);
-//                etPassword.setVisibility(View.INVISIBLE);
-//                btLogin.setVisibility(View.INVISIBLE);
-//                tvRegister.setVisibility(View.INVISIBLE);
-//
-//                progressBar.setVisibility(View.VISIBLE);
-
-
                 final String username = etLogin.getText().toString();
                 final String password = etPassword.getText().toString();
-
                 final Handler handler = new Handler();
 
-//                handler.postDelayed(new Runnable() {
-//                    private long time = 10;
-//                    @Override
-//                    public void run() {
-//                        time += 2000;
-//
-//                        handler.postDelayed(this,2000);
-//                    }
-//                },1000);
-
+                // Login... Trying with responseListener if theres a defined account name...
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
@@ -306,11 +293,15 @@ public class UserLoginActivity extends AppCompatActivity {
                         Log.e("UserLoginActivity","Response"+response);
                     }
                 };
-
-
                 final UserLoginRequest userLoginRequest = new UserLoginRequest(username, password, responseListener);
                 final RequestQueue queue = Volley.newRequestQueue(UserLoginActivity.this);
 
+                // Showing up progressDialog when trying to Login
+                ProgressDialog dialog = ProgressDialog.show(UserLoginActivity.this,"Loading...",
+                        "Loading application View, please wait...", false, false);
+                dialog.show();
+
+                // Pushing username, password to RequestQueue after 2 seconds
                 handler.postDelayed(new Runnable(){
                     @Override
                     public void run() {
@@ -321,79 +312,27 @@ public class UserLoginActivity extends AppCompatActivity {
 
         });
 
-
     }
 
+    // running up facebookLogin
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode,resultCode,data);
-        Log.i("Response",String.valueOf(requestCode));
-        Log.i("Response",String.valueOf(resultCode));
-        Log.i("Response",String.valueOf(data));
     }
 
-    private void setFacebookData(LoginResult loginResult){
-        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                // Application code
-                try {
-                    Log.i("Response",response.toString());
-
-                    String email = response.getJSONObject().getString("email");
-                    String firstName = response.getJSONObject().getString("first_name");
-                    String lastName = response.getJSONObject().getString("last_name");
-                    String gender = response.getJSONObject().getString("gender");
-
-                    Profile profile = Profile.getCurrentProfile();
-                    String id = profile.getId();
-                    String link = profile.getLinkUri().toString();
-                    Log.i("Link",link);
-                    if (Profile.getCurrentProfile()!=null)
-                    {
-                        Log.i("Login", "ProfilePic" + Profile.getCurrentProfile().getProfilePictureUri(200, 200));
-                    }
-
-                    Log.i("Login" + "Email", email);
-                    Log.i("Login"+ "FirstName", firstName);
-                    Log.i("Login" + "LastName", lastName);
-                    Log.i("Login" + "Gender", gender);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,email,first_name,last_name,gender");
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
-
+    // checking currentAccessToken
+    // if connected via Facebook the first handler is gonna run up after one second
+    // if not connected via Facebook the second handler is gonna run up after one second
     private void updateWithToken(AccessToken currentAccessToken) {
-
         if (currentAccessToken != null) {
             new Handler().postDelayed(new Runnable() {
-
                 @Override
                 public void run() {
-
-                    Log.e(TAG,"run1");
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile().getId());
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile().getFirstName());
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile().getMiddleName());
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId() "+com.facebook.Profile.getCurrentProfile().getLastName());
-
-//                    Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
-//                    intent.putExtra("username",com.facebook.Profile.getCurrentProfile().getId());
-//
-//                    Log.e(TAG,"intent "+intent);
-
-//                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(UserLoginActivity.this);
-//                    SharedPreferences.Editor editor = prefs.edit();
-//                    editor.putString("string_id", com.facebook.Profile.getCurrentProfile().getId()); //InputString: from the EditText
-//                    editor.commit();
+                    Log.e(TAG,"Connected via Facebook");
+                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId()         "+com.facebook.Profile.getCurrentProfile().getId());
+                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getFirstName()  "+com.facebook.Profile.getCurrentProfile().getFirstName());
+                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getMiddleName() "+com.facebook.Profile.getCurrentProfile().getMiddleName());
+                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getLastName()   "+com.facebook.Profile.getCurrentProfile().getLastName());
                 }
             }, 1000);
         } else {
@@ -401,12 +340,12 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
-                    Log.e(TAG,"run2");
-
+                    Log.e(TAG,"Not connected via Facebook");
                 }
             }, 1000);
         }
     }
+
 
 
 }

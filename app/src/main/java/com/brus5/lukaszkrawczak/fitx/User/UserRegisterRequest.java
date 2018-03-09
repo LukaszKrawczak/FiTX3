@@ -16,14 +16,14 @@ public class UserRegisterRequest extends StringRequest{
     private Map<String,String> params;
 
 
-    public UserRegisterRequest(String name, String username, int age, String password, String male, String email, Response.Listener<String> listener){
+    public UserRegisterRequest(String name, String username, String birthday, String password, String male, String email, Response.Listener<String> listener){
 
         super(Method.POST,REGISTER_REQUEST_URL,listener,null);
 
         params = new HashMap<>();
         params.put("name", name);
         params.put("username", username);
-        params.put("age", age+"");
+        params.put("age", birthday);
         params.put("password", password);
         params.put("male", male);
         params.put("email", email);

@@ -50,7 +50,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                 final String name = etName.getText().toString();
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
-                final int age = Integer.parseInt(etAge.getText().toString());
+                final String birthday = etAge.getText().toString();
                 final String email = etEmail.getText().toString();
 
                 String male = "";
@@ -96,7 +96,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                 };
                 System.out.println(male);
 
-                UserRegisterRequest userRegisterRequest = new UserRegisterRequest(name, username, age, password, male, email, responseListener);
+                UserRegisterRequest userRegisterRequest = new UserRegisterRequest(name, username, birthday, password, male, email, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(UserRegisterActivity.this);
                 queue.add(userRegisterRequest);
             }

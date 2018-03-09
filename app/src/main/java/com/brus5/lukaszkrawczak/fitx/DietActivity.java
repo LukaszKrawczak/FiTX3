@@ -70,7 +70,7 @@ public class DietActivity extends AppCompatActivity {
         id = intent1.getIntExtra("id",0);
         name = intent1.getStringExtra("name");
         username = intent1.getStringExtra("username");
-        age = intent1.getStringExtra("age");
+        age = intent1.getStringExtra("birthday");
         male = intent1.getStringExtra("male");
 
         HorizontalCalendar horizontalCalendar;
@@ -175,7 +175,7 @@ public class DietActivity extends AppCompatActivity {
                 searchForMeal.putExtra("id",id);
                 searchForMeal.putExtra("name",name);
                 searchForMeal.putExtra("username",username);
-                searchForMeal.putExtra("age",age);
+                searchForMeal.putExtra("birthday",age);
                 searchForMeal.putExtra("male",male);
                 DietActivity.this.startActivity(searchForMeal);
         }

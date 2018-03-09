@@ -85,7 +85,7 @@ public class DietSearchActivity extends AppCompatActivity{
         id = intent1.getIntExtra("id",0);
         name = intent1.getStringExtra("name");
         username = intent1.getStringExtra("username");
-        age = intent1.getStringExtra("age");
+        age = intent1.getStringExtra("birthday");
         male = intent1.getStringExtra("male");
         getData();
 
@@ -345,13 +345,13 @@ public class DietSearchActivity extends AppCompatActivity{
                     if (server_response.length() > 0){
                         for (int i = 0; i < server_response.length(); i++){
                             JSONObject c = server_response.getJSONObject(i);
-                            id = c.getString("id");
-                            name = c.getString("name");
-                            weight = c.getString("weight");
-                            proteins = c.getString("proteins");
-                            fats = c.getString("fats");
-                            carbs = c.getString("carbs");
-                            date = c.getString("date");
+                            id          = c.getString("id");
+                            name        = c.getString("name");
+                            weight      = c.getString("weight");
+                            proteins    = c.getString("proteins");
+                            fats        = c.getString("fats");
+                            carbs       = c.getString("carbs");
+                            date        = c.getString("date");
 
 //                            productNameList.add(name+" "+weight+" "+proteins+" "+fats+" "+carbs+" "+date);
                             productNameList.add(name);

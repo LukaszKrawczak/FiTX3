@@ -63,7 +63,7 @@ public class TrainingActivity extends AppCompatActivity {
         id = intent1.getIntExtra("id",0);
         name = intent1.getStringExtra("name");
         username = intent1.getStringExtra("username");
-        age = intent1.getStringExtra("age");
+        age = intent1.getStringExtra("birthday");
         male = intent1.getStringExtra("male");
 
 
@@ -71,7 +71,7 @@ public class TrainingActivity extends AppCompatActivity {
         Log.e(TAG, "ID "        +id);
         Log.e(TAG, "name "      +name);
         Log.e(TAG, "username "  +username);
-        Log.e(TAG, "age "       +age);
+        Log.e(TAG, "birthday "       +age);
         Log.e(TAG, "male "      +male);
 
         loadData();

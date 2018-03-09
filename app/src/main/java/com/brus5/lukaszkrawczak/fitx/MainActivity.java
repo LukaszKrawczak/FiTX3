@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -41,8 +44,15 @@ public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
 
-    String UserInfo = "", name, username, age, password, email, male, id1;
+    SeekBar sbGymTEA,sbAreoTEA, sbNEAT, sbGymTime, sbAreoTime;
+
+    RadioButton rbWoman, rbMan;
+    EditText etWeight, etHeight, etAge;
+    TextView tvResult, tvGymTEA, tvAreoTEA, tvGymTime, tvAreoTime, tvTEAresult, tvAREOresult;
+
+    String UserInfo = "", name, username, birthday, password, email, male, id1;
     int id;
+    double age;
 
     boolean defaultLogin = true;
 
@@ -67,6 +77,9 @@ public class MainActivity extends AppCompatActivity{
         }
         else {
             username = com.facebook.Profile.getCurrentProfile().getId();
+            Bundle b = intent.getExtras();
+            String nameTest = b.getString("first_name");
+            Log.e(TAG,"nameTest: "+nameTest);
         }
 
         System.out.println(v1(3,0));
@@ -117,7 +130,7 @@ public class MainActivity extends AppCompatActivity{
                 id = Integer.parseInt(id1);
                 name = words[7];
                 username = words[9];
-                age = words[11];
+                birthday = words[11];
                 password = words[13];
                 email = words[15];
                 male = words[17];
@@ -126,11 +139,21 @@ public class MainActivity extends AppCompatActivity{
                 Log.e(TAG,   "id:                     " + id);
                 Log.e(TAG,   "name:                   " + name);
                 Log.e(TAG,   "username:               " + username);
-                Log.e(TAG,   "age:                    " + age);
+                Log.e(TAG,   "birthday:               " + birthday);
                 Log.e(TAG,   "password:               " + password);
                 Log.e(TAG,   "email:                  " + email);
                 Log.e(TAG,   "male:                   " + male);
-
+/*
+  // constricting my new data type from 09/04/1989 to converted_birthday: 04.09.1989
+                                    String day = birthday.substring(3,5);
+                                    String month = birthday.substring(0,2);
+                                    String year = birthday.substring(6,10);
+                                    */
+                int day = Integer.valueOf(birthday.substring(0,2));
+                int month = Integer.valueOf(birthday.substring(3,5));
+                int year = Integer.valueOf(birthday.substring(6,10));
+                Log.i(TAG,"getAge(year,month,day)"+getAge(year,month,day));
+                age = Double.valueOf(getAge(year,month,day));
                 System.out.println("HELLO "+UserInfo);
 
             }
@@ -153,13 +176,12 @@ public class MainActivity extends AppCompatActivity{
         btMetaCalc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent metacalcIntent = new Intent(MainActivity.this, MetacalcActivity.class);
+                Intent metacalcIntent = new Intent(MainActivity.this, MetacalcActivity2.class);
                 metacalcIntent.putExtra("id",id);
                 metacalcIntent.putExtra("name",name);
                 metacalcIntent.putExtra("username",username);
-                metacalcIntent.putExtra("age",age);
+                metacalcIntent.putExtra("age", age);
                 metacalcIntent.putExtra("male",male);
-
 
                 MainActivity.this.startActivity(metacalcIntent);
             }
@@ -172,7 +194,7 @@ public class MainActivity extends AppCompatActivity{
                 trainingIntent.putExtra("id",id);
                 trainingIntent.putExtra("name",name);
                 trainingIntent.putExtra("username",username);
-                trainingIntent.putExtra("age",age);
+                trainingIntent.putExtra("birthday", birthday);
                 trainingIntent.putExtra("male",male);
                 MainActivity.this.startActivity(trainingIntent);
             }
@@ -185,7 +207,7 @@ public class MainActivity extends AppCompatActivity{
                 dietIntent.putExtra("id",id);
                 dietIntent.putExtra("name",name);
                 dietIntent.putExtra("username",username);
-                dietIntent.putExtra("age",age);
+                dietIntent.putExtra("birthday", birthday);
                 dietIntent.putExtra("male",male);
                 MainActivity.this.startActivity(dietIntent);
             }
@@ -434,7 +456,23 @@ public class MainActivity extends AppCompatActivity{
         return values;
     }
 
+    private String getAge(int year, int month, int day){
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
 
+        dob.set(year, month, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+        Integer ageInt = new Integer(age);
+        String ageS = ageInt.toString();
+
+        return ageS;
+    }
 
     }
 
