@@ -28,6 +28,8 @@ android {
 
 
 
+
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -44,4 +46,6 @@ dependencies {
     compile 'com.jjoe64:graphview:4.2.1'
     compile 'devs.mulham.horizontalcalendar:horizontalcalendar:1.1.7'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.clans:fab:1.6.4'
+
 }
