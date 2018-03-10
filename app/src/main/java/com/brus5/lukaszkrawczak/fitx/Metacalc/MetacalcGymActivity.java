@@ -14,7 +14,7 @@ public class MetacalcGymActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_metacalc_gym);
+        setContentView(R.layout.activity_menu_metacalc_gym);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(MetacalcGymActivity.this,R.color.color_meta_calc_gym_statusbar));
 

@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Metacalc.Calculator;
+import com.brus5.lukaszkrawczak.fitx.Metacalc.MetacalcAreoActivity;
 import com.brus5.lukaszkrawczak.fitx.Metacalc.MetacalcGymActivity;
 import com.brus5.lukaszkrawczak.fitx.Metacalc.MetacalcUserInfoShowRequest;
 
@@ -204,6 +205,9 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.buttonAreo:
                 Log.e(TAG,"buttonAreo Clicked");
+                Intent intent1 = new Intent(MetacalcActivity3.this, MetacalcAreoActivity.class);
+                startActivity(intent1);
+
                 break;
         }
 
