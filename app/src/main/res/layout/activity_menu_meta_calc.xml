@@ -212,14 +212,14 @@ tools:context="com.brus5.lukaszkrawczak.fitx.MetacalcActivity">
             android:id="@+id/sbGymTime"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvGymTime"
+            android:layout_below="@+id/textViewGymTime"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:max="90"
             android:progress="0" />
 
         <TextView
-            android:id="@+id/tvGymTime"
+            android:id="@+id/textViewGymTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/switchGym"
@@ -241,13 +241,13 @@ tools:context="com.brus5.lukaszkrawczak.fitx.MetacalcActivity">
             android:id="@+id/tvAreoTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/switchIsAreo"
+            android:layout_below="@+id/switchCardio"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="10" />
 
         <Switch
-            android:id="@+id/switchIsAreo"
+            android:id="@+id/switchCardio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvGymTEA"
