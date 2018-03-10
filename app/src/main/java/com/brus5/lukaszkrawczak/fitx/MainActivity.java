@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
 
     String UserInfo = "", name, username, birthday, password, email, male, id1;
     int id;
-    double age;
+    int age;
 
     boolean defaultLogin = true;
 
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity{
                 int month = Integer.valueOf(birthday.substring(3,5));
                 int year = Integer.valueOf(birthday.substring(6,10));
                 Log.i(TAG,"getAge(year,month,day)"+getAge(year,month,day));
-                age = Double.valueOf(getAge(year,month,day));
+                age = Integer.valueOf(getAge(year,month,day));
                 System.out.println("HELLO "+UserInfo);
 
             }
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity{
         btMetaCalc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent metacalcIntent = new Intent(MainActivity.this, MetacalcActivity2.class);
+                Intent metacalcIntent = new Intent(MainActivity.this, MetacalcActivity3.class);
                 metacalcIntent.putExtra("id",id);
                 metacalcIntent.putExtra("name",name);
                 metacalcIntent.putExtra("username",username);
