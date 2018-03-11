@@ -43,7 +43,6 @@
         tools:ignore="RtlCompat" />
 
     <android.support.design.widget.FloatingActionButton
-
         android:id="@+id/buttonAreo"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -133,6 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="kg"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textViewWeight"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -142,6 +142,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="cm"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textViewHeight"
         app:layout_constraintTop_toBottomOf="@+id/textViewWeight" />
 
@@ -163,6 +164,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Time"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -205,6 +207,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Intensity"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -215,6 +218,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Time"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
@@ -225,6 +229,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Intensity"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
@@ -235,6 +240,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="0"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -244,6 +250,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="min"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textViewGymTime"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -254,6 +261,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="low"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textView24"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
@@ -264,6 +272,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="0"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
@@ -273,18 +282,41 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="min"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textViewAreoTime"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <TextView
-        android:id="@+id/textView35"
+        android:id="@+id/textViewAreoIntensity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="low"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textView28"
         app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+    <TextView
+        android:id="@+id/textViewNoGym"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Gym training hasn't been added"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textViewNoAreo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Cardio training hasn't been added"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
 
 </android.support.constraint.ConstraintLayout>

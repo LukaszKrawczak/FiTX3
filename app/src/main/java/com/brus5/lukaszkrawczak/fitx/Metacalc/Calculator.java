@@ -149,11 +149,11 @@ public class Calculator {
         return kcalResult = TEF + (0.1d * TEF);
     }
 
-    //    TEF = BMR + (GymTime * GymTEA) + (AreoTime * AreoTEA) + (GymEPOC * BMR) + AreoEPOC + somatotype;
+    //    TEF = BMR + (GymTime * GymTea) + (AreoTime * AreoTEA) + (GymEpoc * BMR) + AreoEPOC + somatotype;
 //
 //    RESULT = TEF + (0.1d * TEF);
 
-//    TEF = BMR + (GymTime * GymTEA) + (AreoTime * AreoTEA) + (GymEPOC * BMR) + AreoEPOC + somatotype;
+//    TEF = BMR + (GymTime * GymTea) + (AreoTime * AreoTEA) + (GymEpoc * BMR) + AreoEPOC + somatotype;
 //
 //    RESULT = TEF + (0.1d * TEF);
 }

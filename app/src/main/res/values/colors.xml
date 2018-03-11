@@ -7,4 +7,5 @@
     <color name="accent_material_light_2">#3f71f9</color>
     <color name="color_meta_calc_statusbar">#5299ad</color>
     <color name="color_meta_calc_gym_statusbar">#3ebdff</color>
+    <color name="color_meta_calc_areo_statusbar">#ffdfa0</color>
 </resources>

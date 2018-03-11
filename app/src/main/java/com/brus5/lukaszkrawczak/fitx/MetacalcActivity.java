@@ -291,7 +291,6 @@ public class MetacalcActivity extends AppCompatActivity implements View.OnClickL
     public void GymTEAresult(){
 
         sbGymTEA = findViewById(R.id.sbGymTEA);
-
         sbGymTEA.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @SuppressLint("SetTextI18n")
             @Override
