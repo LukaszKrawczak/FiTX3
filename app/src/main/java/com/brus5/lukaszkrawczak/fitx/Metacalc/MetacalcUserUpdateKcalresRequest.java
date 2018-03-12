@@ -22,7 +22,6 @@ public class MetacalcUserUpdateKcalresRequest extends StringRequest {
             params.put("username", username);
             params.put("RESULT", RESULT);
             params.put("date", date);
-
         }
         @Override
         public Map<String, String> getParams() {
