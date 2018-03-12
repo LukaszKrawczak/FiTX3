@@ -53,11 +53,9 @@
             android:id="@+id/resultTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/heightEditText"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="29dp"
-            android:layout_marginRight="29dp"
+            android:layout_above="@+id/tvAREOresult"
+            android:layout_alignEnd="@+id/switchCardio"
+            android:layout_alignRight="@+id/switchCardio"
             android:text="TextView" />
 
         <RadioGroup
@@ -75,29 +73,15 @@
             android:layout_marginTop="40dp"
             android:text="Count Calories" />
 
-        <Switch
-            android:id="@+id/switchGym"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/ageTextView"
-            android:layout_marginTop="7dp"
-            android:allowUndo="false"
-            android:checked="true"
-            android:text="Gym" />
-
         <SeekBar
             android:id="@+id/sbAreoTEA"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/sbGymTEA"
+            android:layout_alignRight="@+id/sbGymTEA"
             android:layout_below="@+id/sbAreoTime"
-            android:layout_marginEnd="6dp"
-            android:layout_marginRight="6dp"
             android:layout_marginTop="17dp"
-            android:layout_toLeftOf="@+id/tvGymTEA"
-            android:layout_toStartOf="@+id/tvGymTEA"
             android:max="2"
             android:progress="0" />
 
@@ -106,10 +90,10 @@
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/sbGymTime"
-            android:layout_alignStart="@+id/sbGymTime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/sbGymTime"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="16dp"
             android:max="2"
             android:progress="0" />
 
@@ -117,11 +101,9 @@
             android:id="@+id/tvGymTEA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/sbGymTEA"
-            android:layout_marginLeft="7dp"
-            android:layout_marginStart="7dp"
-            android:layout_toEndOf="@+id/sbGymTEA"
-            android:layout_toRightOf="@+id/sbGymTEA"
+            android:layout_below="@+id/sbGymTEA"
+            android:layout_toEndOf="@+id/textViewWeight"
+            android:layout_toRightOf="@+id/textViewWeight"
             android:text="low intensity" />
 
         <TextView
@@ -130,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tvGymTEA"
             android:layout_alignStart="@+id/tvGymTEA"
-            android:layout_alignTop="@+id/sbAreoTEA"
+            android:layout_below="@+id/sbAreoTEA"
             android:text="low intensity" />
 
         <SeekBar
@@ -149,8 +131,8 @@
             android:id="@+id/ivNEAT"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_below="@+id/sbAreoTEA"
-            android:layout_marginTop="41dp"
+            android:layout_below="@+id/tvAreoTEA"
+            android:layout_marginTop="21dp"
             android:layout_toEndOf="@+id/heightTextView"
             android:layout_toRightOf="@+id/heightTextView"
             app:srcCompat="@drawable/mezomorph" />
@@ -159,28 +141,35 @@
             android:id="@+id/sbGymTime"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvGymTime"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textViewGymTime"
+            android:layout_marginTop="10dp"
             android:max="90"
             android:progress="0" />
 
         <TextView
-            android:id="@+id/tvGymTime"
+            android:id="@+id/textViewGymTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/switchGym"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/switchCardio"
+            android:layout_alignStart="@+id/switchCardio"
+            android:layout_below="@+id/textView10"
+            android:layout_marginTop="5dp"
             android:text="10" />
 
         <SeekBar
             android:id="@+id/sbAreoTime"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/tvAreoTime"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="10dp"
             android:max="120"
             android:progress="0" />
 
@@ -188,20 +177,21 @@
             android:id="@+id/tvAreoTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/switchIsAreo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/textViewGymTime"
+            android:layout_alignStart="@+id/textViewGymTime"
+            android:layout_below="@+id/textView13"
+            android:layout_marginTop="5dp"
             android:text="10" />
 
         <Switch
-            android:id="@+id/switchIsAreo"
+            android:id="@+id/switchCardio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvGymTEA"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:checked="true"
-            android:text="Areo" />
+            android:layout_alignBaseline="@+id/textView8"
+            android:layout_alignBottom="@+id/textView8"
+            android:layout_alignLeft="@+id/switchGym"
+            android:layout_alignStart="@+id/switchGym"
+            android:checked="false" />
 
         <TextView
             android:id="@+id/tvTEAresult"
@@ -229,7 +219,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="Personal informations:"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <TextView
             android:id="@+id/textViewWeight"
@@ -275,10 +265,87 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewHeight"
             android:layout_alignBottom="@+id/textViewHeight"
             android:layout_toEndOf="@+id/textViewHeight"
             android:layout_toRightOf="@+id/textViewHeight"
             android:text="cm" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ageTextView"
+            android:layout_marginTop="7dp"
+            android:text="Gym training" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="10dp"
+            android:text="Cardio training" />
+
+        <Switch
+            android:id="@+id/switchGym"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView7"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/tvGymTEA"
+            android:layout_toEndOf="@+id/textView9"
+            android:layout_toRightOf="@+id/textView9"
+            app:srcCompat="@drawable/gym1" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textViewGymTime"
+            android:layout_toEndOf="@+id/textViewGymTime"
+            android:layout_toRightOf="@+id/textViewGymTime"
+            android:text="minutes" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/switchCardio"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:text="Added gym to your daily training"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvGymTEA"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:text="Added cardio to your daily training"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvAreoTime"
+            android:layout_alignBottom="@+id/tvAreoTime"
+            android:layout_toEndOf="@+id/tvAreoTime"
+            android:layout_toRightOf="@+id/tvAreoTime"
+            android:text="minutes" />
 
     </RelativeLayout>
 

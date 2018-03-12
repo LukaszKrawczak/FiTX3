@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Metacalc.Calculator;
+import com.brus5.lukaszkrawczak.fitx.Metacalc.MetacalcAreoActivity;
 import com.brus5.lukaszkrawczak.fitx.Metacalc.MetacalcGymActivity;
 import com.brus5.lukaszkrawczak.fitx.Metacalc.MetacalcUserInfoShowRequest;
 
@@ -48,7 +49,9 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
 
 
     /*NEW VARIABLES*/
-    TextView textViewWeight,textViewHeight,textViewAge;
+    TextView textViewWeight,textViewHeight,textViewAge,textViewGymTime,textViewGymIntensity, textViewAreoTime, textViewAreoIntensity;
+
+    TextView textViewNoGym,textView19,textView30,textView24,textViewNoAreo,textView27,textView34,textView28,textView16,textView17;
 
     FloatingActionButton buttonGym,buttonAreo;
 
@@ -82,34 +85,41 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
     String dateToday = simpleDateFormat.format(c.getTime());
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_meta_calc3);
-
-
         getWindow().setStatusBarColor(ContextCompat.getColor(MetacalcActivity3.this,R.color.color_meta_calc_statusbar));
-
-
-
-
-
         init();
         getUserPersonalData(); // getting userInfo by Intent method
+
         batchPersonalInformation(); // loading information about user from database
-
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 initialize();        // initialize method affter look below
-                setTextViews(); //
+
             }
         },2000);
+
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setTextViews(); //
+                calculateFinalResukt();
+            }
+        },2500);
     }
+
+    @Override
+    protected void onStart() {
+        Log.e(TAG,"onStart");
+        getUserActivityData(); // getting userActivity by Intent method
+        super.onStart();
+    }
+
 
     private void init() {
         buttonGym = findViewById(R.id.buttonGym);
@@ -119,11 +129,25 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         textViewWeight = findViewById(R.id.textViewWeight);
         textViewHeight = findViewById(R.id.textViewHeight);
         textViewAge = findViewById(R.id.textViewAge);
+        textView17 = findViewById(R.id.textView17);
+        textView16 = findViewById(R.id.textView16);
+        textViewGymTime = findViewById(R.id.textViewGymTime);
+        textViewGymIntensity = findViewById(R.id.textViewGymIntensity);
+        textViewNoGym = findViewById(R.id.textViewNoGym);
+        textView19 = findViewById(R.id.textView19);
+        textView30 = findViewById(R.id.textView30);
+        textView24 = findViewById(R.id.textView24);
+        textViewAreoTime = findViewById(R.id.textViewAreoTime);
+        textViewAreoIntensity = findViewById(R.id.textViewAreoIntensity);
+        textViewNoAreo = findViewById(R.id.textViewNoAreo);
+        textView27 = findViewById(R.id.textView27);
+        textView28 = findViewById(R.id.textView28);
+        textView34 = findViewById(R.id.textView34);
     }
+
     private void initialize() {
 
     }
-
     private void getUserPersonalData() {
         Intent intent = getIntent();
         userID              = intent.getIntExtra                    ("id",0);
@@ -131,6 +155,10 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         userUserName        = intent.getStringExtra                 ("username");
         userAge             = intent.getIntExtra                    ("age",0);
         userMale            = intent.getStringExtra                 ("male");
+    }
+
+    private void getUserActivityData() {
+
     }
 
     private void batchPersonalInformation() {
@@ -165,6 +193,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         MetacalcUserInfoShowRequest metacalcUserInfoShow = new MetacalcUserInfoShowRequest(userUserName, responseListener);
         RequestQueue queue2 = Volley.newRequestQueue(MetacalcActivity3.this);
         queue2.add(metacalcUserInfoShow);
+
     }
 
     private void calculateFinalResukt() {
@@ -180,6 +209,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         calculator.setGymEpoc       (calcGymEpoc);
         calculator.setSomatotype    (calcSomatotype);
         calculator.setBMR           (userMale);
+        Log.e(TAG,"getBMR: "+calculator.getBmr());
     }
 
     private void setTextViews() {
@@ -188,6 +218,98 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         textViewHeight.setText(String.valueOf(userHeight));
         textViewWeight.setText(String.valueOf(userWeight));
         textViewAge.setText(String.valueOf(userAge));
+
+        // set visibility of kg's and cm's value after loaded data
+        textView16.setVisibility(View.VISIBLE);
+        textView17.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                calcGymTime         = data.getDoubleExtra                 ("calcGymTime"    ,0);
+                calcGymTea          = data.getDoubleExtra                 ("calcGymTea"     ,7d);
+                calcGymEpoc         = data.getDoubleExtra                 ("calcGymEpoc"    ,0.04d);
+
+                calcAreoTime         = data.getDoubleExtra                 ("calcAreoTime"    ,0);
+                calcAreoTea          = data.getDoubleExtra                 ("calcAreoTea"     ,5d);
+                calcAreoEpoc         = data.getDoubleExtra                 ("calcAreoEpoc"    ,5d);
+//
+                Log.e(TAG,"calcGymTime "+calcGymTime);
+                Log.e(TAG,"calcAreoTime "+calcAreoTime);
+//                Log.e(TAG,"calcAreoTea "+calcAreoTea);
+//                Log.e(TAG,"calcAreoEpoc "+calcAreoEpoc);
+//
+                textViewAreoTime.setText(""+String.format("%.0f",calcAreoTime));
+                if (calcAreoTea == 5d){
+                    textViewAreoIntensity.setText("low");
+                }
+                if (calcAreoTea == 7d){
+                    textViewAreoIntensity.setText("medium");
+                }
+                if (calcAreoTea == 10d){
+                    textViewAreoIntensity.setText("high");
+                }
+
+                textViewGymTime.setText(""+String.format("%.0f",calcGymTime));
+                if (calcGymTea==7d) {
+                    textViewGymIntensity.setText("low");
+                }
+                if (calcGymTea==8d) {
+                    textViewGymIntensity.setText("medium");
+                }
+                if (calcGymTea==9d) {
+                    textViewGymIntensity.setText("high");
+                }
+
+                        if (calcGymTime > 0d){
+                            textViewNoGym.setVisibility(View.INVISIBLE);
+                            textViewGymTime.setVisibility(View.VISIBLE);
+                            textViewGymIntensity.setVisibility(View.VISIBLE);
+                            textView19.setVisibility(View.VISIBLE);
+                            textView24.setVisibility(View.VISIBLE);
+                            textView30.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            textViewNoGym.setVisibility(View.VISIBLE);
+                            textViewGymTime.setVisibility(View.INVISIBLE);
+                            textViewGymIntensity.setVisibility(View.INVISIBLE);
+                            textView19.setVisibility(View.INVISIBLE);
+                            textView24.setVisibility(View.INVISIBLE);
+                            textView30.setVisibility(View.INVISIBLE);
+                        }
+
+                        if (calcAreoTime > 0d){
+                            textViewNoAreo.setVisibility(View.INVISIBLE);
+                            textViewAreoTime.setVisibility(View.VISIBLE);
+                            textViewAreoIntensity.setVisibility(View.VISIBLE);
+                            textView27.setVisibility(View.VISIBLE);
+                            textView34.setVisibility(View.VISIBLE);
+                            textView28.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            textViewNoAreo.setVisibility(View.VISIBLE);
+                            textViewAreoTime.setVisibility(View.INVISIBLE);
+                            textViewAreoIntensity.setVisibility(View.INVISIBLE);
+                            textView27.setVisibility(View.INVISIBLE);
+                            textView34.setVisibility(View.INVISIBLE);
+                            textView28.setVisibility(View.INVISIBLE);
+                        }
+
+                Log.e(TAG,"calcGymTime "+calcGymTime);
+                Log.e(TAG,"calcGymTea "+calcGymTea);
+                Log.e(TAG,"calcGymEpoc "+calcGymEpoc);
+
+
+                Log.e(TAG,"calcAreoTime "+calcAreoTime);
+                Log.e(TAG,"calcAreoTea "+calcAreoTea);
+                Log.e(TAG,"calcAreoEpoc "+calcAreoEpoc);
+
+
+            }
+        }
     }
 
     @Override
@@ -199,11 +321,21 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
                 Log.e(TAG,"buttonGym Clicked");
 
                 Intent intent = new Intent(MetacalcActivity3.this, MetacalcGymActivity.class);
-                startActivity(intent);
+                intent.putExtra("calcAreoTime",calcAreoTime);
+                intent.putExtra("calcAreoTea",calcAreoTea);
+                intent.putExtra("calcAreoEpoc",calcAreoEpoc);
+                startActivityForResult(intent,1);
+
 
                 break;
             case R.id.buttonAreo:
                 Log.e(TAG,"buttonAreo Clicked");
+                Intent intent1 = new Intent(MetacalcActivity3.this, MetacalcAreoActivity.class);
+                intent1.putExtra("calcGymTime",calcGymTime);
+                intent1.putExtra("calcGymTea",calcGymTea);
+                intent1.putExtra("calcGymEpoc",calcGymEpoc);
+                startActivityForResult(intent1,1);
+
                 break;
         }
 

@@ -291,7 +291,6 @@ public class MetacalcActivity extends AppCompatActivity implements View.OnClickL
     public void GymTEAresult(){
 
         sbGymTEA = findViewById(R.id.sbGymTEA);
-
         sbGymTEA.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -435,12 +434,12 @@ public class MetacalcActivity extends AppCompatActivity implements View.OnClickL
         tvGymTEA = findViewById(R.id.tvGymTEA);
         tvAreoTEA = findViewById(R.id.tvAreoTEA);
         tvResult = findViewById(R.id.resultTextView);
-        tvGymTime = findViewById(R.id.tvGymTime);
+        tvGymTime = findViewById(R.id.textViewGymTime);
         tvAreoTime = findViewById(R.id.tvAreoTime);
         tvTEAresult = findViewById(R.id.tvTEAresult);
         tvAREOresult = findViewById(R.id.tvAREOresult);
         switchIsGym = findViewById(R.id.switchGym);
-        switchIsAreo = findViewById(R.id.switchIsAreo);
+        switchIsAreo = findViewById(R.id.switchCardio);
         ivNEAT = findViewById(R.id.ivNEAT);
 
     }
