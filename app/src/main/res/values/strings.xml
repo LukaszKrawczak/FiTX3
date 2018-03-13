@@ -17,4 +17,11 @@
         completions."
     </string>
     <string name="title_activity_meta_calc_gym">MetaCalcGym</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
 </resources>

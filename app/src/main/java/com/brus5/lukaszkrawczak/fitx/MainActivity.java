@@ -396,7 +396,6 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void run() {
                 generateData2();
-                Log.e("generateData2()",""+generateData2());
             }
         },100);
 

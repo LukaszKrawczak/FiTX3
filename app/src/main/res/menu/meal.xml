@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_add_meal"
-        android:icon="@drawable/fab_add"
-        android:tooltipText="asdasdasd"
-        android:title="Add Task"
+        android:id="@+id/action_search_meal_1"
+        android:icon="@drawable/icon_search"
+        android:title="Search"
         app:showAsAction="always" />
+
 </menu>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -62,7 +63,8 @@ public class DietActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_diet);
-
+        Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar1);
         mTaskListView = findViewById(R.id.list_diet);
 
 
@@ -153,24 +155,28 @@ public class DietActivity extends AppCompatActivity {
         },1000);
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.meal,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_meal,menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.meal, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-/*
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_meal,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-*/
+//
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.add_meal,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_search_meal:
+            case R.id.action_search_meal_1:
                 Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity.class);
                 searchForMeal.putExtra("id",id);
                 searchForMeal.putExtra("name",name);

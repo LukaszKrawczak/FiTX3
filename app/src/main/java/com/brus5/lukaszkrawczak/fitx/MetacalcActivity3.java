@@ -276,12 +276,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
                 calcAreoTime = data.getDoubleExtra("calcAreoTime", 0);
                 calcAreoTea = data.getDoubleExtra("calcAreoTea", 5d);
                 calcAreoEpoc = data.getDoubleExtra("calcAreoEpoc", 5d);
-//
-                Log.e(TAG, "calcGymTime " + calcGymTime);
-                Log.e(TAG, "calcAreoTime " + calcAreoTime);
-//                Log.e(TAG,"calcAreoTea "+calcAreoTea);
-//                Log.e(TAG,"calcAreoEpoc "+calcAreoEpoc);
-//
+
                 textViewAreoTime.setText("" + String.format("%.0f", calcAreoTime));
                 if (calcAreoTea == 5d) {
                     textViewAreoIntensity.setText("low");
@@ -352,11 +347,11 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
                 calculator1.countTEF();
                 finalResult = calculator1.finalKcalResult();
                 textViewFinalResult.setText(String.format("%.0f",finalResult));
+
                 Log.e(TAG, "finalResult " + finalResult);
                 Log.e(TAG, "calcGymTime " + calcGymTime);
                 Log.e(TAG, "calcGymTea " + calcGymTea);
                 Log.e(TAG, "calcGymEpoc " + calcGymEpoc);
-
 
                 Log.e(TAG, "calcAreoTime " + calcAreoTime);
                 Log.e(TAG, "calcAreoTea " + calcAreoTea);

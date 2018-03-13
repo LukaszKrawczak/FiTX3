@@ -206,7 +206,7 @@ public class UserLoginActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
+                        Intent intent = new Intent(UserLoginActivity.this,Main2Activity.class);
                         intent.putExtra("loginResult",loginResult.toString());
                         intent.putExtras(parameters);
                         startActivity(intent);
@@ -243,7 +243,7 @@ public class UserLoginActivity extends AppCompatActivity {
         // if accesstoken isn't null then start new Activity which is MainActivity.class
         // after that, closing UserLoginActivity with finish();
         if (accessToken != null){
-            Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
+            Intent intent = new Intent(UserLoginActivity.this,Main2Activity.class);
             startActivity(intent);
             finish();
         }
@@ -275,7 +275,7 @@ public class UserLoginActivity extends AppCompatActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 boolean success = jsonObject.getBoolean("success");
                                 if (success) {
-                                    Intent intent = new Intent(UserLoginActivity.this, MainActivity.class);
+                                    Intent intent = new Intent(UserLoginActivity.this, Main2Activity.class);
                                     intent.putExtra("username", username);
                                     intent.putExtra("defaultLogin",true);
                                     UserLoginActivity.this.startActivity(intent);
