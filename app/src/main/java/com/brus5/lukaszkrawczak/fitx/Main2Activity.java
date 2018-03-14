@@ -47,7 +47,7 @@ public class Main2Activity extends AppCompatActivity
 
     final private static String TAG = "MainActivity";
 
-    String userName, userUserName, userBirthday, userPassword, userEmail, userMale, userID;
+    String userFirstName, userName, userBirthday, userPassword, userEmail, userMale, userID;
 
 
 
@@ -97,10 +97,10 @@ public class Main2Activity extends AppCompatActivity
         defaultLogin = intent.getBooleanExtra("defaultLogin",false);
 
         if (defaultLogin){
-            userUserName = intent.getStringExtra("username");
+            userName = intent.getStringExtra("userName");
         }
         else {
-            userUserName = com.facebook.Profile.getCurrentProfile().getId();
+            userName = com.facebook.Profile.getCurrentProfile().getId();
             Bundle b = intent.getExtras();
             String nameTest = b.getString("first_name");
             Log.e(TAG,"nameTest: "+nameTest);
@@ -115,7 +115,7 @@ public class Main2Activity extends AppCompatActivity
         new LongOperation().execute("");
 
 
-        Log.e(TAG,"userUserName1 "+userUserName);
+        Log.e(TAG,"userName "+userName);
 
     }
 
@@ -162,7 +162,7 @@ public class Main2Activity extends AppCompatActivity
             Intent intent = new Intent(Main2Activity.this,UserProfileActivity.class);
             intent.putExtra("id",userID);
             intent.putExtra("name",userName);
-            intent.putExtra("username",userUserName);
+            intent.putExtra("username",userName);
             intent.putExtra("age", userAgeint);
             intent.putExtra("male",userMale);
             intent.putExtra("defaultLogin",defaultLogin);
@@ -171,25 +171,37 @@ public class Main2Activity extends AppCompatActivity
             Intent intent = new Intent(Main2Activity.this,MetacalcActivity3.class);
             intent.putExtra("id",userID);
             intent.putExtra("name",userName);
-            intent.putExtra("username",userUserName);
+            intent.putExtra("username",userName);
             intent.putExtra("age", userAgeint);
             intent.putExtra("male",userMale);
             startActivity(intent);
         } else if (id == R.id.nav_diet) {
             Intent intent = new Intent(Main2Activity.this,DietActivity.class);
-            intent.putExtra("id",userID);
-            intent.putExtra("name",userName);
-            intent.putExtra("username",userUserName);
-            intent.putExtra("age", userAgeint);
-            intent.putExtra("male",userMale);
+            intent.putExtra("userIDint",userIDint);
+            intent.putExtra("userFirstName",userFirstName);
+            intent.putExtra("userName",userName);
+            intent.putExtra("userBirthday",userBirthday);
+            intent.putExtra("userAgeint",userAgeint);
+            intent.putExtra("userPassword",userPassword);
+            intent.putExtra("userEmail", userEmail);
+            intent.putExtra("userMale",userMale);
             startActivity(intent);
         } else if (id == R.id.nav_training) {
             Intent intent = new Intent(Main2Activity.this,TrainingActivity.class);
-            intent.putExtra("id",userID);
-            intent.putExtra("name",userName);
-            intent.putExtra("username",userUserName);
-            intent.putExtra("age", userAgeint);
-            intent.putExtra("male",userMale);
+//            intent.putExtra("id",userID);
+//            intent.putExtra("name",userName);
+//            intent.putExtra("username",userName);
+//            intent.putExtra("age", userAgeint);
+//            intent.putExtra("male",userMale);
+//            startActivity(intent);
+            intent.putExtra("userIDint",userIDint);
+            intent.putExtra("userFirstName",userFirstName);
+            intent.putExtra("userName",userName);
+            intent.putExtra("userBirthday",userBirthday);
+            intent.putExtra("userAgeint",userAgeint);
+            intent.putExtra("userPassword",userPassword);
+            intent.putExtra("userEmail", userEmail);
+            intent.putExtra("userMale",userMale);
             startActivity(intent);
         } else if (id == R.id.nav_share) {
 
@@ -216,8 +228,8 @@ public class Main2Activity extends AppCompatActivity
                             JSONObject c = server_response.getJSONObject(i);
 
                             userID = c.getString("user_id");
-                            userName = c.getString("name");
-                            userUserName=  c.getString("username");
+                            userFirstName = c.getString("name");
+                            userName=  c.getString("username");
                             userBirthday = c.getString("birthday");
                             userPassword = c.getString("password");
                             userEmail = c.getString("email");
@@ -232,11 +244,12 @@ public class Main2Activity extends AppCompatActivity
                 int year = Integer.valueOf(userBirthday.substring(6,10));
                 Log.i(TAG,"getAge(year,month,day)"+getAge(year,month,day));
                 userAgeint = Integer.valueOf(getAge(year,month,day));
+                userIDint = Integer.valueOf(userID);
 
             }
 
         };
-        UserInfoShowRequest userInfoShowRequest = new UserInfoShowRequest("brus5",responseListener);
+        UserInfoShowRequest userInfoShowRequest = new UserInfoShowRequest(userName,responseListener);
         RequestQueue queue1 = Volley.newRequestQueue(Main2Activity.this);
         queue1.add(userInfoShowRequest);
     }
@@ -254,7 +267,7 @@ public class Main2Activity extends AppCompatActivity
                 }
             }
             Log.e(TAG,"doInBackground");
-            return "userID "+userID+"\nuserName "+userName+"\nuserUserName "+userUserName+"\nuserAge "+String.valueOf(userAgeint)+"\nuserPassword "+userPassword+"\nuserEmail "+userEmail+"\nuserMale "+userMale;
+            return "userID "+userID+"\nuserFirstName "+userFirstName+"\nuserName "+userName+"\nuserAge "+String.valueOf(userAgeint)+"\nuserPassword "+userPassword+"\nuserEmail "+userEmail+"\nuserMale "+userMale;
         }
 
         @Override
@@ -412,7 +425,7 @@ public class Main2Activity extends AppCompatActivity
                 }
             }};
 
-        GraphShowKcalRequest graphShowKcalRequest = new GraphShowKcalRequest("brus5", responseListener);
+        GraphShowKcalRequest graphShowKcalRequest = new GraphShowKcalRequest(userName, responseListener);
         RequestQueue queue = Volley.newRequestQueue(Main2Activity.this);
         queue.add(graphShowKcalRequest);
         Handler handler1 = new Handler();

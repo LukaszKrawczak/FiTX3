@@ -34,10 +34,12 @@ import java.util.HashMap;
 public class TrainingActivity extends AppCompatActivity {
 
     private static final String TAG = "TrainingActivity";
-
-    String name, username, age, password, email, male, somatotypeS;
+    String userName, userFirstName, userBirthday, userPassword, userEmail, userMale, userID;
+    int id,userIDint,userAgeint;
+//    String name, username, age, password, email, male, somatotypeS;
     String description;
-    int id;
+
+
 
 
     private ArrayList<String> arrayDescription = new ArrayList<>();
@@ -58,21 +60,25 @@ public class TrainingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_training);
 
         mTaskListView = findViewById(R.id.list_training);
+//
+//        Intent intent1 = getIntent();
+//        id = intent1.getIntExtra("id",0);
+//        name = intent1.getStringExtra("name");
+//        username = intent1.getStringExtra("username");
+//        age = intent1.getStringExtra("birthday");
+//        male = intent1.getStringExtra("male");
 
         Intent intent1 = getIntent();
-        id = intent1.getIntExtra("id",0);
-        name = intent1.getStringExtra("name");
-        username = intent1.getStringExtra("username");
-        age = intent1.getStringExtra("birthday");
-        male = intent1.getStringExtra("male");
+        userIDint = intent1.getIntExtra("userIDint",0);
+        userFirstName = intent1.getStringExtra("userFirstName");
+        userName = intent1.getStringExtra("userName");
+        userBirthday = intent1.getStringExtra("userBirthday");
+        userAgeint = intent1.getIntExtra("userAgeint",0);
+        userPassword = intent1.getStringExtra("userPassword");
+        userEmail = intent1.getStringExtra("userEmail");
+        userMale = intent1.getStringExtra("userMale");
+        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
 
-
-
-        Log.e(TAG, "ID "        +id);
-        Log.e(TAG, "name "      +name);
-        Log.e(TAG, "username "  +username);
-        Log.e(TAG, "birthday "       +age);
-        Log.e(TAG, "male "      +male);
 
         loadData();
 
@@ -122,7 +128,7 @@ public class TrainingActivity extends AppCompatActivity {
 
             }
         };
-        TrainingShowRequest trainingShowRequest = new TrainingShowRequest(username, responseListener);
+        TrainingShowRequest trainingShowRequest = new TrainingShowRequest(userName, responseListener);
         RequestQueue queue = Volley.newRequestQueue(TrainingActivity.this);
         queue.add(trainingShowRequest);
     }
@@ -154,7 +160,7 @@ public class TrainingActivity extends AppCompatActivity {
                                         Log.e(TAG,"response: "+response);
                                     }
                                 };
-                                com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertRequest trainingInsertRequest = new TrainingInsertRequest(Integer.valueOf(id), username, date, description, responseListener);
+                                com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertRequest trainingInsertRequest = new TrainingInsertRequest(userIDint, userName, date, description, responseListener);
                                 RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
                                 requestQueue.add(trainingInsertRequest);
                                 onRestart();
@@ -199,7 +205,7 @@ public class TrainingActivity extends AppCompatActivity {
             }
         };
 
-        TrainingDeleteRequest trainingDeleteRequest = new TrainingDeleteRequest(username, description, responseListener);
+        TrainingDeleteRequest trainingDeleteRequest = new TrainingDeleteRequest(userName, description, responseListener);
         RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
         requestQueue.add(trainingDeleteRequest);
         onRestart();

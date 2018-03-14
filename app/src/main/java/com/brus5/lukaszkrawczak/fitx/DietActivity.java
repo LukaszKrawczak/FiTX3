@@ -40,10 +40,12 @@ public class DietActivity extends AppCompatActivity {
 
     private static final String TAG = "DietActivity";
 
+    String userName, userFirstName, userBirthday, userPassword, userEmail, userMale, userID;
+
     String name, username, age, password, email, male, somatotypeS;
     String description;
     String weight;
-    int id;
+    int id,userIDint,userAgeint;
 
     private ArrayList<String> productWeight = new ArrayList<>();
     private ArrayList<Spanned> productNameList = new ArrayList<Spanned>();
@@ -67,13 +69,19 @@ public class DietActivity extends AppCompatActivity {
         setSupportActionBar(toolbar1);
         mTaskListView = findViewById(R.id.list_diet);
 
+//String userName, userUserName, userBirthday, userPassword, userEmail, userMale, userID;
 
         Intent intent1 = getIntent();
-        id = intent1.getIntExtra("id",0);
-        name = intent1.getStringExtra("name");
-        username = intent1.getStringExtra("username");
-        age = intent1.getStringExtra("birthday");
-        male = intent1.getStringExtra("male");
+        userIDint = intent1.getIntExtra("userIDint",0);
+        userFirstName = intent1.getStringExtra("userFirstName");
+        userName = intent1.getStringExtra("userName");
+        userBirthday = intent1.getStringExtra("userBirthday");
+        userAgeint = intent1.getIntExtra("userAgeint",0);
+        userPassword = intent1.getStringExtra("userPassword");
+        userEmail = intent1.getStringExtra("userEmail");
+        userMale = intent1.getStringExtra("userMale");
+
+        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
 
         HorizontalCalendar horizontalCalendar;
 
@@ -178,11 +186,13 @@ public class DietActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.action_search_meal_1:
                 Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity.class);
-                searchForMeal.putExtra("id",id);
-                searchForMeal.putExtra("name",name);
-                searchForMeal.putExtra("username",username);
-                searchForMeal.putExtra("birthday",age);
-                searchForMeal.putExtra("male",male);
+                searchForMeal.putExtra("userIDint",userIDint);
+                searchForMeal.putExtra("userFirstName",userFirstName);
+                searchForMeal.putExtra("userName",userName);
+                searchForMeal.putExtra("userBirthday",userBirthday);
+                searchForMeal.putExtra("userAgeint",userAgeint);
+                searchForMeal.putExtra("userPassword",userPassword);
+                searchForMeal.putExtra("userEmail", userEmail);
                 DietActivity.this.startActivity(searchForMeal);
         }
         return super.onOptionsItemSelected(item);
@@ -276,7 +286,7 @@ public class DietActivity extends AppCompatActivity {
 
             }
         };
-        DietShowByUser dietShowByUser = new DietShowByUser(username, dateInsde, responseListener);
+        DietShowByUser dietShowByUser = new DietShowByUser(userName, dateInsde, responseListener);
         RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
         queue.add(dietShowByUser);
     }

@@ -43,8 +43,11 @@ public class DietSearchActivity extends AppCompatActivity{
     private static final String TAG = "SearchForMeal.java";
 
     // Generating some useful variables
-    String name, username, age, password, email, male, somatotypeS;
-    int id;
+//    String name, username, age, password, email, male, somatotypeS;
+//    int id;
+
+    String userFirstName, userName, userUserName, userBirthday, userPassword, userEmail, userMale;
+    int userIDint,userAgeint;
 
     int mealID;
     String mealName;
@@ -81,12 +84,23 @@ public class DietSearchActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_for_meal);
 
+//        Intent intent1 = getIntent();
+//        id = intent1.getIntExtra("id",0);
+//        name = intent1.getStringExtra("name");
+//        username = intent1.getStringExtra("username");
+//        age = intent1.getStringExtra("birthday");
+//        male = intent1.getStringExtra("male");
+
         Intent intent1 = getIntent();
-        id = intent1.getIntExtra("id",0);
-        name = intent1.getStringExtra("name");
-        username = intent1.getStringExtra("username");
-        age = intent1.getStringExtra("birthday");
-        male = intent1.getStringExtra("male");
+        userIDint = intent1.getIntExtra("userIDint",0);
+        userFirstName = intent1.getStringExtra("userFirstName");
+        userName = intent1.getStringExtra("userName");
+        userBirthday = intent1.getStringExtra("userBirthday");
+        userAgeint = intent1.getIntExtra("userAgeint",0);
+        userPassword = intent1.getStringExtra("userPassword");
+        userEmail = intent1.getStringExtra("userEmail");
+        userMale = intent1.getStringExtra("userMale");
+        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
         getData();
 
         // Listview Data
@@ -204,7 +218,7 @@ public class DietSearchActivity extends AppCompatActivity{
                                         public void onResponse(String response) {
                                         }
                                     };
-                                    DietInsertMeal dietInsertMeal = new DietInsertMeal(Integer.valueOf(productIDList.get(position)),Integer.valueOf(etProductWeight.getText().toString()),username, date, responseListener);
+                                    DietInsertMeal dietInsertMeal = new DietInsertMeal(Integer.valueOf(productIDList.get(position)),Integer.valueOf(etProductWeight.getText().toString()),userName, date, responseListener);
                                     RequestQueue requestQueue = Volley.newRequestQueue(DietSearchActivity.this);
                                     requestQueue.add(dietInsertMeal);
                                 }
@@ -487,7 +501,7 @@ public class DietSearchActivity extends AppCompatActivity{
                                 Log.e(TAG,"etFats: "+etFats.getText().toString());
                                 Log.e(TAG,"etCarbs: "+etCarbs.getText().toString());
 
-                                DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), date, username, listener);
+                                DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), date, userName, listener);
                                 RequestQueue queue = Volley.newRequestQueue(DietSearchActivity.this);
                                 queue.add(dietInsertProduct);
                             }

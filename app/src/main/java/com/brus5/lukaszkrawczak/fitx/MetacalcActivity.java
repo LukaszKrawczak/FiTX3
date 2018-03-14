@@ -51,6 +51,8 @@ public class MetacalcActivity extends AppCompatActivity implements View.OnClickL
 
     String name, username, age, password, email, male, id, somatotypeS;
 
+
+
     Double BMR,TEA,AREO,EPOC;
 
 /*DELETE THIS AFTER TESTING*/
