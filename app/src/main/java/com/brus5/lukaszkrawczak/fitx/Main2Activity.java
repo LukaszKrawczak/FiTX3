@@ -71,8 +71,8 @@ public class Main2Activity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getWindow().setStatusBarColor(ContextCompat.getColor(Main2Activity.this,R.color.color_main_activity));
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(Main2Activity.this,R.color.color_main_activity_statusbar));
+        Log.e(TAG,"onCreate();");
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +117,12 @@ public class Main2Activity extends AppCompatActivity
 
         Log.e(TAG,"userName "+userName);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG,"onStart()");
     }
 
     @Override
@@ -169,12 +175,16 @@ public class Main2Activity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_meta_calc) {
             Intent intent = new Intent(Main2Activity.this,MetacalcActivity3.class);
-            intent.putExtra("id",userID);
-            intent.putExtra("name",userName);
-            intent.putExtra("username",userName);
-            intent.putExtra("age", userAgeint);
-            intent.putExtra("male",userMale);
+            intent.putExtra("userIDint",userIDint);
+            intent.putExtra("userFirstName",userFirstName);
+            intent.putExtra("userName",userName);
+            intent.putExtra("userBirthday",userBirthday);
+            intent.putExtra("userAgeint",userAgeint);
+            intent.putExtra("userPassword",userPassword);
+            intent.putExtra("userEmail", userEmail);
+            intent.putExtra("userMale",userMale);
             startActivity(intent);
+
         } else if (id == R.id.nav_diet) {
             Intent intent = new Intent(Main2Activity.this,DietActivity.class);
             intent.putExtra("userIDint",userIDint);
@@ -188,12 +198,6 @@ public class Main2Activity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_training) {
             Intent intent = new Intent(Main2Activity.this,TrainingActivity.class);
-//            intent.putExtra("id",userID);
-//            intent.putExtra("name",userName);
-//            intent.putExtra("username",userName);
-//            intent.putExtra("age", userAgeint);
-//            intent.putExtra("male",userMale);
-//            startActivity(intent);
             intent.putExtra("userIDint",userIDint);
             intent.putExtra("userFirstName",userFirstName);
             intent.putExtra("userName",userName);

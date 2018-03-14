@@ -2,10 +2,14 @@ package com.brus5.lukaszkrawczak.fitx;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,22 +18,28 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingDeleteRequest;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertRequest;
-import com.brus5.lukaszkrawczak.fitx.Training.TrainingShowRequest;
+import com.brus5.lukaszkrawczak.fitx.Training.TrainingShowByUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 
 public class TrainingActivity extends AppCompatActivity {
 
@@ -52,13 +62,16 @@ public class TrainingActivity extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     String date = simpleDateFormat.format(c.getTime());
 
+    String dateInsde;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_training);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(TrainingActivity.this,R.color.color_training_activity_statusbar));
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar2);
         mTaskListView = findViewById(R.id.list_training);
 //
 //        Intent intent1 = getIntent();
@@ -79,6 +92,51 @@ public class TrainingActivity extends AppCompatActivity {
         userMale = intent1.getStringExtra("userMale");
         Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
 
+
+        HorizontalCalendar horizontalCalendar;
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 1);
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.MONTH, -1);
+
+        horizontalCalendar = new HorizontalCalendar.Builder(TrainingActivity.this, R.id.calendarView1)
+                .startDate(startDate.getTime())
+                .endDate(endDate.getTime())
+                .datesNumberOnScreen(7)
+                .dayNameFormat("EEE")
+                .dayNumberFormat("dd")
+                .monthFormat("MMM")
+                .textSize(14f, 24f, 14f)
+                .showDayName(true)
+                .showMonthName(true)
+
+                .build();
+
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Date date, int position) {
+                dateInsde = simpleDateFormat.format(date.getTime());
+                Log.e(TAG,"date: "+date);
+                Log.e(TAG,"date: "+dateInsde);
+//                productNameList.clear();
+//                productWeight.clear();
+                arrayDescription.clear();
+                loadData();
+                wait2secs();
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                };
+
+
+
+                Toast.makeText(TrainingActivity.this, DateFormat.getDateInstance().format(date) + " is selected!",30).show();
+            }
+
+        });
 
         loadData();
 
@@ -125,24 +183,27 @@ public class TrainingActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         };
-        TrainingShowRequest trainingShowRequest = new TrainingShowRequest(userName, responseListener);
+//        TrainingShowRequest trainingShowRequest = new TrainingShowRequest(userName, responseListener);
+//        RequestQueue queue = Volley.newRequestQueue(TrainingActivity.this);
+//        queue.add(trainingShowRequest);
+
+        TrainingShowByUser trainingShowByUser = new TrainingShowByUser(userName,dateInsde,responseListener);
         RequestQueue queue = Volley.newRequestQueue(TrainingActivity.this);
-        queue.add(trainingShowRequest);
+        queue.add(trainingShowByUser);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        getMenuInflater().inflate(R.menu.training, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_task:
+            case R.id.action_add_training:
                 Log.d(TAG, "Add a new task");
                 final EditText taskEditText = new EditText(this);
                 AlertDialog dialog = new AlertDialog.Builder(this)
@@ -160,7 +221,7 @@ public class TrainingActivity extends AppCompatActivity {
                                         Log.e(TAG,"response: "+response);
                                     }
                                 };
-                                com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertRequest trainingInsertRequest = new TrainingInsertRequest(userIDint, userName, date, description, responseListener);
+                                com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertRequest trainingInsertRequest = new TrainingInsertRequest(userIDint, userName, dateInsde, description, responseListener);
                                 RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
                                 requestQueue.add(trainingInsertRequest);
                                 onRestart();

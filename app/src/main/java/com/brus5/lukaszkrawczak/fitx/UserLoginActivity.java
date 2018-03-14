@@ -263,7 +263,7 @@ public class UserLoginActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
-                final String username = etLogin.getText().toString();
+                final String userName = etLogin.getText().toString();
                 final String password = etPassword.getText().toString();
                 final Handler handler = new Handler();
 
@@ -276,7 +276,7 @@ public class UserLoginActivity extends AppCompatActivity {
                                 boolean success = jsonObject.getBoolean("success");
                                 if (success) {
                                     Intent intent = new Intent(UserLoginActivity.this, Main2Activity.class);
-                                    intent.putExtra("username", username);
+                                    intent.putExtra("userName", userName);
                                     intent.putExtra("defaultLogin",true);
                                     UserLoginActivity.this.startActivity(intent);
                                 } else {
@@ -293,7 +293,7 @@ public class UserLoginActivity extends AppCompatActivity {
                         Log.e("UserLoginActivity","Response"+response);
                     }
                 };
-                final UserLoginRequest userLoginRequest = new UserLoginRequest(username, password, responseListener);
+                final UserLoginRequest userLoginRequest = new UserLoginRequest(userName, password, responseListener);
                 final RequestQueue queue = Volley.newRequestQueue(UserLoginActivity.this);
 
                 // Showing up progressDialog when trying to Login

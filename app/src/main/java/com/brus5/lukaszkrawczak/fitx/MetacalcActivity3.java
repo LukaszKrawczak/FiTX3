@@ -61,12 +61,14 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
 
     ImageView imageViewSomatotype;
 
+    String userName, userFirstName, userBirthday, userPassword, userEmail, userMale, userID;
+    int userIDint, userAgeint;
     Button buttonCalcAdd;
     // user variables
-    int userID;
-    int userAge;
+//    int userID;
+//    int userAge;
     Double userHeight, userWeight;
-    String userFirstName, userUserName, userMale;
+//    String userFirstName, userUserName, userMale;
 
     // calc variables
     double calcAreoTime = 0d;
@@ -170,12 +172,23 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
     }
 
     private void getUserPersonalData() {
-        Intent intent = getIntent();
-        userID = intent.getIntExtra("id", 0);
-        userFirstName = intent.getStringExtra("name");
-        userUserName = intent.getStringExtra("username");
-        userAge = intent.getIntExtra("age", 0);
-        userMale = intent.getStringExtra("male");
+//        Intent intent = getIntent();
+//        userID = intent.getIntExtra("id", 0);
+//        userFirstName = intent.getStringExtra("name");
+//        userUserName = intent.getStringExtra("username");
+//        userAge = intent.getIntExtra("age", 0);
+//        userMale = intent.getStringExtra("male");
+
+        Intent intent1 = getIntent();
+        userIDint = intent1.getIntExtra("userIDint",0);
+        userFirstName = intent1.getStringExtra("userFirstName");
+        userName = intent1.getStringExtra("userName");
+        userBirthday = intent1.getStringExtra("userBirthday");
+        userAgeint = intent1.getIntExtra("userAgeint",0);
+        userPassword = intent1.getStringExtra("userPassword");
+        userEmail = intent1.getStringExtra("userEmail");
+        userMale = intent1.getStringExtra("userMale");
+        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
     }
 
     private void getUserActivityData() {
@@ -213,7 +226,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
                 }
             }
         };
-        MetacalcUserInfoShowRequest metacalcUserInfoShow = new MetacalcUserInfoShowRequest(userUserName, responseListener);
+        MetacalcUserInfoShowRequest metacalcUserInfoShow = new MetacalcUserInfoShowRequest(userName, responseListener);
         RequestQueue queue2 = Volley.newRequestQueue(MetacalcActivity3.this);
         queue2.add(metacalcUserInfoShow);
 
@@ -223,7 +236,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         Calculator calculator = new Calculator();
         calculator.setHeight(userHeight);
         calculator.setWeight(userWeight);
-        calculator.setAge(userAge);
+        calculator.setAge(userAgeint);
         calculator.setAreoTime(calcAreoTime);
         calculator.setAreoTea(calcAreoTea);
         calculator.setAreoEpoc(calcAreoEpoc);
@@ -244,7 +257,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         userWeight = Double.valueOf(userWeightArray.get(userWeightArray.size() - 1));
         textViewHeight.setText(String.valueOf(userHeight));
         textViewWeight.setText(String.valueOf(userWeight));
-        textViewAge.setText(String.valueOf(userAge));
+        textViewAge.setText(String.valueOf(userAgeint));
         calcSomatotype = Double.valueOf(userSomatotypeArray.get(userSomatotypeArray.size()-1));
 
         if (calcSomatotype == 200d){
@@ -334,7 +347,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
                 Calculator calculator1 = new Calculator();
                 calculator1.setHeight(userHeight);
                 calculator1.setWeight(userWeight);
-                calculator1.setAge(userAge);
+                calculator1.setAge(userAgeint);
                 calculator1.setAreoTime(calcAreoTime);
                 calculator1.setAreoTea(calcAreoTea);
                 calculator1.setAreoEpoc(calcAreoEpoc);
@@ -390,7 +403,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
                 Calculator calculator = new Calculator();
                 calculator.setHeight(userHeight);
                 calculator.setWeight(userWeight);
-                calculator.setAge(userAge);
+                calculator.setAge(userAgeint);
                 calculator.setAreoTime(calcAreoTime);
                 calculator.setAreoTea(calcAreoTea);
                 calculator.setAreoEpoc(calcAreoEpoc);
@@ -422,7 +435,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
                         }
                     }
                 };
-                MetacalcUserUpdateKcalresRequest metacalcUserUpdateKcalresRequest = new MetacalcUserUpdateKcalresRequest(userID,userUserName,String.format("%.0f",calculator.finalKcalResult()),dateToday,responseListener);
+                MetacalcUserUpdateKcalresRequest metacalcUserUpdateKcalresRequest = new MetacalcUserUpdateKcalresRequest(userIDint,userName,String.format("%.0f",calculator.finalKcalResult()),dateToday,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MetacalcActivity3.this);
                 queue.add(metacalcUserUpdateKcalresRequest);
 

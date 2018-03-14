@@ -29,12 +29,11 @@
         <activity android:name=".UserRegisterActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".TrainingActivity"
-                  android:theme="@style/FiTX3theme.mainActivityColor">
+                  android:theme="@style/FiTX3theme.noBar">
         </activity>
         <activity
             android:name=".DietActivity"
             android:theme="@style/FiTX3theme.noBar">
-            >
         </activity>
         <activity android:name=".MetacalcActivity" />
         <activity android:name=".MetacalcActivity2" />
@@ -58,7 +57,7 @@
 
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
+            android:label="FiTX"
             android:theme="@style/FiTX3theme.noBar">
         </activity>
     </application>

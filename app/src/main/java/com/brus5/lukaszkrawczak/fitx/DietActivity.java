@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -68,8 +69,7 @@ public class DietActivity extends AppCompatActivity {
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
         mTaskListView = findViewById(R.id.list_diet);
-
-//String userName, userUserName, userBirthday, userPassword, userEmail, userMale, userID;
+        getWindow().setStatusBarColor(ContextCompat.getColor(DietActivity.this,R.color.color_main_activity_statusbar));
 
         Intent intent1 = getIntent();
         userIDint = intent1.getIntExtra("userIDint",0);
@@ -93,7 +93,7 @@ public class DietActivity extends AppCompatActivity {
         horizontalCalendar = new HorizontalCalendar.Builder(DietActivity.this, R.id.calendarView)
                 .startDate(startDate.getTime())
                 .endDate(endDate.getTime())
-                .datesNumberOnScreen(5)
+                .datesNumberOnScreen(7)
                 .dayNameFormat("EEE")
                 .dayNumberFormat("dd")
                 .monthFormat("MMM")
@@ -193,6 +193,7 @@ public class DietActivity extends AppCompatActivity {
                 searchForMeal.putExtra("userAgeint",userAgeint);
                 searchForMeal.putExtra("userPassword",userPassword);
                 searchForMeal.putExtra("userEmail", userEmail);
+//                searchForMeal.putExtra("dateChoosed", dateChoosed);
                 DietActivity.this.startActivity(searchForMeal);
         }
         return super.onOptionsItemSelected(item);
