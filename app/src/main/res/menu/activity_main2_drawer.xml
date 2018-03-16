@@ -25,9 +25,9 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_updateWeight"
+                android:icon="@drawable/icon_weight"
+                android:title="Update weight" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"

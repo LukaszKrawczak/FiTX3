@@ -46,7 +46,7 @@ public class DietSearchActivity extends AppCompatActivity{
 //    String name, username, age, password, email, male, somatotypeS;
 //    int id;
 
-    String userFirstName, userName, userUserName, userBirthday, userPassword, userEmail, userMale;
+    String userFirstName, userName, userUserName, userBirthday, userPassword, userEmail, userMale, dateInsde;
     int userIDint,userAgeint;
 
     int mealID;
@@ -100,7 +100,8 @@ public class DietSearchActivity extends AppCompatActivity{
         userPassword = intent1.getStringExtra("userPassword");
         userEmail = intent1.getStringExtra("userEmail");
         userMale = intent1.getStringExtra("userMale");
-        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
+        dateInsde = intent1.getStringExtra("dateInsde");
+        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale+" "+dateInsde);
         getData();
 
         // Listview Data
@@ -218,7 +219,7 @@ public class DietSearchActivity extends AppCompatActivity{
                                         public void onResponse(String response) {
                                         }
                                     };
-                                    DietInsertMeal dietInsertMeal = new DietInsertMeal(Integer.valueOf(productIDList.get(position)),Integer.valueOf(etProductWeight.getText().toString()),userName, date, responseListener);
+                                    DietInsertMeal dietInsertMeal = new DietInsertMeal(Integer.valueOf(productIDList.get(position)),Integer.valueOf(etProductWeight.getText().toString()),userName, dateInsde, responseListener);
                                     RequestQueue requestQueue = Volley.newRequestQueue(DietSearchActivity.this);
                                     requestQueue.add(dietInsertMeal);
                                 }
@@ -501,7 +502,7 @@ public class DietSearchActivity extends AppCompatActivity{
                                 Log.e(TAG,"etFats: "+etFats.getText().toString());
                                 Log.e(TAG,"etCarbs: "+etCarbs.getText().toString());
 
-                                DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), date, userName, listener);
+                                DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), dateInsde, userName, listener);
                                 RequestQueue queue = Volley.newRequestQueue(DietSearchActivity.this);
                                 queue.add(dietInsertProduct);
                             }

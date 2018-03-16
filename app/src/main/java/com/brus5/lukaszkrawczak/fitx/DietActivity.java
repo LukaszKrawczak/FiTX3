@@ -193,7 +193,8 @@ public class DietActivity extends AppCompatActivity {
                 searchForMeal.putExtra("userAgeint",userAgeint);
                 searchForMeal.putExtra("userPassword",userPassword);
                 searchForMeal.putExtra("userEmail", userEmail);
-//                searchForMeal.putExtra("dateChoosed", dateChoosed);
+                searchForMeal.putExtra("userMale", userMale);
+                searchForMeal.putExtra("dateInsde", dateInsde);
                 DietActivity.this.startActivity(searchForMeal);
         }
         return super.onOptionsItemSelected(item);

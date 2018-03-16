@@ -1,5 +1,6 @@
 package com.brus5.lukaszkrawczak.fitx;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,8 +16,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -24,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Graph.GraphShowKcalRequest;
 import com.brus5.lukaszkrawczak.fitx.User.UserInfoShowRequest;
+import com.brus5.lukaszkrawczak.fitx.User.UserUpdateWeight;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -62,7 +67,13 @@ public class Main2Activity extends AppCompatActivity
 
     final List<Date> dateList = new ArrayList<>();
 
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    /* Gettings date */
+    Calendar c = Calendar.getInstance();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    String date = simpleDateFormat.format(c.getTime());
+
+
+//    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -207,8 +218,30 @@ public class Main2Activity extends AppCompatActivity
             intent.putExtra("userEmail", userEmail);
             intent.putExtra("userMale",userMale);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_updateWeight) {
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View textEntryView = inflater.inflate(R.layout.activity_add_weight,null);
 
+            final EditText editTextUserWeight = textEntryView.findViewById(R.id.editTextUserWeight);
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Your current weight")
+                    .setView(textEntryView)
+                    .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Response.Listener<String> listener = new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.e(TAG,"response"+response);
+                                }
+                            };
+                            UserUpdateWeight userUpdateWeight = new UserUpdateWeight(userName,Double.valueOf(editTextUserWeight.getText().toString()),date,listener);
+                            RequestQueue queue = Volley.newRequestQueue(Main2Activity.this);
+                            queue.add(userUpdateWeight);
+                        }
+                    });
+            alert.show().getWindow().setLayout(730,550);
         } else if (id == R.id.nav_send) {
 
         }
