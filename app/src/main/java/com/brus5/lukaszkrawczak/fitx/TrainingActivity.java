@@ -2,6 +2,7 @@ package com.brus5.lukaszkrawczak.fitx;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,34 +10,38 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.brus5.lukaszkrawczak.fitx.Training.Training;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingDeleteRequest;
+import com.brus5.lukaszkrawczak.fitx.Training.TrainingDoneRequest;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertRequest;
+import com.brus5.lukaszkrawczak.fitx.Training.TrainingListAdapter;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingShowByUser;
+import com.jintin.mixadapter.MixAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
@@ -49,37 +54,63 @@ public class TrainingActivity extends AppCompatActivity {
 //    String name, username, age, password, email, male, somatotypeS;
     String description;
 
-
-
+    ArrayList<Training> trainingArrayList = new ArrayList<>();
 
     private ArrayList<String> arrayDescription = new ArrayList<>();
+    private ArrayList<String> arrayDone = new ArrayList<>();
 
-    private ArrayAdapter<String> adapter;
+//    private ArrayAdapter<String> adapter;
     private ListView mTaskListView;
-
+    MixAdapter<RecyclerView.ViewHolder> adapter1 = new MixAdapter<>();
     /* Gettings date */
     Calendar c = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     String date = simpleDateFormat.format(c.getTime());
-
+    TrainingListAdapter adapter;
     String dateInsde;
-
+    Pattern SPECIAL_REGEX_CHARS = Pattern.compile("[{}()\\[\\].+*?^$\\\\|]");
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_training);
+        Log.d(TAG,"onCreate: Started.");
         getWindow().setStatusBarColor(ContextCompat.getColor(TrainingActivity.this,R.color.color_training_activity_statusbar));
         Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
         mTaskListView = findViewById(R.id.list_training);
-//
+
 //        Intent intent1 = getIntent();
 //        id = intent1.getIntExtra("id",0);
 //        name = intent1.getStringExtra("name");
 //        username = intent1.getStringExtra("username");
 //        age = intent1.getStringExtra("birthday");
 //        male = intent1.getStringExtra("male");
+
+//        // Construct the data source
+//        ArrayList<User> arrayOfUsers = new ArrayList<User>();
+//        // Create the adapter to convert the array to views
+//        UsersAdapter adapter = new UsersAdapter(this, arrayOfUsers);
+//        // Attach the adapter to a ListView
+////        ListView listView = (ListView) findViewById(R.id.list_training);
+//        mTaskListView.setAdapter(adapter);
+//        // Add item to adapter
+
+
+//        trainingArrayList.add(wyciskanie);
+//        trainingArrayList.add(prznoszenie);
+//        trainingArrayList.add(unoszenie);
+//        trainingArrayList.add(martwyciag);
+//        trainingArrayList.add(przysiady);
+//        trainingArrayList.add(wyciskaniefrancuskie);
+//
+//        TrainingListAdapter adapter = new TrainingListAdapter(this,R.layout.training_row,trainingArrayList);
+//
+//        mTaskListView.setAdapter(adapter);
+
+
+
+
 
         Intent intent1 = getIntent();
         userIDint = intent1.getIntExtra("userIDint",0);
@@ -117,34 +148,45 @@ public class TrainingActivity extends AppCompatActivity {
             @Override
             public void onDateSelected(Date date, int position) {
                 dateInsde = simpleDateFormat.format(date.getTime());
-                Log.e(TAG,"date: "+date);
-                Log.e(TAG,"date: "+dateInsde);
-//                productNameList.clear();
-//                productWeight.clear();
+
+                Log.d(TAG, "onDateSelected: date "+date);
+                Log.d(TAG, "onDateSelected: dateInside "+dateInsde);
+
                 arrayDescription.clear();
-                loadData();
-                wait2secs();
-                Response.Listener<String> listener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+                trainingArrayList.clear();
+                new LongRunningTask().execute();
+//                loadData();
+//                wait2secs();
 
-                    }
-                };
-
-
-
-                Toast.makeText(TrainingActivity.this, DateFormat.getDateInstance().format(date) + " is selected!",30).show();
+//                Toast.makeText(TrainingActivity.this, DateFormat.getDateInstance().format(date) + " is selected!",Toast.LENGTH_SHORT).show();
             }
 
         });
-
         loadData();
-
         wait2secs();
-
-
     }
 
+    private class LongRunningTask extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected void onPreExecute() {
+            Log.d(TAG, "onPreExecute: ");
+            super.onPreExecute();
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d(TAG, "doInBackground: ");
+            loadData();
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Log.d(TAG, "onPostExecute: ");
+            adapter = new TrainingListAdapter(TrainingActivity.this,R.layout.training_row,trainingArrayList);
+            super.onPostExecute(aVoid);
+        }
+    }
+    
 
     private void wait2secs() {
         Handler handler = new Handler();
@@ -160,35 +202,40 @@ public class TrainingActivity extends AppCompatActivity {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e(TAG,"trainingShowRequest response: "+response);
-
+                Log.d(TAG, "onResponse: response "+response);
                 try {
+
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray server_response = jsonObject.getJSONArray("server_response");
 
+                    String id;
                     String description;
-
+                    String done;
                     if (server_response.length() > 0){
                         for (int i = 0; i < server_response.length(); i++){
                             JSONObject c = server_response.getJSONObject(i);
+                            id = c.getString("id");
+                            done = c.getString("done");
                             description = c.getString("description");
                             HashMap<String,String> server = new HashMap<>();
+                            server.put("id", id);
                             server.put("description", description);
+                            server.put("done", done);
                             arrayDescription.add(description);
+                            Training training = new Training(id,done,description);
+                            trainingArrayList.add(training);
                         }
                     }
-
+                    mTaskListView.setAdapter(adapter);
+                    
                     Log.e(TAG,"arrayDescription: "+arrayDescription);
+                    Log.d(TAG,"trainingArrayList: "+trainingArrayList);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         };
-//        TrainingShowRequest trainingShowRequest = new TrainingShowRequest(userName, responseListener);
-//        RequestQueue queue = Volley.newRequestQueue(TrainingActivity.this);
-//        queue.add(trainingShowRequest);
-
         TrainingShowByUser trainingShowByUser = new TrainingShowByUser(userName,dateInsde,responseListener);
         RequestQueue queue = Volley.newRequestQueue(TrainingActivity.this);
         queue.add(trainingShowByUser);
@@ -206,6 +253,11 @@ public class TrainingActivity extends AppCompatActivity {
             case R.id.action_add_training:
                 Log.d(TAG, "Add a new task");
                 final EditText taskEditText = new EditText(this);
+
+                final String input = taskEditText.getText().toString();
+
+
+
                 AlertDialog dialog = new AlertDialog.Builder(this)
                         .setTitle("Add excercise")
                         .setMessage("What do you want to do next?")
@@ -213,15 +265,15 @@ public class TrainingActivity extends AppCompatActivity {
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                description = String.valueOf(taskEditText.getText());
-
+                                description = escapeSpecialRegexChars(String.valueOf(taskEditText.getText()));
+                                Log.e(TAG, "escapeSpecialRegexChars(input);" + escapeSpecialRegexChars(input));
                                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
                                         Log.e(TAG,"response: "+response);
                                     }
                                 };
-                                com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertRequest trainingInsertRequest = new TrainingInsertRequest(userIDint, userName, dateInsde, description, responseListener);
+                                TrainingInsertRequest trainingInsertRequest = new TrainingInsertRequest(userIDint, userName, dateInsde, 0, description, responseListener);
                                 RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
                                 requestQueue.add(trainingInsertRequest);
                                 onRestart();
@@ -241,14 +293,46 @@ public class TrainingActivity extends AppCompatActivity {
 
 
     private void updateUI() {
-        adapter = new ArrayAdapter<String>(this, R.layout.training_row,R.id.task_title,arrayDescription);
-
-        mTaskListView.setAdapter(adapter);
-
+        
+        
+//        adapter = new ArrayAdapter<>(this, R.layout.training_row,R.id.task_title,arrayDescription);
+//        adapter = new ArrayAdapter<String>(this, R.layout.training_row,R.id.task_title,arrayDescription);
+//        mTaskListView.setAdapter(adapter);
         Log.e(TAG,"adapter: "+adapter);
     }
 
-    public void deleteTask(View view){
+    public void doneTrainingTask(View view) {
+        View parent = (View) view.getParent();
+        TextView taskIdTextView = parent.findViewById(R.id.task_id);
+        TextView taskTextView = parent.findViewById(R.id.task_title);
+        CheckBox taskCheckBox = parent.findViewById(R.id.task_done);
+        String id = String.valueOf(taskIdTextView.getText());
+        String description = String.valueOf(taskTextView.getText());
+        String done = String.valueOf(taskCheckBox.isChecked());
+        int doneint = 0;
+        if (done.equals("true")){
+            doneint = 1;
+        }else if (done.equals("false")){
+            doneint = 0;
+        }
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        };
+        TrainingDoneRequest trainingDoneRequest = new TrainingDoneRequest(id,doneint,responseListener);
+        RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
+        requestQueue.add(trainingDoneRequest);
+
+        Log.e(TAG, "id: "+id);
+        Log.e(TAG, "doneTrainingTask: "+description);
+        Log.e(TAG, "done: "+done);
+    }
+
+
+
+    public void deleteTrainingTask(View view){
         View parent = (View) view.getParent();
         TextView taskTextView = parent.findViewById(R.id.task_title);
         String description = String.valueOf(taskTextView.getText());
@@ -266,33 +350,105 @@ public class TrainingActivity extends AppCompatActivity {
             }
         };
 
-        TrainingDeleteRequest trainingDeleteRequest = new TrainingDeleteRequest(userName, description, responseListener);
+        TrainingDeleteRequest trainingDeleteRequest = new TrainingDeleteRequest(userName, dateInsde, description, responseListener);
         RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
         requestQueue.add(trainingDeleteRequest);
-        onRestart();
-        Log.e(TAG, "task: "+description);
+        Log.e(TAG, "CRASH1");
+
+//        onRestart();
+        Log.e(TAG, "CRASH2");
+        Log.d(TAG, "task: "+description);
+
+        arrayDescription.clear();
+        trainingArrayList.clear();
+        new LongRunningTask().execute();
+
     }
 
     @Override
     protected void onRestart() {
-        adapter.clear();
-        final Handler handler = new Handler();
+//        adapter.clear();
+        trainingArrayList.clear();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 loadData();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateUI();
-                        }
-                    },500);
-
             }
         },500);
-
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateUI();
+            }
+        },1000);
         super.onRestart();
     }
+
+    //    @Override
+//    protected void onRestart() {
+//        Log.d(TAG,"trainingArrayList1 "+trainingArrayList);
+//        adapter.clear();
+//        trainingArrayList.clear();
+//        Log.d(TAG,"trainingArrayList2 "+trainingArrayList);
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                loadData();
+//                    handler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            updateUI();
+//                        }
+//                    },500);
+//
+//            }
+//        },500);
+//
+//        super.onRestart();
+//    }
+
+    public class User {
+        public String description;
+        public String done;
+
+        public User(String description, String done){
+            this.description = description;
+            this.done = done;
+        }
+    }
+
+//    public class UsersAdapter extends ArrayAdapter<User> {
+//        public UsersAdapter(Context context, ArrayList<User> users) {
+//            super(context, 0, users);
+//        }
+//
+//    @Override
+//    public View getView(int position, View convertView, ViewGroup parent) {
+//        // Get the data item for this position
+//        User user = getItem(position);
+//        // Check if an existing view is being reused, otherwise inflate the view
+//        if (convertView == null) {
+//            convertView = LayoutInflater.from(getContext()).inflate(R.layout.training_row, parent, false);
+//        }
+//        // Lookup view for data population
+//        TextView tvName = (TextView) convertView.findViewById(R.id.task_title);
+//        TextView tvHome = (TextView) convertView.findViewById(R.id.task_done);
+//        // Populate the data into the template view using the data object
+//        tvName.setText(user.description);
+//        tvHome.setText(user.done);
+//        // Return the completed view to render on screen
+//        return convertView;
+//    }
+//}
+
+    String escapeSpecialRegexChars(String str) {
+
+        return SPECIAL_REGEX_CHARS.matcher(str).replaceAll("\\\\$0");
+    }
+
+public void deleteMealTask1(android.view.View view) {}
 }
 
 

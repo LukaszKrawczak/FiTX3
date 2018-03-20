@@ -2,6 +2,7 @@ package com.brus5.lukaszkrawczak.fitx;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,7 +35,10 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -178,8 +183,8 @@ public class Main2Activity extends AppCompatActivity
         // Handle the camera action
             Intent intent = new Intent(Main2Activity.this,UserProfileActivity.class);
             intent.putExtra("id",userID);
-            intent.putExtra("name",userName);
-            intent.putExtra("username",userName);
+            intent.putExtra("name",userFirstName);
+            intent.putExtra("userName",userName);
             intent.putExtra("age", userAgeint);
             intent.putExtra("male",userMale);
             intent.putExtra("defaultLogin",defaultLogin);
@@ -195,7 +200,6 @@ public class Main2Activity extends AppCompatActivity
             intent.putExtra("userEmail", userEmail);
             intent.putExtra("userMale",userMale);
             startActivity(intent);
-
         } else if (id == R.id.nav_diet) {
             Intent intent = new Intent(Main2Activity.this,DietActivity.class);
             intent.putExtra("userIDint",userIDint);
@@ -296,7 +300,7 @@ public class Main2Activity extends AppCompatActivity
         protected String doInBackground(String... params) {
             for (int i = 0; i < 5; i++) {
                 try {
-                    batchPersonalInformation();
+
 
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -320,6 +324,7 @@ public class Main2Activity extends AppCompatActivity
         protected void onPreExecute() {
             TextView txt = (TextView) findViewById(R.id.output);
             txt.setText("Loading...");
+            batchPersonalInformation();
             batchGraphResult();
             Log.e(TAG,"onPreExecute");
         }
@@ -409,36 +414,51 @@ public class Main2Activity extends AppCompatActivity
                         series5.appendData(v,true,count,true);
                     }
                     graph.addSeries(series5);
-                    series5.setThickness(2);
+                    series5.setThickness(3);
                     series5.setAnimated(true);
-                    series5.setDrawDataPoints(true);
-                    series5.setDataPointsRadius(4);
+                    series5.setDrawDataPoints(false);
+                    series5.setDataPointsRadius(3);
+                    series5.setColor(Color.argb(255,82,153,173));
+                    series5.setOnDataPointTapListener(new OnDataPointTapListener() {
+                        @Override
+                        public void onTap(Series series, DataPointInterface dataPoint) {
+                            Log.d(TAG, "onTap: dataPoint.getY() "+dataPoint.getY());
+                            Log.d(TAG, "onTap: dataPoint.getX() "+dataPoint.getX());
+                            Toast.makeText(Main2Activity.this, dataPoint.getY()+ " kCal", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                    calendar.add(Calendar.DATE,-120);
-                    final Date d3 = calendar.getTime();
-                    long l7 = d3.getTime();
-                    calendar.add(Calendar.DATE,260);
-                    final Date d4 = calendar.getTime();
-                    long l9 = d4.getTime();
-                    Date d8 = dateList.get(dateList.size()-1);
-                    long l8 = d8.getTime()+2*86400;
+//                    calendar.add(Calendar.DATE,-120);
+//                    final Date d3 = calendar.getTime();
+//                    long l7 = d3.getTime();
+//                    calendar.add(Calendar.DATE,260);
+//                    final Date d4 = calendar.getTime();
+//                    long l9 = d4.getTime();
+//                    Date d8 = dateList.get(dateList.size()-1);
+//                    long l8 = d8.getTime()+2*86400;
 
-                    Log.e("SPRAWdzAM",""+dateList.get(0).getTime());
-                    Log.e("SPRAWdzAM",""+l8);
-
+//                    Log.e("SPRAWdzAM",""+dateList.get(0).getTime());
+//                    Log.e("SPRAWdzAM",""+l8);
 
                     graph.getGridLabelRenderer().setHorizontalLabelsAngle(150);
                     graph.getGridLabelRenderer().setTextSize(25);
                     graph.getGridLabelRenderer().setLabelsSpace(20);
                     graph.getGridLabelRenderer().setLabelHorizontalHeight(80);
                     graph.getGridLabelRenderer().isHumanRounding();
+                    graph.getGridLabelRenderer().setGridColor(Color.argb(255,204,204,204));
+
 
                     Viewport viewport = graph.getViewport();
 
                     viewport.setScalable(true);
-                    viewport.setScalableY(true);
-                    viewport.setYAxisBoundsManual(true);
+                    viewport.setScalableY(false);
+
                     viewport.setXAxisBoundsManual(true);
+                    viewport.setMinX(1.520114E12); //1.5185628E12
+                    viewport.setMaxX(1.521714E12); // 1.5186492E12
+                    viewport.setScrollable(true);
+                    viewport.scrollToEnd();
+
 
                     graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()){
                         @Override
@@ -481,7 +501,6 @@ public class Main2Activity extends AppCompatActivity
         Date x;
         Double y;
         for (int i = 1; i<count; i++){
-
             x = dateList.get(dateList.size()-i);
             y = Double.parseDouble(userGraphResultArray.get(userGraphResultArray.size()-i));
             DataPoint v = new DataPoint(x,y);

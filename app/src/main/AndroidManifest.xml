@@ -21,13 +21,16 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".UserRegisterActivity" />
-        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".UserProfileActivitybackup" />
+        <activity android:name=".UserProfileActivity"
+                  android:theme="@style/FiTX3theme.noBar"
+                  android:windowSoftInputMode="stateHidden">
+        </activity>
         <activity android:name=".TrainingActivity"
                   android:theme="@style/FiTX3theme.noBar">
         </activity>
@@ -49,7 +52,11 @@
             android:name=".Metacalc.MetacalcAreoActivity"
             android:theme="@style/FiTX3theme.noBar">
         </activity>
-        <activity android:name=".DietSearchActivity" />
+        <activity android:label="Search for product"
+                  android:name=".DietSearchActivity"
+                  android:theme="@style/FiTX3theme.noBar">
+
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -57,7 +64,7 @@
 
         <activity
             android:name=".Main2Activity"
-            android:label="FiTX"
+            android:label="Your Fit Assistant"
             android:theme="@style/FiTX3theme.noBar">
         </activity>
     </application>

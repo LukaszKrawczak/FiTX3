@@ -11,16 +11,15 @@ import java.util.Map;
  * Created by lukaszkrawczak on 01.12.2017.
  */
 
-public class TrainingDeleteRequest extends StringRequest{
-    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Training/TrainingDeleteRequest.php";
+public class TrainingDoneRequest extends StringRequest{
+    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Training/TrainingDoneRequest.php";
     private Map<String,String> params;
-    public TrainingDeleteRequest(String username, String date, String description, Response.Listener<String> listener){
+    public TrainingDoneRequest(String id, int done, Response.Listener<String> listener){
 
         super(Method.POST,UPDATE_REQUEST_URL,listener,null);
         params = new HashMap<>();
-        params.put("username", username);
-        params.put("date", date);
-        params.put("description", description);
+        params.put("id", id);
+        params.put("done", done+"");
     }
 
     @Override

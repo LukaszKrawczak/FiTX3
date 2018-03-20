@@ -4,14 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brus5.lukaszkrawczak.fitx.SearchForMeal">
+    tools:context="com.brus5.lukaszkrawczak.fitx.DietSearchActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar3"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#FFBED5DD"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
     <!-- Editext for Search -->
-    <EditText android:id="@+id/inputSearch"
+    <EditText
+        android:id="@+id/inputSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Search products.."
-        android:inputType="textVisiblePassword"/>
+        android:layout_below="@id/appBarLayout"
+        android:hint="Search products..."
+        android:inputType="textVisiblePassword" />
 
     <!-- List View -->
     <ListView

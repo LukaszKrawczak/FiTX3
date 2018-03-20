@@ -14,13 +14,14 @@ import java.util.Map;
 public class TrainingInsertRequest extends StringRequest{
     private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Training/TrainingInsertRequest.php";
     private Map<String,String> params;
-    public TrainingInsertRequest(int id, String username, String date, String description, Response.Listener<String> listener){
+    public TrainingInsertRequest(int id, String username, String date, int done, String description, Response.Listener<String> listener){
 
         super(Method.POST,UPDATE_REQUEST_URL,listener,null);
         params = new HashMap<>();
         params.put("id",id+"");
         params.put("username", username);
         params.put("date", date);
+        params.put("done", done+"");
         params.put("description", description);
     }
 

@@ -4,8 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -84,13 +86,9 @@ public class DietSearchActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_for_meal);
 
-//        Intent intent1 = getIntent();
-//        id = intent1.getIntExtra("id",0);
-//        name = intent1.getStringExtra("name");
-//        username = intent1.getStringExtra("username");
-//        age = intent1.getStringExtra("birthday");
-//        male = intent1.getStringExtra("male");
-
+        Toolbar toolbar3 = (Toolbar) findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar3);
+        getWindow().setStatusBarColor(ContextCompat.getColor(DietSearchActivity.this,R.color.color_main_activity_statusbar));
         Intent intent1 = getIntent();
         userIDint = intent1.getIntExtra("userIDint",0);
         userFirstName = intent1.getStringExtra("userFirstName");
@@ -143,9 +141,10 @@ public class DietSearchActivity extends AppCompatActivity{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 DietSearchActivity.this.adapter.getFilter().filter(s);
-                Log.e(TAG,"productNameList.size()"+productNameList.size());
 
-                lv.setVisibility(View.INVISIBLE);
+                Log.d(TAG, "onTextChanged: productNameList.size "+productNameList.size());
+
+                lv.setVisibility(View.VISIBLE);
 
                 Handler handler1 = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -164,34 +163,17 @@ public class DietSearchActivity extends AppCompatActivity{
                 StringBuffer stringBuffer = new StringBuffer();
                 stringBuffer.append(String.valueOf(s));
 
-                Log.e(TAG, "StringBuffer: "+stringBuffer);
+                Log.d(TAG, "afterTextChanged: stringBuffer "+stringBuffer);
 
                 productName = String.valueOf(s);
-                Log.e(TAG, "productName: "+productName);
-
+                Log.d(TAG, "afterTextChanged: productName "+productName);
                 getProductName(String.valueOf(s));
 
-//                String word = String.valueOf(s);
-//                Log.e(TAG,"word afterTextChanged                        " + word);
-//                Log.e(TAG,"wordIsEmpty afterTextChanged                 " + word.isEmpty());
-                Log.e(TAG,"productNameList afterTextChanged             " + productNameList);
-                Log.e(TAG,"productNameList.size() afterTextChanged      " + productNameList.size());
-                Log.e(TAG,"products100 afterTextChanged                 " + products100);
-                Log.e(TAG,"products100 afterTextChanged                 " + Arrays.toString(products100));
-//                if (word.isEmpty()){
-//                    products2.addAll(products1);
-//                    Log.e(TAG,"products2 afterTextChanged if word.isEmpty()     " +products2);
-//                    Log.e(TAG,"products1 afterTextChanged if word.isEmpty()     " +products1);
-//                }
-//                else {
-////                    getPossibleStrings(products1,changeCharSize(String.valueOf(s)));
-////                    products2.addAll(getPossibleStrings(products1,changeCharSize(String.valueOf(s))));
-//                    products2.addAll(products1);
-//                    Log.e(TAG,"products2 if word is not Empty                   " +products2);
-//                    Log.e(TAG,"products1 if word is not Empty                   " +products1);
-//                }
-
-                Log.e(TAG, "Editable s      " + s);
+                Log.d(TAG, "afterTextChanged: productNameList "+productNameList);
+                Log.d(TAG, "afterTextChanged: productNameList.size() "+productNameList.size());
+                Log.d(TAG, "afterTextChanged: products100 "+products100);
+                Log.d(TAG, "afterTextChanged: Arrays.toString(products100) "+ Arrays.toString(products100));
+                Log.d(TAG, "afterTextChanged: s "+s);
             }
         });
 
@@ -426,7 +408,7 @@ public class DietSearchActivity extends AppCompatActivity{
         lv.setAdapter(adapter);
 
         lv.setVisibility(View.VISIBLE);
-        animation.setDuration(2000);
+        animation.setDuration(500);
         animation.startNow();
 
     }
