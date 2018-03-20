@@ -29,6 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Graph.GraphShowKcalRequest;
+import com.brus5.lukaszkrawczak.fitx.Graph.GraphShowWeightRequest;
 import com.brus5.lukaszkrawczak.fitx.User.UserInfoShowRequest;
 import com.brus5.lukaszkrawczak.fitx.User.UserUpdateWeight;
 import com.jjoe64.graphview.GraphView;
@@ -65,19 +66,23 @@ public class Main2Activity extends AppCompatActivity
 
     boolean defaultLogin = true;
     Button btn;
-    ArrayList<String> userGraphDateArray = new ArrayList<>();
-    ArrayList<String> userGraphResultArray = new ArrayList<>();
+    ArrayList<String> resultArray = new ArrayList<>();
+    ArrayList<String> dateArray = new ArrayList<>();
+
+    ArrayList<String> weightArray = new ArrayList<>();
+    ArrayList<String> wDateArray = new ArrayList<>();
 
 
 
     final List<Date> dateList = new ArrayList<>();
+    final List<Date> dateList1 = new ArrayList<>();
 
     /* Gettings date */
     Calendar c = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     String date = simpleDateFormat.format(c.getTime());
 
-
+    GraphView graph;
 //    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -85,11 +90,11 @@ public class Main2Activity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        Log.e(TAG,"onCreate();");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getWindow().setStatusBarColor(ContextCompat.getColor(Main2Activity.this,R.color.color_main_activity_statusbar));
-        Log.e(TAG,"onCreate();");
-
+        graph = findViewById(R.id.graph123);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -324,9 +329,10 @@ public class Main2Activity extends AppCompatActivity
         protected void onPreExecute() {
             TextView txt = (TextView) findViewById(R.id.output);
             txt.setText("Loading...");
+            Log.e(TAG,"onPreExecute");
             batchPersonalInformation();
             batchGraphResult();
-            Log.e(TAG,"onPreExecute");
+            batchWeightResult();
         }
 
         @Override
@@ -338,7 +344,7 @@ public class Main2Activity extends AppCompatActivity
 
     private void batchGraphResult() {
         final Response.Listener<String> responseListener = new Response.Listener<String>() {
-            GraphView graph = findViewById(R.id.graph123);
+
             @Override
             public void onResponse(String response) {
                 System.out.println("response"+response);
@@ -377,15 +383,15 @@ public class Main2Activity extends AppCompatActivity
                             HashMap<String, String> server = new HashMap<>();
                             server.put("RESULT", RESULT);
                             server.put("date", date);
-                            userGraphDateArray.add(date);
-                            userGraphResultArray.add(RESULT);
+                            dateArray.add(date);
+                            resultArray.add(RESULT);
                         }
                     }
                     else if (server_response.length() == 0){
                         for (int i = 0; i < 10; i++) {
                             HashMap<String, String> server = new HashMap<>();
                             RESULT = "2000";
-                            userGraphResultArray.add(RESULT);
+                            resultArray.add(RESULT);
                             dateList.add(new Date(118,1,1));
                         }
                     }
@@ -393,15 +399,15 @@ public class Main2Activity extends AppCompatActivity
 
 
 
-                    for (String graphDAT : userGraphDateArray) {
+                    for (String graphDAT : dateArray) {
                         dateList.add(simpleDateFormat.parse(graphDAT));
                     }
                     Calendar calendar = Calendar.getInstance();
                     final Date d1 = calendar.getTime();
                     calendar.add(Calendar.DATE,-31);
 
-                    if (userGraphDateArray.size() == 0){
-                        userGraphDateArray.add("10.01.2018");
+                    if (dateArray.size() == 0){
+                        dateArray.add("10.01.2018");
                     }
 
                     LineGraphSeries<DataPoint> series5 = new LineGraphSeries<>(new DataPoint[]{});
@@ -409,7 +415,7 @@ public class Main2Activity extends AppCompatActivity
                     int count = dateList.size();
                     for (int j = count; j>0; j--){
                         Date x = dateList.get(dateList.size()-j);
-                        Double y = Double.parseDouble(userGraphResultArray.get(userGraphResultArray.size()-j));
+                        Double y = Double.parseDouble(resultArray.get(resultArray.size()-j));
                         DataPoint v = new DataPoint(x,y);
                         series5.appendData(v,true,count,true);
                     }
@@ -492,6 +498,164 @@ public class Main2Activity extends AppCompatActivity
                 generateData2();
             }
         },100);
+
+    }
+
+    private void batchWeightResult() {
+        Response.Listener<String> responseListener1 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "onResponse: response "+response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean noresult = jsonObject.getBoolean("noresult");
+                    if (noresult){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Main2Activity.this);
+                        builder.setMessage("Data will appear when you will give us some data from Metabolic Calculator")
+                                .setNegativeButton("OK, I see", null)
+                                .create()
+                                .show();
+                    }
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray server_response = jsonObject.getJSONArray("server_response");
+
+                    // looping through All Contacts
+
+                    String weight;
+                    String date;
+
+
+
+                    if (server_response.length() > 0) {
+                        for (int i = 0; i < server_response.length(); i++) {
+                            JSONObject c = server_response.getJSONObject(i);
+                            date = c.getString("date");
+                            weight = c.getString("weight");
+                            HashMap<String, String> server = new HashMap<>();
+                            server.put("weight", weight);
+                            server.put("date", date);
+                            wDateArray.add(date);
+                            weightArray.add(weight);
+                        }
+                    }
+                    else if (server_response.length() == 0){
+                        for (int i = 0; i < 10; i++) {
+                            HashMap<String, String> server = new HashMap<>();
+                            weight = "70";
+                            weightArray.add(weight);
+                            dateList1.add(new Date(118,1,1));
+                        }
+                    }
+
+
+
+
+                    for (String graphDAT : wDateArray) {
+                        dateList1.add(simpleDateFormat.parse(graphDAT));
+                    }
+                    Calendar calendar = Calendar.getInstance();
+                    final Date d1 = calendar.getTime();
+                    calendar.add(Calendar.DATE,-31);
+
+                    if (wDateArray.size() == 0){
+                        wDateArray.add("10.01.2018");
+                    }
+
+                    LineGraphSeries<DataPoint> series5 = new LineGraphSeries<>(new DataPoint[]{});
+
+                    int count = dateList1.size();
+                    for (int j = count; j>0; j--){
+                        Date x = dateList1.get(dateList1.size()-j);
+                        Double y = Double.parseDouble(weightArray.get(weightArray.size()-j));
+                        DataPoint v = new DataPoint(x,y);
+                        series5.appendData(v,true,count,true);
+                    }
+                    graph.addSeries(series5);
+                    series5.setThickness(3);
+                    series5.setAnimated(true);
+                    series5.setDrawDataPoints(false);
+                    series5.setDataPointsRadius(3);
+                    series5.setColor(Color.argb(255,255,0,0));
+                    series5.setOnDataPointTapListener(new OnDataPointTapListener() {
+                        @Override
+                        public void onTap(Series series, DataPointInterface dataPoint) {
+                            Log.d(TAG, "onTap: dataPoint.getY() "+dataPoint.getY());
+                            Log.d(TAG, "onTap: dataPoint.getX() "+dataPoint.getX());
+                            Toast.makeText(Main2Activity.this, dataPoint.getY()+ " kg", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+//                    calendar.add(Calendar.DATE,-120);
+//                    final Date d3 = calendar.getTime();
+//                    long l7 = d3.getTime();
+//                    calendar.add(Calendar.DATE,260);
+//                    final Date d4 = calendar.getTime();
+//                    long l9 = d4.getTime();
+//                    Date d8 = dateList.get(dateList.size()-1);
+//                    long l8 = d8.getTime()+2*86400;
+
+//                    Log.e("SPRAWdzAM",""+dateList.get(0).getTime());
+//                    Log.e("SPRAWdzAM",""+l8);
+
+                    graph.getGridLabelRenderer().setHorizontalLabelsAngle(150);
+                    graph.getGridLabelRenderer().setTextSize(25);
+                    graph.getGridLabelRenderer().setLabelsSpace(20);
+                    graph.getGridLabelRenderer().setLabelHorizontalHeight(80);
+                    graph.getGridLabelRenderer().isHumanRounding();
+                    graph.getGridLabelRenderer().setGridColor(Color.argb(255,152,150,150));
+
+
+                    Viewport viewport = graph.getViewport();
+
+                    viewport.setScalable(true);
+                    viewport.setScalableY(false);
+
+                    viewport.setXAxisBoundsManual(true);
+                    viewport.setMinX(1.520114E12); //1.5185628E12
+                    viewport.setMaxX(1.521714E12); // 1.5186492E12
+                    viewport.setScrollable(true);
+                    viewport.scrollToEnd();
+
+
+                    graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()){
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if(isValueX){
+                                return simpleDateFormat.format(new Date((long) value));
+                            }
+                            else {
+                                return super.formatLabel(value, false);
+                            }
+
+                        }
+                    });
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        };
+        Log.e(TAG, "batchGraphResult: userIDint "+userName);
+        GraphShowWeightRequest graphShowWeightRequest = new GraphShowWeightRequest(userName,responseListener1);
+        RequestQueue queue1 = Volley.newRequestQueue(Main2Activity.this);
+        queue1.add(graphShowWeightRequest);
+        Handler handler2 = new Handler();
+        handler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                generateData3();
+            }
+        },100);
     }
 
 
@@ -502,7 +666,24 @@ public class Main2Activity extends AppCompatActivity
         Double y;
         for (int i = 1; i<count; i++){
             x = dateList.get(dateList.size()-i);
-            y = Double.parseDouble(userGraphResultArray.get(userGraphResultArray.size()-i));
+            y = Double.parseDouble(resultArray.get(resultArray.size()-i));
+            DataPoint v = new DataPoint(x,y);
+            values[i] = v;
+        }
+        for (int j = count; j>=0; j--){
+            values = new DataPoint[j];
+        }
+        return values;
+    }
+
+    private DataPoint[] generateData3(){
+        int count = dateList1.size();
+        DataPoint[] values = new DataPoint[count];
+        Date x;
+        Double y;
+        for (int i = 1; i<count; i++){
+            x = dateList1.get(dateList1.size()-i);
+            y = Double.parseDouble(weightArray.get(weightArray.size()-i));
             DataPoint v = new DataPoint(x,y);
             values[i] = v;
         }

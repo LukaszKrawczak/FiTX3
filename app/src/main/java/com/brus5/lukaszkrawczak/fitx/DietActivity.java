@@ -268,7 +268,7 @@ public class DietActivity extends AppCompatActivity {
 //                            Diet diet = new Diet(String.valueOf(product_id),Name,String.valueOf(proteins),String.valueOf(fats),String.valueOf(carbs),String.valueOf(weight),username,date);
 //                            dietArrayList.add(diet);
 //                            productNameList.add(Html.fromHtml("<medium>"+Name+" <b>"+productWeight.get(i)+" g</b></medium>"+"<br><small>"+product_id+"</small><br>"+"<small>"+"Proteins: "+"<font color=#99ccff><b>"+String.format("%.1f",proteins)+"</b></font>"+"<font color=#c1c3bb>"+" / </font>"+"Fats: "+"<font color=#d9b526><b>"+String.format("%.1f",fats)+"</b></font>"+"<font color=#c1c3bb>"+" / </font>"+"Carbohydrates: "+"<font color=#ff9980><b>"+String.format("%.1f",carbs)+"</b></font>"+" "+"</small>"+"<br><b><small>"+String.format("%.0f",kcal)+" kCal</small></b>"));
-
+// TODO: 20.03.2018 need to make the calorie counter and then parsing and sending to mysql 
                         }
                     }
 
