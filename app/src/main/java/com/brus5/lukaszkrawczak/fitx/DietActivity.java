@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -23,6 +24,7 @@ import com.brus5.lukaszkrawczak.fitx.Diet.Diet;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietDeleteRequest;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietListAdapter;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietShowByUser;
+import com.brus5.lukaszkrawczak.fitx.Diet.DietUpdateKcalResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +56,12 @@ public class DietActivity extends AppCompatActivity {
 
     ArrayList<Diet> dietArrayList = new ArrayList<>();
 
+    ArrayList<String> kcalList = new ArrayList<>();
+    ArrayList<String> proteinsList = new ArrayList<>();
+    ArrayList<String> fatsList = new ArrayList<>();
+    ArrayList<String> carbsList = new ArrayList<>();
+
+
 //    ArrayAdapter<String> adapterWeight;
 //    ArrayAdapter<Spanned> adapterName;
     ListView mTaskListView;
@@ -76,6 +84,9 @@ public class DietActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(DietActivity.this,R.color.color_main_activity_statusbar));
         intentPersonInfo();
 
+        ProgressBar pbProteins = findViewById(R.id.pbProteins);
+        pbProteins.setProgress(33);
+
 //        Button search_meal = (Button) findViewById(R.id.action_search_meal);
 //        search_meal.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -94,6 +105,8 @@ public class DietActivity extends AppCompatActivity {
 //        Log.e(TAG, "oldScrollY "+oldScrollY);
 //    }
 //});
+
+
 
         HorizontalCalendar horizontalCalendar;
 
@@ -122,6 +135,10 @@ public class DietActivity extends AppCompatActivity {
                 Log.d(TAG, "onDateSelected: dateInside "+dateInsde);
                 productWeight.clear();
                 dietArrayList.clear();
+                kcalList.clear();
+                proteinsList.clear();
+                fatsList.clear();
+                carbsList.clear();
                 new LongRunningTask().execute();
 
 //                wait2secs();
@@ -137,7 +154,6 @@ public class DietActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             Log.d(TAG, "onPreExecute: ");
-//            DietListAdapter adapter = new DietListAdapter(DietActivity.this,R.layout.meal_row,dietArrayList);
             super.onPreExecute();
         }
         @Override
@@ -151,15 +167,6 @@ public class DietActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             Log.d(TAG, "onPostExecute: updateUI");
             adapter = new DietListAdapter(DietActivity.this,R.layout.meal_row,dietArrayList);
-//            for (int i = 0; i < 5; i++) {
-//                try {
-//
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    Thread.interrupted();
-//                }
-//            }
-
             super.onPostExecute(aVoid);
         }
     }
@@ -223,6 +230,11 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "onResponse: response "+response);
+                double kcalResult = 0;
+                double proteinsResult = 0;
+                double fatsResult = 0;
+                double carbsResult = 0;
+
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
@@ -249,30 +261,72 @@ public class DietActivity extends AppCompatActivity {
                             JSONObject c = server_response.getJSONObject(i);
                             product_id = Integer.valueOf(c.getString("product_id"));
                             name = c.getString("name");
-                            proteins = Float.valueOf(c.getString("proteins"));
-                            fats = Float.valueOf(c.getString("fats"));
-                            carbs = Float.valueOf(c.getString("carbs"));
+                            proteins = Double.valueOf(c.getString("proteins"));
+                            fats = Double.valueOf(c.getString("fats"));
+                            carbs = Double.valueOf(c.getString("carbs"));
                             username = c.getString("username");
                             date = c.getString("date");
 
-                            proteins = proteins*(Float.valueOf(productWeight.get(i))/100);
-                            fats = fats*(Float.valueOf(productWeight.get(i))/100);
-                            carbs = carbs*(Float.valueOf(productWeight.get(i))/100);
+                            proteins = proteins*(Double.valueOf(productWeight.get(i))/100);
+                            fats = fats*(Double.valueOf(productWeight.get(i))/100);
+                            carbs = carbs*(Double.valueOf(productWeight.get(i))/100);
 
                             kcal = (proteins*4)+(fats*9)+(carbs*4);
 
                             String Name = name.substring(0,1).toUpperCase() + name.substring(1);
+
+                            kcalList.add(String.format("%.1f",kcal));
+                            proteinsList.add(String.format("%.1f",proteins));
+                            fatsList.add(String.format("%.1f",fats));
+                            carbsList.add(String.format("%.1f",carbs));
 
                             Diet diet = new Diet(String.valueOf(product_id), Name, productWeight.get(i), String.format("%.1f",proteins), String.format("%.1f",fats), String.format("%.1f",carbs),String.format("%.0f",kcal));
                             dietArrayList.add(diet);
 //                            Diet diet = new Diet(String.valueOf(product_id),Name,String.valueOf(proteins),String.valueOf(fats),String.valueOf(carbs),String.valueOf(weight),username,date);
 //                            dietArrayList.add(diet);
 //                            productNameList.add(Html.fromHtml("<medium>"+Name+" <b>"+productWeight.get(i)+" g</b></medium>"+"<br><small>"+product_id+"</small><br>"+"<small>"+"Proteins: "+"<font color=#99ccff><b>"+String.format("%.1f",proteins)+"</b></font>"+"<font color=#c1c3bb>"+" / </font>"+"Fats: "+"<font color=#d9b526><b>"+String.format("%.1f",fats)+"</b></font>"+"<font color=#c1c3bb>"+" / </font>"+"Carbohydrates: "+"<font color=#ff9980><b>"+String.format("%.1f",carbs)+"</b></font>"+" "+"</small>"+"<br><b><small>"+String.format("%.0f",kcal)+" kCal</small></b>"));
-// TODO: 20.03.2018 need to make the calorie counter and then parsing and sending to mysql 
+
+                            // TODO: 20.03.2018 need to make the calorie counter and then parsing and sending to mysql
+                        }
+
+                        for (int a = 0; a < server_response.length(); a++){
+                            kcalResult +=       Double.valueOf(kcalList.get(a));
+                            proteinsResult +=   Double.valueOf(proteinsList.get(a));
+                            fatsResult +=       Double.valueOf(fatsList.get(a));
+                            carbsResult +=      Double.valueOf(carbsList.get(a));
                         }
                     }
 
                     mTaskListView.setAdapter(adapter);
+                    mTaskListView.invalidate();
+
+                    TextView tvProteins = findViewById(R.id.tvProteins);
+                    tvProteins.setText(String.format("%.1f",proteinsResult));
+
+                    TextView tvFats = findViewById(R.id.tvFats);
+                    tvFats.setText(String.format("%.1f",fatsResult));
+
+                    TextView tvCarbs = findViewById(R.id.tvCarbs);
+                    tvCarbs.setText(String.format("%.1f",carbsResult));
+
+                    TextView tvKcal = findViewById(R.id.tvKcal);
+                    tvKcal.setText(String.format("%.1f",kcalResult));
+
+                    if (kcalResult > 0) {
+
+                        Response.Listener<String> listener1 = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d(TAG, "onResponse: DietUpdateKcalResult " + response);
+                            }
+                        };
+                        DietUpdateKcalResult dietUpdateKcalResult = new DietUpdateKcalResult(userIDint, String.format("%.1f", kcalResult), userName, dateInsde, listener1);
+                        RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
+                        queue.add(dietUpdateKcalResult);
+                    }
+                    Log.i(TAG, "onResponse: kcalList: "+kcalResult+" P: "+proteinsResult+" F: "+fatsResult+" C: "+carbsResult);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -307,6 +361,7 @@ public class DietActivity extends AppCompatActivity {
 //        String description = String.valueOf(taskTextView);
 //        Log.e(TAG,"description "+description);
 //    }
+
 
 
     public void deleteMealTask(View view) {

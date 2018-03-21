@@ -3,6 +3,8 @@ package com.brus5.lukaszkrawczak.fitx.Diet;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,10 @@ public class DietListAdapter extends ArrayAdapter<Diet>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
+        RecyclerView.ViewHolder holder;
+
+        final View result;
+
         String id = getItem(position).getId();
         String name = getItem(position).getName();
         String weight = getItem(position).getWeight();
@@ -43,6 +49,15 @@ public class DietListAdapter extends ArrayAdapter<Diet>{
         String kcal = getItem(position).getKcal();
 
         Diet diet = new Diet(id, name, weight, proteins, fats, carbs, kcal);
+
+
+
+//        if (convertView == null){
+//        }
+//        else {
+//            holder = (RecyclerView.ViewHolder) convertView.getTag();
+//            result = convertView;
+//        }
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent,false);
@@ -62,6 +77,16 @@ public class DietListAdapter extends ArrayAdapter<Diet>{
         meal_carbs.setText(carbs);
         meal_id.setText(id);
         meal_kcal.setText(kcal);
+
+        Count count = new Count(Integer.valueOf(kcal));
+        Log.d(TAG, "getView: getCount "+count.getCount());
+
+
+
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(kcal);
+
+        Log.e(TAG, "getView: ArrayList "+arrayList);
 
         return convertView;
     }

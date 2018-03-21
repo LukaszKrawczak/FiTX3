@@ -29,7 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Graph.GraphShowKcalRequest;
-import com.brus5.lukaszkrawczak.fitx.Graph.GraphShowWeightRequest;
+import com.brus5.lukaszkrawczak.fitx.Graph.GraphShowKcalResultRequest;
 import com.brus5.lukaszkrawczak.fitx.User.UserInfoShowRequest;
 import com.brus5.lukaszkrawczak.fitx.User.UserUpdateWeight;
 import com.jjoe64.graphview.GraphView;
@@ -527,7 +527,7 @@ public class Main2Activity extends AppCompatActivity
 
                     // looping through All Contacts
 
-                    String weight;
+                    String RESULT;
                     String date;
 
 
@@ -536,19 +536,19 @@ public class Main2Activity extends AppCompatActivity
                         for (int i = 0; i < server_response.length(); i++) {
                             JSONObject c = server_response.getJSONObject(i);
                             date = c.getString("date");
-                            weight = c.getString("weight");
+                            RESULT = c.getString("RESULT");
                             HashMap<String, String> server = new HashMap<>();
-                            server.put("weight", weight);
+                            server.put("weight", RESULT);
                             server.put("date", date);
                             wDateArray.add(date);
-                            weightArray.add(weight);
+                            weightArray.add(RESULT);
                         }
                     }
                     else if (server_response.length() == 0){
                         for (int i = 0; i < 10; i++) {
                             HashMap<String, String> server = new HashMap<>();
-                            weight = "70";
-                            weightArray.add(weight);
+                            RESULT = "70";
+                            weightArray.add(RESULT);
                             dateList1.add(new Date(118,1,1));
                         }
                     }
@@ -646,9 +646,9 @@ public class Main2Activity extends AppCompatActivity
             }
         };
         Log.e(TAG, "batchGraphResult: userIDint "+userName);
-        GraphShowWeightRequest graphShowWeightRequest = new GraphShowWeightRequest(userName,responseListener1);
+        GraphShowKcalResultRequest graphShowKcalResultRequest = new GraphShowKcalResultRequest(userName,responseListener1);
         RequestQueue queue1 = Volley.newRequestQueue(Main2Activity.this);
-        queue1.add(graphShowWeightRequest);
+        queue1.add(graphShowKcalResultRequest);
         Handler handler2 = new Handler();
         handler2.postDelayed(new Runnable() {
             @Override
