@@ -21,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Diet.Diet;
+import com.brus5.lukaszkrawczak.fitx.Diet.DietDeleteMeal;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietDeleteRequest;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietListAdapter;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietShowByUser;
@@ -82,6 +83,19 @@ public class DietActivity extends AppCompatActivity {
         setSupportActionBar(toolbar1);
         mTaskListView = findViewById(R.id.list_diet);
         getWindow().setStatusBarColor(ContextCompat.getColor(DietActivity.this,R.color.color_main_activity_statusbar));
+
+
+        Intent intent1 = getIntent();
+        userIDint = intent1.getIntExtra("userIDint",0);
+        userFirstName = intent1.getStringExtra("userFirstName");
+        userName = intent1.getStringExtra("userName");
+        userBirthday = intent1.getStringExtra("userBirthday");
+        userAgeint = intent1.getIntExtra("userAgeint",0);
+        userPassword = intent1.getStringExtra("userPassword");
+        userEmail = intent1.getStringExtra("userEmail");
+        userMale = intent1.getStringExtra("userMale");
+
+        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
         intentPersonInfo();
 
         ProgressBar pbProteins = findViewById(R.id.pbProteins);
@@ -172,17 +186,7 @@ public class DietActivity extends AppCompatActivity {
     }
 
     private void intentPersonInfo() {
-        Intent intent1 = getIntent();
-        userIDint = intent1.getIntExtra("userIDint",0);
-        userFirstName = intent1.getStringExtra("userFirstName");
-        userName = intent1.getStringExtra("userName");
-        userBirthday = intent1.getStringExtra("userBirthday");
-        userAgeint = intent1.getIntExtra("userAgeint",0);
-        userPassword = intent1.getStringExtra("userPassword");
-        userEmail = intent1.getStringExtra("userEmail");
-        userMale = intent1.getStringExtra("userMale");
 
-        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
     }
 
 
@@ -323,6 +327,17 @@ public class DietActivity extends AppCompatActivity {
                         DietUpdateKcalResult dietUpdateKcalResult = new DietUpdateKcalResult(userIDint, String.format("%.1f", kcalResult), userName, dateInsde, listener1);
                         RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
                         queue.add(dietUpdateKcalResult);
+                    }
+                    else if (kcalResult == 0){
+                        Response.Listener<String> listener2 = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d(TAG, "onResponse: DietDeleteMeal "+response);
+                            }
+                        };
+                        DietDeleteMeal dietDeleteMeal = new DietDeleteMeal(userName,dateInsde,listener2);
+                        RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
+                        queue.add(dietDeleteMeal);
                     }
                     Log.i(TAG, "onResponse: kcalList: "+kcalResult+" P: "+proteinsResult+" F: "+fatsResult+" C: "+carbsResult);
 

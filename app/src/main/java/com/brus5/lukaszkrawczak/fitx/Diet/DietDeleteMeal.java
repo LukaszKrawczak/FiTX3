@@ -1,6 +1,5 @@
 package com.brus5.lukaszkrawczak.fitx.Diet;
 
-
 import android.annotation.SuppressLint;
 import android.util.Log;
 
@@ -14,15 +13,13 @@ import java.util.Map;
  * Created by lukaszkrawczak on 01.12.2017.
  */
 
-public class DietUpdateKcalResult extends StringRequest {
-    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/DietUpdateKcalResult.php";
+public class DietDeleteMeal extends StringRequest{
+    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/DietDeleteMeal.php";
     private Map<String,String> params;
-    public DietUpdateKcalResult(int id, String updateresult, String username, String date, Response.Listener<String> listener){
+    public DietDeleteMeal(String username, String date, Response.Listener<String> listener){
 
         super(Method.POST,UPDATE_REQUEST_URL,listener,null);
         params = new HashMap<>();
-        params.put("id", id+"");
-        params.put("updateresult", updateresult);
         params.put("username", username);
         params.put("date", date);
     }
@@ -30,7 +27,7 @@ public class DietUpdateKcalResult extends StringRequest {
     @SuppressLint("LongLogTag")
     @Override
     public Map<String, String> getParams() {
-        Log.e("DietUpdateKcalResult","ParamsChecker"+params);
+        Log.e("UserProfileUpdateRequest","ParamsChecker"+params);
         return params;
     }
 
