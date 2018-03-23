@@ -33,7 +33,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private final static String TAG = "UserProfileActivity";
 
-    String UserInfo = "", name, username, age, password, email, male, height, weight, somatotype, id1;
+    String UserInfo = "", name, username, age, password, email, male, height, weight, somatotype, proteinsratio, fatsratio, carbsratio, id1;
     boolean defaultLogin = false;
     int id;
     String wynik;
@@ -44,7 +44,7 @@ public class UserProfileActivity extends AppCompatActivity {
     String dateToday = simpleDateFormat.format(c.getTime());
 
 
-    EditText editTextUserFirstName, editTextUserName, editTextUserbirthday,editTextUserPassword,editTextUserEmail,editTextUserHeight,editTextUserWeight;
+    EditText editTextUserFirstName, editTextUserName, editTextUserbirthday,editTextUserPassword,editTextUserEmail,editTextUserHeight,editTextUserWeight, editTextProteinsRatio, editTextFatsRatio, editTextCarbsRatio;
     SeekBar seekBarUserSomatotype;
     ImageView imageViewUserSomatotype;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -84,6 +84,9 @@ public class UserProfileActivity extends AppCompatActivity {
         editTextUserHeight = findViewById(R.id.editTextUserHeight);
         editTextUserWeight = findViewById(R.id.editTextUserWeight);
         seekBarUserSomatotype = findViewById(R.id.seekBarUserSomatotype);
+        editTextProteinsRatio = findViewById(R.id.editTextProteinsRatio);
+        editTextFatsRatio = findViewById(R.id.editTextFatsRatio);
+        editTextCarbsRatio = findViewById(R.id.editTextCarbsRatio);
         imageViewUserSomatotype = findViewById(R.id.imageViewUserSomatotype);
 
         Button buttonProfileAccept = findViewById(R.id.buttonProfileAccept);
@@ -100,6 +103,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 final Double updateheight = Double.valueOf(editTextUserHeight.getText().toString());
                 final Double updateweight = Double.valueOf(editTextUserWeight.getText().toString());
                 final Double updatesomatotype = Double.valueOf(somatotype);
+                final Double updateproteinsratio = Double.valueOf(editTextProteinsRatio.getText().toString());
+                final Double updatefatsratio = Double.valueOf(editTextFatsRatio.getText().toString());
+                final Double updatecarbsratio = Double.valueOf(editTextCarbsRatio.getText().toString());
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -144,7 +150,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 };
 
-                UserProfileUpdateRequest userProfileUpdateRequest = new UserProfileUpdateRequest(updatename, username, updateusername, updatebirthday, updatepassword, updateemail, updateheight, updateweight, updatesomatotype, dateToday, responseListener);
+                UserProfileUpdateRequest userProfileUpdateRequest = new UserProfileUpdateRequest(updatename, username, updateusername, updatebirthday, updatepassword, updateemail, updateheight, updateweight, updatesomatotype, updateproteinsratio, updatefatsratio, updatecarbsratio,dateToday, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(UserProfileActivity.this);
                 queue.add(userProfileUpdateRequest);
             }
@@ -222,6 +228,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 height = words[19];
                 weight = words[21];
                 somatotype = words[23];
+                proteinsratio = words[25];
+                fatsratio = words[27];
+                carbsratio = words[29];
 
                 Log.e(TAG,   "Arrays.toString(words): " + Arrays.toString(words));
                 Log.e(TAG,   "id:                     " + id);
@@ -234,7 +243,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 Log.e(TAG,   "height:                 " + height);
                 Log.e(TAG,   "weight:                 " + weight);
                 Log.e(TAG,   "somatotype:             " + somatotype);
-                Log.e(TAG,   "words:             " + Arrays.toString(words));
+                Log.e(TAG,   "proteinsratio:          " + proteinsratio);
+                Log.e(TAG,   "fatsratio:              " + fatsratio);
+                Log.e(TAG,   "carbsratio:             " + carbsratio);
+                Log.e(TAG,   "words:                  " + Arrays.toString(words));
 
 
                 editTextUserFirstName.setText(name);
@@ -244,6 +256,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 editTextUserEmail.setText(email);
                 editTextUserHeight.setText(height);
                 editTextUserWeight.setText(weight);
+                editTextProteinsRatio.setText(proteinsratio);
+                editTextFatsRatio.setText(fatsratio);
+                editTextCarbsRatio.setText(carbsratio);
 
                 if (male.equals("m")) {
                     if (Double.valueOf(somatotype) == 200d) {

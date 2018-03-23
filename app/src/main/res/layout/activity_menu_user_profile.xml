@@ -6,236 +6,332 @@
     android:layout_height="match_parent"
     tools:context="com.brus5.lukaszkrawczak.fitx.UserProfileActivitybackup">
 
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/imageView2"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="104dp"
-        android:background="#ca7ded"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageViewHeader"
-        android:layout_width="0dp"
-        android:layout_height="104dp"
-        android:cropToPadding="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_profile" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:background="#ca7ded"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="First name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHeader" />
+        <ImageView
+            android:id="@+id/imageViewHeader"
+            android:layout_width="0dp"
+            android:layout_height="104dp"
+            android:cropToPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_profile" />
 
-    <EditText
-        android:id="@+id/editTextUserFirstName"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Firstname"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="First name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewHeader" />
 
-    <TextView
-        android:id="@+id/textView33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserFirstName" />
+        <EditText
+            android:id="@+id/editTextUserFirstName"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Firstname"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
-    <EditText
-        android:id="@+id/editTextUserName"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Username"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserFirstName" />
 
-    <TextView
-        android:id="@+id/textView35"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Birthday"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
+        <EditText
+            android:id="@+id/editTextUserName"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
-    <EditText
-        android:id="@+id/editTextUserbirthday"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Birthday"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView35" />
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Birthday"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
 
-    <TextView
-        android:id="@+id/textView36"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserbirthday" />
+        <EditText
+            android:id="@+id/editTextUserbirthday"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Birthday"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
-    <EditText
-        android:id="@+id/editTextUserPassword"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView36" />
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserbirthday" />
 
-    <TextView
-        android:id="@+id/textView37"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Height"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserEmail" />
+        <EditText
+            android:id="@+id/editTextUserPassword"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
-    <EditText
-        android:id="@+id/editTextUserHeight"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Height in cm"
-        android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserEmail" />
 
-    <SeekBar
-        android:id="@+id/seekBarUserSomatotype"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:max="2"
-        android:progress="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+        <EditText
+            android:id="@+id/editTextUserHeight"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Height in cm"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
-    <TextView
-        android:id="@+id/textView38"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Somatotype"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserHeight"
-        tools:layout_editor_absoluteX="16dp" />
+        <SeekBar
+            android:id="@+id/seekBarUserSomatotype"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:max="2"
+            android:progress="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
-    <TextView
-        android:id="@+id/textView39"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Weight"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserHeight" />
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Somatotype"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserHeight"
+            tools:layout_editor_absoluteX="16dp" />
 
-    <EditText
-        android:id="@+id/editTextUserWeight"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Weight in kg"
-        android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView39" />
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Weight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserHeight" />
 
-    <ImageView
-        android:id="@+id/imageViewUserSomatotype"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserName"
-        app:srcCompat="@drawable/somatotype_man_endomorph_" />
+        <EditText
+            android:id="@+id/editTextUserWeight"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Weight in kg"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
-    <Button
-        android:id="@+id/buttonProfileAccept"
-        style="@style/com_facebook_loginview_silver_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Accept"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarUserSomatotype" />
+        <Button
+            android:id="@+id/buttonProfileAccept"
+            style="@style/com_facebook_loginview_silver_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Accept"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCarbsRatio" />
 
-    <Button
-        android:id="@+id/buttonProfileLogout"
-        style="@style/com_facebook_loginview_silver_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarUserSomatotype" />
+        <Button
+            android:id="@+id/buttonProfileLogout"
+            style="@style/com_facebook_loginview_silver_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextProteinsRatio" />
 
-    <TextView
-        android:id="@+id/textView41"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="E-mail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserPassword" />
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="E-mail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserPassword" />
 
-    <EditText
-        android:id="@+id/editTextUserEmail"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView41" />
+        <EditText
+            android:id="@+id/editTextUserEmail"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageViewUserSomatotype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/seekBarUserSomatotype"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/somatotype_man_endomorph_" />
+
+        <TextView
+            android:id="@+id/textView45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Proteins Ratio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekBarUserSomatotype" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fats Ratio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView45" />
+
+        <TextView
+            android:id="@+id/textView48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Carbs Ratio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView46" />
+
+        <EditText
+            android:id="@+id/editTextProteinsRatio"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="42dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="40"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/textView45"
+            app:layout_constraintStart_toStartOf="@+id/textView45"
+            app:layout_constraintTop_toBottomOf="@+id/textView45" />
+
+        <EditText
+            android:id="@+id/editTextFatsRatio"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="20"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/textView46"
+            app:layout_constraintStart_toStartOf="@+id/textView46"
+            app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+        <EditText
+            android:id="@+id/editTextCarbsRatio"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="24dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="40"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/textView48"
+            app:layout_constraintStart_toStartOf="@+id/textView48"
+            app:layout_constraintTop_toBottomOf="@+id/textView48" />
+
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text=":"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/editTextFatsRatio"
+            app:layout_constraintStart_toEndOf="@+id/editTextProteinsRatio"
+            app:layout_constraintTop_toTopOf="@+id/textView45" />
+
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text=":"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/editTextCarbsRatio"
+            app:layout_constraintStart_toEndOf="@+id/editTextFatsRatio"
+            app:layout_constraintTop_toTopOf="@+id/textView45" />
+
+    </android.support.constraint.ConstraintLayout>
 
 
 </ScrollView>

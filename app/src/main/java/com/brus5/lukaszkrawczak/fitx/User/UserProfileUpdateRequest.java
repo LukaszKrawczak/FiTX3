@@ -19,7 +19,7 @@ public class UserProfileUpdateRequest extends StringRequest{
     private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/User/UserProfileUpdateRequest.php";
     private Map<String,String> params;
     final private static String TAG = "UserProfileUpdateRequest";
-    public UserProfileUpdateRequest(String updatename, String username, String updateusername, String updatebirthday, String updatepassword, String updateemail, Double updateheight, Double updateweight, Double updatesomatotype, String date, Response.Listener<String> listener){
+    public UserProfileUpdateRequest(String updatename, String username, String updateusername, String updatebirthday, String updatepassword, String updateemail, Double updateheight, Double updateweight, Double updatesomatotype, Double updateproteinsratio, Double updatefatsratio, Double updatecarbsratio, String date, Response.Listener<String> listener){
 
         super(Request.Method.POST,UPDATE_REQUEST_URL,listener,null);
         params = new HashMap<>();
@@ -32,6 +32,9 @@ public class UserProfileUpdateRequest extends StringRequest{
         params.put("updateheight", updateheight+"");
         params.put("updateweight", updateweight+"");
         params.put("updatesomatotype", updatesomatotype+"");
+        params.put("updateproteinsratio", updateproteinsratio+"");
+        params.put("updatefatsratio", updatefatsratio+"");
+        params.put("updatecarbsratio", updatecarbsratio+"");
         params.put("date", date);
     }
 

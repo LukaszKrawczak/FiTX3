@@ -61,12 +61,12 @@ public class Calculator {
 
     public void setBMR(String male){
         if (male.equals("m")){
-            bmr = weight*9.99+height*6.25+age*4.92+5d;
+            bmr = weight*9.99+height*6.25-age*4.92+5d;
         }else if (male.equals("w")){
-            bmr = weight*9.99+height*6.25+age*4.92-161d;
+            bmr = weight*9.99+height*6.25-age*4.92-161d;
         }
-        this.bmr = bmr;
         Log.i(TAG,"BMR: "+bmr);
+        this.bmr = bmr;
     }
 
     public double getBmr() {
@@ -74,8 +74,8 @@ public class Calculator {
     }
 
     public void setGymTime(double gymtime) {
-        this.gymtime = gymtime;
         Log.i(TAG,"gymTime "+gymtime);
+        this.gymtime = gymtime;
     }
 
     public double getGymTime() {
@@ -83,8 +83,8 @@ public class Calculator {
     }
 
     public void setGymTea(double gymtea) {
-        this.gymtea = gymtea;
         Log.i(TAG,"gymTea "+gymtea);
+        this.gymtea = gymtea;
     }
 
     public double getGymTea() {
@@ -92,8 +92,8 @@ public class Calculator {
     }
 
     public void setAreoTime(double areotime) {
-        this.areotime = areotime;
         Log.i(TAG,"areotime "+areotime);
+        this.areotime = areotime;
     }
 
     public double getAreoTime() {
@@ -101,8 +101,8 @@ public class Calculator {
     }
 
     public void setAreoTea(double areotea) {
-        this.areotea = areotea;
         Log.i(TAG,"areotea "+areotea);
+        this.areotea = areotea;
     }
 
     public double getAreoTea() {
@@ -110,8 +110,8 @@ public class Calculator {
     }
 
     public void setGymEpoc(double gymepoc) {
-        this.gymepoc = gymepoc;
         Log.i(TAG,"gymEpoc "+gymepoc);
+        this.gymepoc = gymepoc;
     }
 
     public double getGymEpoc() {
@@ -119,8 +119,8 @@ public class Calculator {
     }
 
     public void setAreoEpoc(double areoepoc) {
-        this.areoepoc = areoepoc;
         Log.i(TAG,"areoEpoc "+areoepoc);
+        this.areoepoc = areoepoc;
     }
 
     public double getAreoEpoc() {
@@ -128,8 +128,8 @@ public class Calculator {
     }
 
     public void setSomatotype(double somatotype) {
-        this.somatotype = somatotype;
         Log.i(TAG,"somatotype "+somatotype);
+        this.somatotype = somatotype;
     }
 
     public double getSomatotype() {
@@ -137,12 +137,15 @@ public class Calculator {
     }
 
     public void setTEF(double TEF) {
-        this.TEF = bmr + (gymtime * gymtea) + (areotime * areotea) + (gymepoc * bmr) + areoepoc + somatotype;
-        Log.i(TAG,"TEF "+TEF);
+
+        this.TEF = bmr + (gymtime * gymtea) + (areotime * areotea) /*+ (gymepoc * bmr)*/ + areoepoc + somatotype;
     }
 
     public double countTEF() {
-        return TEF = bmr + (gymtime * gymtea) + (areotime * areotea) + (gymepoc * bmr) + areoepoc + somatotype;
+        Log.i(TAG,"TEF "+TEF);
+        Log.i(TAG,"TEF "+TEF);
+        Log.i(TAG, "countTEF: "+"bmr: "+bmr+" + (gymtime: "+gymtime+" * gymtea: "+gymtea+")"+" (areotime: "+areotime+" * areotea: "+areotea+")"+" + areoepoc: "+areoepoc+" + somatotype: "+somatotype);
+        return TEF = bmr + (gymtime * gymtea) + (areotime * areotea) /*+ (gymepoc * bmr)*/ + areoepoc + somatotype;
     }
 
     public double finalKcalResult() {

@@ -1,6 +1,7 @@
 package com.brus5.lukaszkrawczak.fitx;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -72,7 +73,7 @@ public class DietActivity extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     String date = simpleDateFormat.format(c.getTime());
     String dateInsde;
-
+    ProgressBar pbProteins,pbFats,pbCarbs,pbKcal;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +99,11 @@ public class DietActivity extends AppCompatActivity {
         Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
         intentPersonInfo();
 
-        ProgressBar pbProteins = findViewById(R.id.pbProteins);
-        pbProteins.setProgress(33);
+        pbProteins = findViewById(R.id.pbProteins);
+        pbFats = findViewById(R.id.pbFats);
+        pbCarbs = findViewById(R.id.pbCarbs);
+        pbKcal = findViewById(R.id.pbKcal);
+
 
 //        Button search_meal = (Button) findViewById(R.id.action_search_meal);
 //        search_meal.setOnClickListener(new View.OnClickListener() {
@@ -239,8 +243,38 @@ public class DietActivity extends AppCompatActivity {
                 double fatsResult = 0;
                 double carbsResult = 0;
 
+                String proteinsratio = "";
+                String fatsratio = "";
+                String carbsratio="";
+                String result="";
+
+
+
                 try {
                     JSONObject jsonObject = new JSONObject(response);
+
+                    JSONArray dietratio = jsonObject.getJSONArray("dietratio");
+                    if (dietratio.length() > 0) {
+                        for (int i = 0; i < dietratio.length(); i++) {
+                            JSONObject d = dietratio.getJSONObject(i);
+                            proteinsratio = d.getString("proteinsratio");
+                            fatsratio = d.getString("fatsratio");
+                            carbsratio = d.getString("carbsratio");
+//                            productWeight.add(weight);
+                        }
+                    }
+
+                    Log.i(TAG, "onResponse: ratio " + proteinsratio+":"+ fatsratio+":"+carbsratio);
+
+                    JSONArray RESULT = jsonObject.getJSONArray("RESULT");
+                    if (dietratio.length() > 0) {
+                        for (int i = 0; i < RESULT.length(); i++) {
+                            JSONObject d = RESULT.getJSONObject(i);
+                            result = d.getString("RESULT");
+                        }
+                    }
+
+                    Log.i(TAG, "onResponse: result "+result);
 
                     JSONArray product_weight_response = jsonObject.getJSONArray("product_weight_response");
                     if (product_weight_response.length() > 0) {
@@ -315,6 +349,38 @@ public class DietActivity extends AppCompatActivity {
 
                     TextView tvKcal = findViewById(R.id.tvKcal);
                     tvKcal.setText(String.format("%.1f",kcalResult));
+
+                    Double proteinGoal = 0d;
+                    Double fatGoal = 0d;
+                    Double carbsGoal = 0d;
+
+                    proteinGoal = (Double.valueOf(result)*(Double.valueOf(proteinsratio)*0.01))/4;
+                    fatGoal = Double.valueOf(result)*(Double.valueOf(fatsratio)*0.01)/9;
+                    carbsGoal = Double.valueOf(result)*(Double.valueOf(carbsratio)*0.01)/4;
+
+                    pbProteins.getProgressDrawable().setColorFilter(0xFF3287C3, PorterDuff.Mode.SRC_IN);
+                    pbProteins.setMax(proteinGoal.intValue());
+                    pbProteins.setProgress(Integer.valueOf(String.format("%.0f",proteinsResult)));
+                    pbFats.getProgressDrawable().setColorFilter(0xFFF3AE28, PorterDuff.Mode.SRC_IN);
+                    pbFats.setMax(fatGoal.intValue());
+                    pbFats.setProgress(Integer.valueOf(String.format("%.0f",fatsResult)));
+                    pbCarbs.getProgressDrawable().setColorFilter(0xFFBD2121, PorterDuff.Mode.SRC_IN);
+                    pbCarbs.setMax(carbsGoal.intValue());
+                    pbCarbs.setProgress(Integer.valueOf(String.format("%.0f",carbsResult)));
+                    pbKcal.setMax(Integer.valueOf(result));
+                    pbKcal.setProgress(Integer.valueOf(String.format("%.0f",kcalResult)));
+
+
+                    if ((int) proteinsResult > proteinGoal){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            pbProteins.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
+                        }
+                        else {
+                            pbProteins.getProgressDrawable().setColorFilter(0xFF3287C3, PorterDuff.Mode.SRC_IN);
+                        }
+                    }
+
+                    Log.i(TAG, "onResponse: proteinGoal: "+proteinGoal+" fatGoal: "+fatGoal+" carbGoal: "+carbsGoal);
 
                     if (kcalResult > 0) {
 
