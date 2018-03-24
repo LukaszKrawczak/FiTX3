@@ -17,7 +17,7 @@
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#FFBED5DD"
+            android:background="#0078f0"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:selectedDateBackground="#00ffffff"
-        app:selectorColor="#c62828"
+        app:selectorColor="#0087f0"
         app:textColorNormal="#bababa"
         app:textColorSelected="@color/colorAccent"
         app:textSizeDayName="20sp"
@@ -61,13 +61,36 @@
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
     <TextView
+        android:id="@+id/textView52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:elevation="2dp"
+        android:text="/"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@+id/tvFats"
+        app:layout_constraintTop_toTopOf="@+id/textView43" />
+
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:elevation="2dp"
+        android:text="/"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvTotalCarbs"
+        app:layout_constraintTop_toTopOf="@+id/textView44" />
+
+    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:elevation="2dp"
         android:text="Proteins:"
+        android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar5" />
 
@@ -75,8 +98,9 @@
         android:id="@+id/tvProteins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:elevation="2dp"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
 
@@ -109,23 +133,27 @@
 
     <TextView
         android:id="@+id/textView43"
-        android:layout_width="31dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
         android:elevation="2dp"
         android:text="Fats:"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar5"
-        app:layout_constraintStart_toStartOf="@+id/toolbar5"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/pbFats"
+        app:layout_constraintStart_toStartOf="@+id/pbFats"
         app:layout_constraintTop_toTopOf="@+id/toolbar5" />
 
     <TextView
         android:id="@+id/textView44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="10dp"
         android:elevation="2dp"
         android:text="Carbs:"
+        android:textSize="11sp"
         app:layout_constraintEnd_toStartOf="@+id/tvCarbs"
         app:layout_constraintTop_toTopOf="@+id/toolbar5" />
 
@@ -133,8 +161,9 @@
         android:id="@+id/tvFats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:elevation="2dp"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/textView43"
         app:layout_constraintTop_toTopOf="@+id/textView43" />
 
@@ -142,9 +171,10 @@
         android:id="@+id/tvCarbs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="2dp"
         android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView53"
         app:layout_constraintTop_toTopOf="@+id/textView44" />
 
     <ProgressBar
@@ -182,10 +212,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="80dp"
         android:layout_marginStart="8dp"
         android:elevation="2dp"
         android:text="Total calories:"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -194,10 +225,116 @@
         android:id="@+id/tvKcal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:elevation="2dp"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/textView47"
         app:layout_constraintTop_toTopOf="@+id/textView47" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:elevation="2dp"
+        android:text="/"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintStart_toEndOf="@+id/tvProteins" />
+
+    <TextView
+        android:id="@+id/tvTotalCarbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:elevation="2dp"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView55"
+        app:layout_constraintTop_toTopOf="@+id/textView44" />
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:text="g"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/pbCarbs"
+        app:layout_constraintTop_toTopOf="@+id/textView44" />
+
+    <TextView
+        android:id="@+id/tvTotalFats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:elevation="2dp"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@+id/textView52"
+        app:layout_constraintTop_toTopOf="@+id/textView43" />
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:elevation="2dp"
+        android:text="g"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@+id/tvTotalFats"
+        app:layout_constraintTop_toTopOf="@+id/textView43" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:elevation="2dp"
+        android:text="g"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintStart_toEndOf="@+id/tvTotalProteins" />
+
+    <TextView
+        android:id="@+id/tvTotalProteins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:elevation="2dp"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintStart_toEndOf="@+id/textView51" />
+
+    <TextView
+        android:id="@+id/textView60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:elevation="2dp"
+        android:text="/"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView47"
+        app:layout_constraintStart_toEndOf="@+id/tvKcal" />
+
+    <TextView
+        android:id="@+id/tvTotalKcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:elevation="2dp"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView47"
+        app:layout_constraintStart_toEndOf="@+id/textView60" />
+
+    <TextView
+        android:id="@+id/textView62"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:elevation="2dp"
+        android:text="kcal"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView47"
+        app:layout_constraintStart_toEndOf="@+id/tvTotalKcal" />
 
     <!--<ListView-->
     <!--android:layout_width="wrap_content"-->

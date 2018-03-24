@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -92,69 +93,79 @@ public class UserProfileActivity extends AppCompatActivity {
         Button buttonProfileAccept = findViewById(R.id.buttonProfileAccept);
         Button buttonProfileLogout = findViewById(R.id.buttonProfileLogout);
 
-        buttonProfileAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String updatename = editTextUserFirstName.getText().toString();
-                final String updateusername = editTextUserName.getText().toString();
-                final String updatebirthday = editTextUserbirthday.getText().toString();
-                final String updatepassword = editTextUserPassword.getText().toString();
-                final String updateemail = editTextUserEmail.getText().toString();
-                final Double updateheight = Double.valueOf(editTextUserHeight.getText().toString());
-                final Double updateweight = Double.valueOf(editTextUserWeight.getText().toString());
-                final Double updatesomatotype = Double.valueOf(somatotype);
-                final Double updateproteinsratio = Double.valueOf(editTextProteinsRatio.getText().toString());
-                final Double updatefatsratio = Double.valueOf(editTextFatsRatio.getText().toString());
-                final Double updatecarbsratio = Double.valueOf(editTextCarbsRatio.getText().toString());
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+            buttonProfileAccept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String updatename = editTextUserFirstName.getText().toString();
+                    final String updateusername = editTextUserName.getText().toString();
+                    final String updatebirthday = editTextUserbirthday.getText().toString();
+                    final String updatepassword = editTextUserPassword.getText().toString();
+                    final String updateemail = editTextUserEmail.getText().toString();
+                    final Double updateheight = Double.valueOf(editTextUserHeight.getText().toString());
+                    final Double updateweight = Double.valueOf(editTextUserWeight.getText().toString());
+                    final Double updatesomatotype = Double.valueOf(somatotype);
+                    final Double updateproteinsratio = Double.valueOf(editTextProteinsRatio.getText().toString());
+                    final Double updatefatsratio = Double.valueOf(editTextFatsRatio.getText().toString());
+                    final Double updatecarbsratio = Double.valueOf(editTextCarbsRatio.getText().toString());
 
-                        if (editTextUserFirstName.length() <= 1 /*|| etPassword.length() <= 2*/ || editTextUserName.length() <= 2){
-                            AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this);
-                            builder.setMessage("Please enter proper data")
-                                    .setNegativeButton("OK",null)
-                                    .create()
-                                    .show();
-                        }
+                    double ratioresult = Double.valueOf(editTextProteinsRatio.getText().toString()) + Double.valueOf(editTextFatsRatio.getText().toString()) + Double.valueOf(editTextCarbsRatio.getText().toString());
 
-                        else {
-                            JSONObject jsonObject = null;
-                            try {
-                                jsonObject = new JSONObject(response);
-                                boolean success = jsonObject.getBoolean("success");
-                                if (success) {
-                                    final Intent intent = new Intent(UserProfileActivity.this, UserLoginActivity.class);
+                    if (ratioresult > 100d || ratioresult < 100d){
+                        Log.d(TAG, "onResponse: ratio result false "+ratioresult);
+                        Toast.makeText(UserProfileActivity.this, "Total value of nutrients ratio should be 100, not more not less", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (ratioresult == 100d) {
+                        Log.d(TAG, "onResponse: ratio result is good " + ratioresult);
+
+
+                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                if (editTextUserFirstName.length() <= 1 /*|| etPassword.length() <= 2*/ || editTextUserName.length() <= 2) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this);
-                                    builder.setMessage("Information changed, you'll be logged off")
-                                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                    UserProfileActivity.this.startActivity(intent);
-                                                }
-                                            })
+                                    builder.setMessage("Please enter proper data")
+                                            .setNegativeButton("OK", null)
+                                            .create()
                                             .show();
-                                }
+                                } else {
+                                    JSONObject jsonObject = null;
+                                    try {
+                                        jsonObject = new JSONObject(response);
+                                        boolean success = jsonObject.getBoolean("success");
+                                        if (success) {
+                                            final Intent intent = new Intent(UserProfileActivity.this, UserLoginActivity.class);
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this);
+                                            builder.setMessage("Information changed, you'll be logged off")
+                                                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            UserProfileActivity.this.startActivity(intent);
+                                                            onDestroy();
+                                                        }
+                                                    })
+                                                    .show();
+                                        }
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                    Log.e(TAG, "response " + response);
+                                }
                             }
 
 
-                            Log.e(TAG, "response " + response);
-                        }
+                        };
+
+                        UserProfileUpdateRequest userProfileUpdateRequest = new UserProfileUpdateRequest(updatename, username, updateusername, updatebirthday, updatepassword, updateemail, updateheight, updateweight, updatesomatotype, updateproteinsratio, updatefatsratio, updatecarbsratio, dateToday, responseListener);
+                        RequestQueue queue = Volley.newRequestQueue(UserProfileActivity.this);
+                        queue.add(userProfileUpdateRequest);
                     }
-
-
-
-                };
-
-                UserProfileUpdateRequest userProfileUpdateRequest = new UserProfileUpdateRequest(updatename, username, updateusername, updatebirthday, updatepassword, updateemail, updateheight, updateweight, updatesomatotype, updateproteinsratio, updatefatsratio, updatecarbsratio,dateToday, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(UserProfileActivity.this);
-                queue.add(userProfileUpdateRequest);
-            }
-        });
+                }
+            });
 
         buttonProfileLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,9 +293,8 @@ public class UserProfileActivity extends AppCompatActivity {
                         imageViewUserSomatotype.setImageResource(R.drawable.somatotype_woman_ectomorph_);
                         seekBarUserSomatotype.setProgress(2);
                     }
-
-
                 }
+
             }
         };
 

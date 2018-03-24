@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:selectedDateBackground="#00ffffff"
-        app:selectorColor="#c62828"
+        app:selectorColor="#0087f0"
         app:textColorNormal="#bababa"
         app:textColorSelected="@color/colorAccent"
         app:textSizeDayName="20sp"

@@ -348,7 +348,7 @@ public class DietActivity extends AppCompatActivity {
                     tvCarbs.setText(String.format("%.1f",carbsResult));
 
                     TextView tvKcal = findViewById(R.id.tvKcal);
-                    tvKcal.setText(String.format("%.1f",kcalResult));
+                    tvKcal.setText(String.format("%.0f",kcalResult));
 
                     Double proteinGoal = 0d;
                     Double fatGoal = 0d;
@@ -358,18 +358,43 @@ public class DietActivity extends AppCompatActivity {
                     fatGoal = Double.valueOf(result)*(Double.valueOf(fatsratio)*0.01)/9;
                     carbsGoal = Double.valueOf(result)*(Double.valueOf(carbsratio)*0.01)/4;
 
+                    TextView tvTotalProteins = findViewById(R.id.tvTotalProteins);
+                    tvTotalProteins.setText(String.format("%.0f",proteinGoal));
+
+                    TextView tvTotalFats = findViewById(R.id.tvTotalFats);
+                    tvTotalFats.setText(String.format("%.0f",fatGoal));
+
+                    TextView tvTotalCarbs = findViewById(R.id.tvTotalCarbs);
+                    tvTotalCarbs.setText(String.format("%.0f",carbsGoal));
+
+                    TextView tvTotalKcal = findViewById(R.id.tvTotalKcal);
+                    tvTotalKcal.setText(result.toString());
+
+
                     pbProteins.getProgressDrawable().setColorFilter(0xFF3287C3, PorterDuff.Mode.SRC_IN);
                     pbProteins.setMax(proteinGoal.intValue());
                     pbProteins.setProgress(Integer.valueOf(String.format("%.0f",proteinsResult)));
+
                     pbFats.getProgressDrawable().setColorFilter(0xFFF3AE28, PorterDuff.Mode.SRC_IN);
                     pbFats.setMax(fatGoal.intValue());
                     pbFats.setProgress(Integer.valueOf(String.format("%.0f",fatsResult)));
+
                     pbCarbs.getProgressDrawable().setColorFilter(0xFFBD2121, PorterDuff.Mode.SRC_IN);
                     pbCarbs.setMax(carbsGoal.intValue());
                     pbCarbs.setProgress(Integer.valueOf(String.format("%.0f",carbsResult)));
+
+                    pbKcal.getProgressDrawable().setColorFilter(0xFF89C611, PorterDuff.Mode.SRC_IN);
                     pbKcal.setMax(Integer.valueOf(result));
                     pbKcal.setProgress(Integer.valueOf(String.format("%.0f",kcalResult)));
 
+
+                    if (Integer.valueOf(String.format("%.0f",kcalResult)) > Integer.valueOf(result)) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            pbKcal.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
+                        } else {
+                            pbKcal.getProgressDrawable().setColorFilter(0xFF89C611, PorterDuff.Mode.SRC_IN);
+                        }
+                    }
 
                     if ((int) proteinsResult > proteinGoal){
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -379,6 +404,23 @@ public class DietActivity extends AppCompatActivity {
                             pbProteins.getProgressDrawable().setColorFilter(0xFF3287C3, PorterDuff.Mode.SRC_IN);
                         }
                     }
+
+                    if ((int) fatsResult > fatGoal) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            pbFats.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
+                        } else {
+                            pbFats.getProgressDrawable().setColorFilter(0xFFF3AE28, PorterDuff.Mode.SRC_IN);
+                        }
+                    }
+
+                    if ((int) carbsResult > carbsGoal) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            pbCarbs.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
+                        } else {
+                            pbCarbs.getProgressDrawable().setColorFilter(0xFFBD2121, PorterDuff.Mode.SRC_IN);
+                        }
+                    }
+
 
                     Log.i(TAG, "onResponse: proteinGoal: "+proteinGoal+" fatGoal: "+fatGoal+" carbGoal: "+carbsGoal);
 

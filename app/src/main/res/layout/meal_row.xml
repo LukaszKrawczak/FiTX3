@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:text="10"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,9 +54,10 @@
         android:id="@+id/meal_proteins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:text="20.0"
         android:textColor="@android:color/holo_blue_dark"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -64,9 +65,10 @@
         android:id="@+id/meal_fats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:text="10.5"
         android:textColor="@android:color/holo_orange_light"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/textView40"
         app:layout_constraintTop_toTopOf="@+id/textView40" />
 
@@ -74,9 +76,10 @@
         android:id="@+id/meal_carbs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:text="70.8"
         android:textColor="@android:color/holo_red_dark"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/textView42"
         app:layout_constraintTop_toTopOf="@+id/textView42" />
 
@@ -108,6 +111,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Proteins:"
+        android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meal_weight" />
 
@@ -117,6 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
         android:text="Fats"
+        android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -126,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="200dp"
         android:text="Carbs"
+        android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView40" />
 
@@ -144,9 +150,42 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginTop="2dp"
-        android:text="kCal"
+        android:text="kcal"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="g"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@+id/meal_proteins"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="g"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@+id/meal_fats"
+        app:layout_constraintTop_toTopOf="@+id/textView40" />
+
+    <TextView
+        android:id="@+id/textView59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="g"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@+id/meal_carbs"
+        app:layout_constraintTop_toTopOf="@+id/textView42" />
 
 </android.support.constraint.ConstraintLayout>
 </RelativeLayout>

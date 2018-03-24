@@ -60,7 +60,8 @@
         android:layout_marginTop="170dp"
         android:gravity="center"
         android:text="Login status"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="invisible" />
 
     <com.facebook.login.widget.LoginButton
         android:layout_width="wrap_content"

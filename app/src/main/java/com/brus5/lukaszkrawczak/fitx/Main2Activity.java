@@ -93,6 +93,7 @@ public class Main2Activity extends AppCompatActivity
         Log.e(TAG,"onCreate();");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setElevation(0);
         getWindow().setStatusBarColor(ContextCompat.getColor(Main2Activity.this,R.color.color_main_activity_statusbar));
         graph = findViewById(R.id.graph123);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -133,7 +134,7 @@ public class Main2Activity extends AppCompatActivity
 //        final Date d2 = calendar.getTime();
 //
 
-        new LongOperation().execute("");
+//        new LongOperation().execute("");
 
 
         Log.e(TAG,"userName "+userName);
@@ -143,6 +144,14 @@ public class Main2Activity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        dateList.clear();
+        dateList1.clear();
+        resultArray.clear();
+        dateArray.clear();
+        wDateArray.clear();
+        weightArray.clear();
+        graph.removeAllSeries();
+        new LongOperation().execute("");
         Log.e(TAG,"onStart()");
     }
 
@@ -348,7 +357,6 @@ public class Main2Activity extends AppCompatActivity
             @Override
             public void onResponse(String response) {
                 System.out.println("response"+response);
-
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean noresult = jsonObject.getBoolean("noresult");
@@ -363,7 +371,6 @@ public class Main2Activity extends AppCompatActivity
                 catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray server_response = jsonObject.getJSONArray("server_response");
@@ -395,9 +402,6 @@ public class Main2Activity extends AppCompatActivity
                             dateList.add(new Date(118,1,1));
                         }
                     }
-
-
-
 
                     for (String graphDAT : dateArray) {
                         dateList.add(simpleDateFormat.parse(graphDAT));
@@ -660,6 +664,7 @@ public class Main2Activity extends AppCompatActivity
 
 
     private DataPoint[] generateData2(){
+
         int count = dateList.size();
         DataPoint[] values = new DataPoint[count];
         Date x;
@@ -677,6 +682,7 @@ public class Main2Activity extends AppCompatActivity
     }
 
     private DataPoint[] generateData3(){
+
         int count = dateList1.size();
         DataPoint[] values = new DataPoint[count];
         Date x;
