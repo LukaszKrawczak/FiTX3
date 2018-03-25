@@ -91,11 +91,9 @@ public class UserLoginActivity extends AppCompatActivity {
         final TextView tvRegister = findViewById(R.id.tvRegister);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
 
-
         loginButton = findViewById(R.id.btFbLogin);
         textView = findViewById(R.id.tvLoginStatus);
         callbackManager = CallbackManager.Factory.create();
-
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -155,7 +153,6 @@ public class UserLoginActivity extends AppCompatActivity {
                                     Log.e(TAG,"converted_birthday: "+converted_birthday);
                                     Log.e(TAG,"TESTUJE");
 
-
                                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
@@ -197,7 +194,6 @@ public class UserLoginActivity extends AppCompatActivity {
                 request.executeAsync();
                 Log.e(TAG,"TESTUJE");
                 Log.e(TAG,"request: "+request);
-
 
                 loginButton.setVisibility(View.INVISIBLE);
 
@@ -295,19 +291,21 @@ public class UserLoginActivity extends AppCompatActivity {
                 };
                 final UserLoginRequest userLoginRequest = new UserLoginRequest(userName, password, responseListener);
                 final RequestQueue queue = Volley.newRequestQueue(UserLoginActivity.this);
+                queue.add(userLoginRequest);
 
-                // Showing up progressDialog when trying to Login
-                ProgressDialog dialog = ProgressDialog.show(UserLoginActivity.this,"Loading...",
-                        "Loading application View, please wait...", false, false);
-                dialog.show();
 
-                // Pushing username, password to RequestQueue after 2 seconds
-                handler.postDelayed(new Runnable(){
-                    @Override
-                    public void run() {
-                        queue.add(userLoginRequest);
-                    }
-                }, 2000);
+//                // Showing up progressDialog when trying to Login
+//                ProgressDialog dialog = ProgressDialog.show(UserLoginActivity.this,"Loading...",
+//                        "Loading application View, please wait...", false, false);
+//                dialog.show();
+//
+//                // Pushing username, password to RequestQueue after 2 seconds
+//                handler.postDelayed(new Runnable(){
+//                    @Override
+//                    public void run() {
+//
+//                    }
+//                }, 2000);
             }
 
         });

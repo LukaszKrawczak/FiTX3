@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -61,6 +63,10 @@ public class DietSearchActivity extends AppCompatActivity{
     Calendar c = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     String date = simpleDateFormat.format(c.getTime());
+
+    int proteins = 0;
+    int fats = 0;
+    int carbs = 0;
 
     // List view
     private ListView lv;
@@ -429,17 +435,6 @@ public class DietSearchActivity extends AppCompatActivity{
     }
 
 
-//    // Dynamically updating array when typing text in TextView
-//    public List<String> getPossibleStrings(List<String> strings, String query){
-//        List<String> result = new ArrayList<>();
-//        for (String s: strings){
-//            if (s.startsWith(query))
-//                result.add(s);
-//        }
-//        return result;
-//    }
-
-
     public boolean onCreateOptionsMenu(Menu menu) {
         // Instantiate menu XML files into Menu object
         getMenuInflater().inflate(R.menu.add_meal,menu);
@@ -461,6 +456,137 @@ public class DietSearchActivity extends AppCompatActivity{
                 final EditText etProteins = textEntryView.findViewById(R.id.etProteins);
                 final EditText etCarbs = textEntryView.findViewById(R.id.etCarbs);
                 final EditText etFats = textEntryView.findViewById(R.id.etFats);
+                final EditText etKcal = textEntryView.findViewById(R.id.etKcal);
+
+                final int kcal = 0;
+                final String kcals = "";
+                Log.e(TAG,"etProductName: "+etProductName.getText().toString());
+                Log.e(TAG,"etProteins: "+etProteins.getText().toString());
+                Log.e(TAG,"etFats: "+etFats.getText().toString());
+                Log.e(TAG,"etCarbs: "+etCarbs.getText().toString());
+
+                etProteins.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        Log.d(TAG, "beforeTextChanged: s "+s);
+                        Log.d(TAG, "beforeTextChanged: start "+start);
+                        Log.d(TAG, "beforeTextChanged: count "+count);
+                        Log.d(TAG, "beforeTextChanged: after "+after);
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        Log.d(TAG, "onTextChanged: s "+s);
+                        Log.d(TAG, "onTextChanged: start "+start);
+                        Log.d(TAG, "onTextChanged: before "+before);
+                        Log.d(TAG, "onTextChanged: count "+count);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                        if (String.valueOf(s).isEmpty()){
+                            setProteins(0);
+                        }
+                        else {
+                            setProteins(Integer.valueOf(s+""));
+                        }
+
+                        if (String.valueOf(s).contains(".")){
+                            Toast.makeText(DietSearchActivity.this, "Decimals only", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (String.valueOf(s).isEmpty()){
+                            setProteins(0);
+//                            etKcal.setText("0");
+                        }else {
+                            etKcal.setText(String.valueOf(getCountKcal()));
+                        }
+                        if (getCountKcal() == 0){
+                            etKcal.setText("0");
+                        }
+                        Log.d(TAG, "afterTextChanged: getCountKcal() "+getCountKcal());
+                    }
+                });
+                etCarbs.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (String.valueOf(s).isEmpty()){
+                            setCarbs(0);
+                        }
+                        else {
+                            setCarbs(Integer.valueOf(s+""));
+                        }
+                        if (String.valueOf(s).isEmpty()){
+                            setCarbs(0);
+
+                        }else {
+                            etKcal.setText(String.valueOf(getCountKcal()));
+                        }
+                        if (getCountKcal() == 0){
+                            etKcal.setText("0");
+                        }
+                        Log.d(TAG, "afterTextChanged: getCountKcal() "+getCountKcal());
+                    }
+                });
+                etFats.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (String.valueOf(s).isEmpty()){
+                            setFats(0);
+                        }
+                        else {
+                            setFats(Integer.valueOf(s+""));
+                        }
+
+                        if (String.valueOf(s).isEmpty()){
+                            setFats(0);
+                        }else {
+                            etKcal.setText(String.valueOf(getCountKcal()));
+                        }
+                        if (getCountKcal() == 0){
+                            etKcal.setText("0");
+                        }
+                        Log.d(TAG, "afterTextChanged: getCountKcal() "+getCountKcal());
+                    }
+                });
+
+                etKcal.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
 
 
 
@@ -479,21 +605,51 @@ public class DietSearchActivity extends AppCompatActivity{
                                     }
                                 };
 
-                                Log.e(TAG,"etProductName: "+etProductName.getText().toString());
-                                Log.e(TAG,"etProteins: "+etProteins.getText().toString());
-                                Log.e(TAG,"etFats: "+etFats.getText().toString());
-                                Log.e(TAG,"etCarbs: "+etCarbs.getText().toString());
 
                                 DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), dateInsde, userName, listener);
                                 RequestQueue queue = Volley.newRequestQueue(DietSearchActivity.this);
                                 queue.add(dietInsertProduct);
                             }
                         });
-                alert.show().getWindow().setLayout(730,1000);
+                alert.show().getWindow().setLayout(730,1200);
 
 
         }
         return super.onOptionsItemSelected(item);
-
     }
+
+
+
+    public int getProteins() {
+        return proteins;
+    }
+
+    public void setProteins(int proteins) {
+        this.proteins = proteins;
+    }
+
+    public int getFats() {
+        return fats;
+    }
+
+    public void setFats(int fats) {
+        this.fats = fats;
+    }
+
+    public int getCarbs() {
+        return carbs;
+    }
+
+    public void setCarbs(int carbs) {
+        this.carbs = carbs;
+    }
+
+//    public int setCountKcal(int proteins, int fats, int carbs){
+//        return proteins*4+fats*9+carbs*4;
+//    }
+    public int getCountKcal(){
+        return proteins*4+fats*9+carbs*4;
+    }
+
+
 }

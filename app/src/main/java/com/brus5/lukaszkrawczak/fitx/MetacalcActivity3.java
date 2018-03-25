@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -51,10 +52,10 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
 
 
     /*NEW VARIABLES*/
-    TextView textViewWeight, textViewHeight, textViewAge, textViewGymTime, textViewGymIntensity, textViewAreoTime, textViewAreoIntensity,textViewFinalResult;
+    TextView textViewWeight, textViewHeight, textViewAge, textViewGymTime, textViewGymIntensity, textViewAreoTime, textViewAreoIntensity,textViewFinalResult,tvSomatotype;
 
     TextView textViewNoGym, textView19, textView30, textView24, textViewNoAreo, textView27, textView34, textView28, textView16, textView17,textView22,textView29;
-
+    ProgressBar pbLoad1,pbLoad2;
     FloatingActionButton buttonGym, buttonAreo;
 
     Double finalResult;
@@ -97,7 +98,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_meta_calc3);
-        getWindow().setStatusBarColor(ContextCompat.getColor(MetacalcActivity3.this, R.color.color_meta_calc_statusbar));
+        getWindow().setStatusBarColor(ContextCompat.getColor(MetacalcActivity3.this, R.color.color_main_activity_statusbar));
         init();
         getUserPersonalData(); // getting userInfo by Intent method
 
@@ -165,6 +166,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         textView29 = findViewById(R.id.textView29);
         textViewFinalResult = findViewById(R.id.textViewFinalResult);
         imageViewSomatotype = findViewById(R.id.imageViewSomatotype);
+        tvSomatotype = findViewById(R.id.tvSomatotype);
     }
 
     private void initialize() {
@@ -261,15 +263,22 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
         calcSomatotype = Double.valueOf(userSomatotypeArray.get(userSomatotypeArray.size()-1));
 
         if (calcSomatotype == 200d){
+            tvSomatotype.setText("Endomorph");
             imageViewSomatotype.setImageResource(R.drawable.somatotype_man_endomorph_);
         }else if (calcSomatotype == 500d){
+            tvSomatotype.setText("Mezomorph");
             imageViewSomatotype.setImageResource(R.drawable.somatotype_man_mezomorph_);
         }else if (calcSomatotype == 900d){
+            tvSomatotype.setText("Ectomorph");
             imageViewSomatotype.setImageResource(R.drawable.somatotype_man_ectomorph_);
         }
         // set visibility of kg's and cm's value after loaded data
         textView16.setVisibility(View.VISIBLE);
         textView17.setVisibility(View.VISIBLE);
+        pbLoad1 = findViewById(R.id.pbLoad1);
+        pbLoad1.setVisibility(View.INVISIBLE);
+        pbLoad2 = findViewById(R.id.pbLoad2);
+        pbLoad2.setVisibility(View.INVISIBLE);
 
         // set visibility of "Your score is ... kCal"
         textView22.setVisibility(View.VISIBLE);

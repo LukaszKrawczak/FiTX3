@@ -55,7 +55,6 @@ public class DietActivity extends AppCompatActivity {
 
     ArrayList<String> productWeight = new ArrayList<>();
 //    ArrayList<Spanned> productNameList = new ArrayList<Spanned>();
-
     ArrayList<Diet> dietArrayList = new ArrayList<>();
 
     ArrayList<String> kcalList = new ArrayList<>();
@@ -229,8 +228,6 @@ public class DietActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 
     private void loadData() {
 
@@ -461,32 +458,6 @@ public class DietActivity extends AppCompatActivity {
         queue.add(dietShowByUser);
     }
 
-    private void updateUI(){
-
-
-//        adapterName = new ArrayAdapter<Spanned>(this, R.layout.meal_row,R.id.meal_title,productNameList);
-//        adapterWeight = new ArrayAdapter<String>(this, R.layout.meal_row,R.id.meal_weight,productWeight);
-//        mTaskListView.setAdapter(adapter);
-
-
-//        mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.e("HelloListView", "You clicked Item: " + id + " at position:" + position);
-//            }
-//        });
-
-    }
-
-//    public void deleteMealTask(View view){
-//        View parent = (View) view.getParent();
-//        TextView taskTextView = parent.findViewById(R.id.meal_title);
-//        String description = String.valueOf(taskTextView);
-//        Log.e(TAG,"description "+description);
-//    }
-
-
-
     public void deleteMealTask(View view) {
         View parent = (View) view.getParent();
         TextView taskTextView = parent.findViewById(R.id.meal_title);
@@ -496,10 +467,6 @@ public class DietActivity extends AppCompatActivity {
         String description = String.valueOf(taskTextView.getText());
         String id = String.valueOf(tvId.getText());
         String weight = String.valueOf(tvWeight.getText());
-
-//        String[] arr = description.split("\\s+");
-//        String product_id = arr[arr.length-11];
-//        String weight = arr[arr.length-13];
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -523,6 +490,7 @@ public class DietActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
+
         productWeight.clear();
         dietArrayList.clear();
         new LongRunningTask().execute();

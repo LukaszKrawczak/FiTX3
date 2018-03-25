@@ -42,19 +42,20 @@
         <activity android:name=".MetacalcActivity2" />
         <activity
             android:name=".MetacalcActivity3"
+            android:label="Your Fit Assistant"
             android:theme="@style/FiTX3theme.noBar">
+
         </activity>
         <activity
-            android:name=".Metacalc.MetacalcGymActivity"
-            android:theme="@style/FiTX3theme.noBar">
+            android:name=".Metacalc.MetacalcGymActivity">
         </activity>
         <activity
-            android:name=".Metacalc.MetacalcAreoActivity"
-            android:theme="@style/FiTX3theme.noBar">
+            android:name=".Metacalc.MetacalcAreoActivity">
         </activity>
         <activity android:label="Search for product"
                   android:name=".DietSearchActivity"
                   android:theme="@style/FiTX3theme.noBar">
+                  <!--android:theme="@style/FiTX3theme.noBar"-->
 
         </activity>
 

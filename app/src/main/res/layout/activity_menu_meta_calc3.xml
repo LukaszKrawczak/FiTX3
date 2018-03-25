@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.brus5.lukaszkrawczak.fitx.MainActivity">
 
-    <ImageView
+<!--    <ImageView
         android:layout_width="match_parent"
         android:layout_height="104dp"
         android:background="#5299ad"
@@ -24,19 +24,34 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_meta_calc" />
+        app:srcCompat="@drawable/logo_meta_calc" />-->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#0078f0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonGym"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="160dp"
         android:clickable="true"
-        app:elevation="7dp"
+        app:elevation="5dp"
         app:fabSize="mini"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAreo"
-        app:layout_constraintTop_toTopOf="@+id/imageViewHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView18"
         app:srcCompat="@drawable/gym_icon"
         tools:ignore="RtlCompat" />
 
@@ -44,13 +59,11 @@
         android:id="@+id/buttonAreo"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="76dp"
         android:clickable="true"
-        app:elevation="7dp"
+        app:elevation="5dp"
         app:fabSize="mini"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewHeader"
-        app:layout_constraintTop_toTopOf="@+id/imageViewHeader"
+        app:layout_constraintStart_toStartOf="@+id/buttonGym"
+        app:layout_constraintTop_toTopOf="@+id/textView23"
         app:srcCompat="@drawable/cardio_icon" />
 
     <TextView
@@ -58,11 +71,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Personal informations"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <TextView
         android:id="@+id/textView8"
@@ -95,7 +108,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="Loading..."
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toTopOf="@+id/textView8" />
 
@@ -104,7 +116,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="Loading..."
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="@+id/textView9" />
 
@@ -113,7 +124,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="Loading..."
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
 
@@ -162,21 +172,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
         android:text="Somatotype"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAreo"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHeader" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <ImageView
         android:id="@+id/imageViewSomatotype"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_height="217dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAreo"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        app:srcCompat="@drawable/somatotype_man_ectomorph_" />
+        app:layout_constraintEnd_toEndOf="@+id/textView20"
+        app:layout_constraintStart_toStartOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/tvSomatotype" />
 
     <TextView
         android:id="@+id/textView23"
@@ -351,5 +361,40 @@
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textViewFinalResult"
         app:layout_constraintTop_toTopOf="@+id/textViewFinalResult" />
+
+    <TextView
+        android:id="@+id/tvSomatotype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView20"
+        app:layout_constraintStart_toStartOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <ProgressBar
+        android:id="@+id/pbLoad1"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+        app:layout_constraintStart_toStartOf="@+id/textView17"
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+    <ProgressBar
+        android:id="@+id/pbLoad2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="3dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView20"
+        app:layout_constraintStart_toStartOf="@+id/textView20"
+        app:layout_constraintTop_toTopOf="@+id/buttonGym" />
 
 </android.support.constraint.ConstraintLayout>
