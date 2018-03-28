@@ -30,7 +30,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Proteins"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/etName"
         app:layout_constraintRight_toRightOf="@+id/etName"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,9 +44,9 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Carbs"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etProteins"
+        app:layout_constraintTop_toBottomOf="@+id/etFats"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -57,9 +57,9 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Fats"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCarbs"
+        app:layout_constraintTop_toBottomOf="@+id/etProteins"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -70,9 +70,9 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Kcal"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFats" />
+        app:layout_constraintTop_toBottomOf="@+id/etCarbs" />
 
     <TextView
         android:id="@+id/textView67"

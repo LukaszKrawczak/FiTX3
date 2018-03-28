@@ -17,7 +17,7 @@ import java.util.Map;
 public class DietInsertProduct extends StringRequest{
     private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/DietInsertProduct.php";
     private Map<String,String> params;
-    public DietInsertProduct(String name, float proteins, float fats, float carbs, String date, String username, Response.Listener<String> listener){
+    public DietInsertProduct(String name, float proteins, float fats, float carbs, float kcal, String date, String username, Response.Listener<String> listener){
 
         super(Method.POST,UPDATE_REQUEST_URL,listener,null);
         params = new HashMap<>();
@@ -26,6 +26,7 @@ public class DietInsertProduct extends StringRequest{
         params.put("proteins", proteins+"");
         params.put("fats", fats+"");
         params.put("carbs", carbs+"");
+        params.put("kcal", kcal+"");
         params.put("date", date);
         params.put("username", username);
     }
@@ -36,5 +37,4 @@ public class DietInsertProduct extends StringRequest{
         Log.e("UserProfileUpdateRequest","ParamsChecker"+params);
         return params;
     }
-
 }

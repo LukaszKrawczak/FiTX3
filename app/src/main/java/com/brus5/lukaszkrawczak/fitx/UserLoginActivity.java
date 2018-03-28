@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -59,13 +63,20 @@ public class UserLoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // initializing FacebookSdk
         FacebookSdk.sdkInitialize(getApplicationContext());
-
         setContentView(R.layout.activity_login);
+        getWindow().setStatusBarColor(ContextCompat.getColor(UserLoginActivity.this, R.color.color_main_activity_statusbar));
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar8);
+        setSupportActionBar(toolbar2);
+
+
+
+
 
         // generate keyhash
         try {

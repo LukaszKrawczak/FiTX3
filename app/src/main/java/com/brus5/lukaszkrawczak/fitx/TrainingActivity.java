@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,7 +62,7 @@ public class TrainingActivity extends AppCompatActivity {
     private ArrayList<String> arrayDone = new ArrayList<>();
 
 //    private ArrayAdapter<String> adapter;
-    private ListView mTaskListView;
+    ListView mTaskListView;
     MixAdapter<RecyclerView.ViewHolder> adapter1 = new MixAdapter<>();
     /* Gettings date */
     Calendar c = Calendar.getInstance();
@@ -75,42 +77,10 @@ public class TrainingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_training);
         Log.d(TAG,"onCreate: Started.");
-        getWindow().setStatusBarColor(ContextCompat.getColor(TrainingActivity.this,R.color.color_training_activity_statusbar));
+        getWindow().setStatusBarColor(ContextCompat.getColor(TrainingActivity.this,R.color.color_main_activity_statusbar));
         Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
         mTaskListView = findViewById(R.id.list_training);
-
-//        Intent intent1 = getIntent();
-//        id = intent1.getIntExtra("id",0);
-//        name = intent1.getStringExtra("name");
-//        username = intent1.getStringExtra("username");
-//        age = intent1.getStringExtra("birthday");
-//        male = intent1.getStringExtra("male");
-
-//        // Construct the data source
-//        ArrayList<User> arrayOfUsers = new ArrayList<User>();
-//        // Create the adapter to convert the array to views
-//        UsersAdapter adapter = new UsersAdapter(this, arrayOfUsers);
-//        // Attach the adapter to a ListView
-////        ListView listView = (ListView) findViewById(R.id.list_training);
-//        mTaskListView.setAdapter(adapter);
-//        // Add item to adapter
-
-
-//        trainingArrayList.add(wyciskanie);
-//        trainingArrayList.add(prznoszenie);
-//        trainingArrayList.add(unoszenie);
-//        trainingArrayList.add(martwyciag);
-//        trainingArrayList.add(przysiady);
-//        trainingArrayList.add(wyciskaniefrancuskie);
-//
-//        TrainingListAdapter adapter = new TrainingListAdapter(this,R.layout.training_row,trainingArrayList);
-//
-//        mTaskListView.setAdapter(adapter);
-
-
-
-
 
         Intent intent1 = getIntent();
         userIDint = intent1.getIntExtra("userIDint",0);
@@ -134,7 +104,7 @@ public class TrainingActivity extends AppCompatActivity {
         horizontalCalendar = new HorizontalCalendar.Builder(TrainingActivity.this, R.id.calendarView1)
                 .startDate(startDate.getTime())
                 .endDate(endDate.getTime())
-                .datesNumberOnScreen(7)
+                .datesNumberOnScreen(5)
                 .dayNameFormat("EEE")
                 .dayNumberFormat("dd")
                 .monthFormat("MMM")
@@ -152,13 +122,13 @@ public class TrainingActivity extends AppCompatActivity {
                 Log.d(TAG, "onDateSelected: date "+date);
                 Log.d(TAG, "onDateSelected: dateInside "+dateInsde);
 
-                arrayDescription.clear();
-                trainingArrayList.clear();
+                loadData();
+
                 new LongRunningTask().execute();
 //                loadData();
 //                wait2secs();
 
-//                Toast.makeText(TrainingActivity.this, DateFormat.getDateInstance().format(date) + " is selected!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(TrainingActivity.this, DateFormat.getDateInstance().format(date) + " is selected",Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -176,13 +146,13 @@ public class TrainingActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             Log.d(TAG, "doInBackground: ");
-            loadData();
+
             return null;
         }
         @Override
         protected void onPostExecute(Void aVoid) {
             Log.d(TAG, "onPostExecute: ");
-            adapter = new TrainingListAdapter(TrainingActivity.this,R.layout.training_row,trainingArrayList);
+
             super.onPostExecute(aVoid);
         }
     }
@@ -199,6 +169,10 @@ public class TrainingActivity extends AppCompatActivity {
     }
 
     private void loadData() {
+
+        arrayDescription.clear();
+        trainingArrayList.clear();
+
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -226,8 +200,10 @@ public class TrainingActivity extends AppCompatActivity {
                             trainingArrayList.add(training);
                         }
                     }
+                    adapter = new TrainingListAdapter(TrainingActivity.this,R.layout.training_row,trainingArrayList);
                     mTaskListView.setAdapter(adapter);
-                    
+                    mTaskListView.invalidate();
+
                     Log.e(TAG,"arrayDescription: "+arrayDescription);
                     Log.d(TAG,"trainingArrayList: "+trainingArrayList);
 

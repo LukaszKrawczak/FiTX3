@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,7 +74,7 @@ public class DietActivity extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     String date = simpleDateFormat.format(c.getTime());
     String dateInsde;
-    ProgressBar pbProteins,pbFats,pbCarbs,pbKcal;
+    ProgressBar progressBarProteins,progressBarFats,progressBarCarbs,progressBarKcal;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,34 +98,11 @@ public class DietActivity extends AppCompatActivity {
         userMale = intent1.getStringExtra("userMale");
 
         Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
-        intentPersonInfo();
 
-        pbProteins = findViewById(R.id.pbProteins);
-        pbFats = findViewById(R.id.pbFats);
-        pbCarbs = findViewById(R.id.pbCarbs);
-        pbKcal = findViewById(R.id.pbKcal);
-
-
-//        Button search_meal = (Button) findViewById(R.id.action_search_meal);
-//        search_meal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent searchForMeal = new Intent(DietActivity.this, SearchForMeal.class);
-//                DietActivity.this.startActivity(searchForMeal);
-//            }
-//        });
-//mTaskListView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//    @Override
-//    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//        Log.e(TAG, "View v "+v);
-//        Log.e(TAG, "scrollX "+ scrollX);
-//        Log.e(TAG, "scrollY "+ scrollY);
-//        Log.e(TAG, "oldScrollX "+oldScrollX);
-//        Log.e(TAG, "oldScrollY "+oldScrollY);
-//    }
-//});
-
-
+        progressBarProteins = findViewById(R.id.progressBarProteins);
+        progressBarFats = findViewById(R.id.progressBarFats);
+        progressBarCarbs = findViewById(R.id.progressBarCarbs);
+        progressBarKcal = findViewById(R.id.progressBarKcal);
 
         HorizontalCalendar horizontalCalendar;
 
@@ -135,7 +114,7 @@ public class DietActivity extends AppCompatActivity {
         horizontalCalendar = new HorizontalCalendar.Builder(DietActivity.this, R.id.calendarView)
                 .startDate(startDate.getTime())
                 .endDate(endDate.getTime())
-                .datesNumberOnScreen(7)
+                .datesNumberOnScreen(5)
                 .dayNameFormat("EEE")
                 .dayNumberFormat("dd")
                 .monthFormat("MMM")
@@ -150,17 +129,24 @@ public class DietActivity extends AppCompatActivity {
                 dateInsde = simpleDateFormat.format(date.getTime());
                 Log.d(TAG, "onDateSelected: date "+date);
                 Log.d(TAG, "onDateSelected: dateInside "+dateInsde);
-                productWeight.clear();
-                dietArrayList.clear();
-                kcalList.clear();
-                proteinsList.clear();
-                fatsList.clear();
-                carbsList.clear();
-                new LongRunningTask().execute();
+
+                loadData();
+
 
 //                wait2secs();
 
-//                Toast.makeText(DietActivity.this, DateFormat.getDateInstance().format(date) + " is selected!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DietActivity.this, DateFormat.getDateInstance().format(date) + " is selected", Toast.LENGTH_SHORT).show();
+            }
+
+            private void wait2secs() {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                },1000);
+
             }
         });
 
@@ -183,25 +169,11 @@ public class DietActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             Log.d(TAG, "onPostExecute: updateUI");
-            adapter = new DietListAdapter(DietActivity.this,R.layout.meal_row,dietArrayList);
+
             super.onPostExecute(aVoid);
         }
     }
 
-    private void intentPersonInfo() {
-
-    }
-
-
-    private void wait2secs() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        },2000);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -231,6 +203,12 @@ public class DietActivity extends AppCompatActivity {
 
     private void loadData() {
 
+        productWeight.clear();
+        dietArrayList.clear();
+        kcalList.clear();
+        proteinsList.clear();
+        fatsList.clear();
+        carbsList.clear();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -299,6 +277,7 @@ public class DietActivity extends AppCompatActivity {
                             proteins = Double.valueOf(c.getString("proteins"));
                             fats = Double.valueOf(c.getString("fats"));
                             carbs = Double.valueOf(c.getString("carbs"));
+                            kcal = Double.valueOf(c.getString("kcal"));
                             username = c.getString("username");
                             date = c.getString("date");
 
@@ -306,16 +285,16 @@ public class DietActivity extends AppCompatActivity {
                             fats = fats*(Double.valueOf(productWeight.get(i))/100);
                             carbs = carbs*(Double.valueOf(productWeight.get(i))/100);
 
-                            kcal = (proteins*4)+(fats*9)+(carbs*4);
+                            double finalkcal = kcal * ((Double.valueOf(productWeight.get(i)))*0.01);
 
                             String Name = name.substring(0,1).toUpperCase() + name.substring(1);
 
-                            kcalList.add(String.format("%.1f",kcal));
+                            kcalList.add(String.format("%.1f",finalkcal));
                             proteinsList.add(String.format("%.1f",proteins));
                             fatsList.add(String.format("%.1f",fats));
                             carbsList.add(String.format("%.1f",carbs));
 
-                            Diet diet = new Diet(String.valueOf(product_id), Name, productWeight.get(i), String.format("%.1f",proteins), String.format("%.1f",fats), String.format("%.1f",carbs),String.format("%.0f",kcal));
+                            Diet diet = new Diet(String.valueOf(product_id), Name, productWeight.get(i), String.format("%.1f",proteins), String.format("%.1f",fats), String.format("%.1f",carbs),String.format("%.0f",finalkcal));
                             dietArrayList.add(diet);
 //                            Diet diet = new Diet(String.valueOf(product_id),Name,String.valueOf(proteins),String.valueOf(fats),String.valueOf(carbs),String.valueOf(weight),username,date);
 //                            dietArrayList.add(diet);
@@ -332,8 +311,6 @@ public class DietActivity extends AppCompatActivity {
                         }
                     }
 
-                    mTaskListView.setAdapter(adapter);
-                    mTaskListView.invalidate();
 
                     TextView tvProteins = findViewById(R.id.tvProteins);
                     tvProteins.setText(String.format("%.1f",proteinsResult));
@@ -368,53 +345,53 @@ public class DietActivity extends AppCompatActivity {
                     tvTotalKcal.setText(result.toString());
 
 
-                    pbProteins.getProgressDrawable().setColorFilter(0xFF3287C3, PorterDuff.Mode.SRC_IN);
-                    pbProteins.setMax(proteinGoal.intValue());
-                    pbProteins.setProgress(Integer.valueOf(String.format("%.0f",proteinsResult)));
+                    progressBarProteins.getProgressDrawable().setColorFilter(0xFF3287C3, PorterDuff.Mode.SRC_IN);
+                    progressBarProteins.setMax(proteinGoal.intValue());
+                    progressBarProteins.setProgress(Integer.valueOf(String.format("%.0f",proteinsResult)));
 
-                    pbFats.getProgressDrawable().setColorFilter(0xFFF3AE28, PorterDuff.Mode.SRC_IN);
-                    pbFats.setMax(fatGoal.intValue());
-                    pbFats.setProgress(Integer.valueOf(String.format("%.0f",fatsResult)));
+                    progressBarFats.getProgressDrawable().setColorFilter(0xFFF3AE28, PorterDuff.Mode.SRC_IN);
+                    progressBarFats.setMax(fatGoal.intValue());
+                    progressBarFats.setProgress(Integer.valueOf(String.format("%.0f",fatsResult)));
 
-                    pbCarbs.getProgressDrawable().setColorFilter(0xFFBD2121, PorterDuff.Mode.SRC_IN);
-                    pbCarbs.setMax(carbsGoal.intValue());
-                    pbCarbs.setProgress(Integer.valueOf(String.format("%.0f",carbsResult)));
+                    progressBarCarbs.getProgressDrawable().setColorFilter(0xFFBD2121, PorterDuff.Mode.SRC_IN);
+                    progressBarCarbs.setMax(carbsGoal.intValue());
+                    progressBarCarbs.setProgress(Integer.valueOf(String.format("%.0f",carbsResult)));
 
-                    pbKcal.getProgressDrawable().setColorFilter(0xFF89C611, PorterDuff.Mode.SRC_IN);
-                    pbKcal.setMax(Integer.valueOf(result));
-                    pbKcal.setProgress(Integer.valueOf(String.format("%.0f",kcalResult)));
+                    progressBarKcal.getProgressDrawable().setColorFilter(0xFF89C611, PorterDuff.Mode.SRC_IN);
+                    progressBarKcal.setMax(Integer.valueOf(result));
+                    progressBarKcal.setProgress(Integer.valueOf(String.format("%.0f",kcalResult)));
 
 
                     if (Integer.valueOf(String.format("%.0f",kcalResult)) > Integer.valueOf(result)) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            pbKcal.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
+                            progressBarKcal.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
                         } else {
-                            pbKcal.getProgressDrawable().setColorFilter(0xFF89C611, PorterDuff.Mode.SRC_IN);
+                            progressBarKcal.getProgressDrawable().setColorFilter(0xFF89C611, PorterDuff.Mode.SRC_IN);
                         }
                     }
 
                     if ((int) proteinsResult > proteinGoal){
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            pbProteins.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
+                            progressBarProteins.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
                         }
                         else {
-                            pbProteins.getProgressDrawable().setColorFilter(0xFF3287C3, PorterDuff.Mode.SRC_IN);
+                            progressBarProteins.getProgressDrawable().setColorFilter(0xFF3287C3, PorterDuff.Mode.SRC_IN);
                         }
                     }
 
                     if ((int) fatsResult > fatGoal) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            pbFats.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
+                            progressBarFats.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
                         } else {
-                            pbFats.getProgressDrawable().setColorFilter(0xFFF3AE28, PorterDuff.Mode.SRC_IN);
+                            progressBarFats.getProgressDrawable().setColorFilter(0xFFF3AE28, PorterDuff.Mode.SRC_IN);
                         }
                     }
 
                     if ((int) carbsResult > carbsGoal) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            pbCarbs.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
+                            progressBarCarbs.getProgressDrawable().setColorFilter(0xFFFF001A, PorterDuff.Mode.SRC_IN);
                         } else {
-                            pbCarbs.getProgressDrawable().setColorFilter(0xFFBD2121, PorterDuff.Mode.SRC_IN);
+                            progressBarCarbs.getProgressDrawable().setColorFilter(0xFFBD2121, PorterDuff.Mode.SRC_IN);
                         }
                     }
 
@@ -446,6 +423,9 @@ public class DietActivity extends AppCompatActivity {
                     }
                     Log.i(TAG, "onResponse: kcalList: "+kcalResult+" P: "+proteinsResult+" F: "+fatsResult+" C: "+carbsResult);
 
+                    adapter = new DietListAdapter(DietActivity.this,R.layout.meal_row,dietArrayList);
+                    mTaskListView.setAdapter(adapter);
+                    mTaskListView.invalidate();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -493,6 +473,7 @@ public class DietActivity extends AppCompatActivity {
 
         productWeight.clear();
         dietArrayList.clear();
+
         new LongRunningTask().execute();
         super.onRestart();
     }

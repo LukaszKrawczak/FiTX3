@@ -23,7 +23,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietInsertMeal;
-import com.brus5.lukaszkrawczak.fitx.Diet.DietInsertProduct;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietProductsSearch;
 import com.brus5.lukaszkrawczak.fitx.R;
 
@@ -384,9 +383,9 @@ public class DietSearchActivity extends AppCompatActivity{
                                 Log.e(TAG,"etFats: "+etFats.getText().toString());
                                 Log.e(TAG,"etCarbs: "+etCarbs.getText().toString());
 
-                                DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), date, username, listener);
-                                RequestQueue queue = Volley.newRequestQueue(DietSearchActivity.this);
-                                queue.add(dietInsertProduct);
+//                                DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), date, username, listener);
+//                                RequestQueue queue = Volley.newRequestQueue(DietSearchActivity.this);
+//                                queue.add(dietInsertProduct);
                             }
                         });
                 alert.show().getWindow().setLayout(730,1000);

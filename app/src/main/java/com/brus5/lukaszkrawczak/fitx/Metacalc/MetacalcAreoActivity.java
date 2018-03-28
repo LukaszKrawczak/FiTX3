@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,7 +40,9 @@ public class MetacalcAreoActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_metacalc_areo);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(MetacalcAreoActivity.this,R.color.color_meta_calc_areo_statusbar));
+        getWindow().setStatusBarColor(ContextCompat.getColor(MetacalcAreoActivity.this,R.color.color_main_activity_statusbar));
+        Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar6);
+        setSupportActionBar(toolbar1);
         initialization();
         seekbars();
         Intent intent = getIntent();

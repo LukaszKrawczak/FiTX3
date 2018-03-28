@@ -14,7 +14,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <ImageView
         android:id="@+id/imageViewHeader"
         android:layout_width="0dp"
@@ -374,7 +373,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
     <ProgressBar
-        android:id="@+id/pbLoad1"
+        android:id="@+id/progressBarLoad1"
         style="?android:attr/progressBarStyle"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
@@ -386,9 +385,9 @@
         app:layout_constraintTop_toTopOf="@+id/textView8" />
 
     <ProgressBar
-        android:id="@+id/pbLoad2"
+        android:id="@+id/progressBarLoad2"
         style="?android:attr/progressBarStyle"
-        android:layout_width="3dp"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"

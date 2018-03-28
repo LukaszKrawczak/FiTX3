@@ -300,7 +300,6 @@ public class Main2Activity extends AppCompatActivity
                 Log.i(TAG,"getAge(year,month,day)"+getAge(year,month,day));
                 userAgeint = Integer.valueOf(getAge(year,month,day));
                 userIDint = Integer.valueOf(userID);
-
             }
 
         };

@@ -64,9 +64,9 @@ public class DietSearchActivity extends AppCompatActivity{
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     String date = simpleDateFormat.format(c.getTime());
 
-    int proteins = 0;
-    int fats = 0;
-    int carbs = 0;
+    double proteins = 0d;
+    double  fats = 0d;
+    double  carbs = 0d;
 
     // List view
     private ListView lv;
@@ -486,22 +486,22 @@ public class DietSearchActivity extends AppCompatActivity{
                     public void afterTextChanged(Editable s) {
 
                         if (String.valueOf(s).isEmpty()){
-                            setProteins(0);
+                            setProteins(0d);
+                        }
+                        else if (String.valueOf(s).startsWith(".")){
+                            Toast.makeText(DietSearchActivity.this, "Start with number", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            setProteins(Integer.valueOf(s+""));
+                            setProteins(Double.valueOf(s+""));
                         }
 
-                        if (String.valueOf(s).contains(".")){
-                            Toast.makeText(DietSearchActivity.this, "Decimals only", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (String.valueOf(s).isEmpty()){
-                            setProteins(0);
+                        if (String.valueOf(s).isEmpty()){
+                            setProteins(0d);
 //                            etKcal.setText("0");
                         }else {
                             etKcal.setText(String.valueOf(getCountKcal()));
                         }
-                        if (getCountKcal() == 0){
+                        if (getCountKcal() == 0d){
                             etKcal.setText("0");
                         }
                         Log.d(TAG, "afterTextChanged: getCountKcal() "+getCountKcal());
@@ -521,18 +521,21 @@ public class DietSearchActivity extends AppCompatActivity{
                     @Override
                     public void afterTextChanged(Editable s) {
                         if (String.valueOf(s).isEmpty()){
-                            setCarbs(0);
+                            setCarbs(0d);
+                        }
+                        else if (String.valueOf(s).startsWith(".")){
+                            Toast.makeText(DietSearchActivity.this, "Start with number", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            setCarbs(Integer.valueOf(s+""));
+                            setCarbs(Double.valueOf(s+""));
                         }
                         if (String.valueOf(s).isEmpty()){
-                            setCarbs(0);
+                            setCarbs(0d);
 
                         }else {
                             etKcal.setText(String.valueOf(getCountKcal()));
                         }
-                        if (getCountKcal() == 0){
+                        if (getCountKcal() == 0d){
                             etKcal.setText("0");
                         }
                         Log.d(TAG, "afterTextChanged: getCountKcal() "+getCountKcal());
@@ -552,18 +555,21 @@ public class DietSearchActivity extends AppCompatActivity{
                     @Override
                     public void afterTextChanged(Editable s) {
                         if (String.valueOf(s).isEmpty()){
-                            setFats(0);
+                            setFats(0d);
+                        }
+                        else if (String.valueOf(s).startsWith(".")){
+                            Toast.makeText(DietSearchActivity.this, "Start with number", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            setFats(Integer.valueOf(s+""));
+                            setFats(Double.valueOf(s+""));
                         }
 
                         if (String.valueOf(s).isEmpty()){
-                            setFats(0);
+                            setFats(0d);
                         }else {
                             etKcal.setText(String.valueOf(getCountKcal()));
                         }
-                        if (getCountKcal() == 0){
+                        if (getCountKcal() == 0d){
                             etKcal.setText("0");
                         }
                         Log.d(TAG, "afterTextChanged: getCountKcal() "+getCountKcal());
@@ -606,7 +612,7 @@ public class DietSearchActivity extends AppCompatActivity{
                                 };
 
 
-                                DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), dateInsde, userName, listener);
+                                DietInsertProduct dietInsertProduct = new DietInsertProduct(etProductName.getText().toString(), Float.valueOf(etProteins.getText().toString()), Float.valueOf(etFats.getText().toString()), Float.valueOf(etCarbs.getText().toString()), Float.valueOf(etKcal.getText().toString()),dateInsde, userName, listener);
                                 RequestQueue queue = Volley.newRequestQueue(DietSearchActivity.this);
                                 queue.add(dietInsertProduct);
                             }
@@ -620,35 +626,35 @@ public class DietSearchActivity extends AppCompatActivity{
 
 
 
-    public int getProteins() {
+    public double getProteins() {
         return proteins;
     }
 
-    public void setProteins(int proteins) {
+    public void setProteins(double proteins) {
         this.proteins = proteins;
     }
 
-    public int getFats() {
+    public double getFats() {
         return fats;
     }
 
-    public void setFats(int fats) {
+    public void setFats(double fats) {
         this.fats = fats;
     }
 
-    public int getCarbs() {
+    public double getCarbs() {
         return carbs;
     }
 
-    public void setCarbs(int carbs) {
+    public void setCarbs(double carbs) {
         this.carbs = carbs;
     }
 
 //    public int setCountKcal(int proteins, int fats, int carbs){
 //        return proteins*4+fats*9+carbs*4;
 //    }
-    public int getCountKcal(){
-        return proteins*4+fats*9+carbs*4;
+    public double getCountKcal(){
+        return proteins*4.0+fats*9.0+carbs*4.0;
     }
 
 

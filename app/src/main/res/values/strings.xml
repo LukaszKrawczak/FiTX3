@@ -24,4 +24,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Sign in</string>
+
+
+    <string name="fitx">FiTX Fitness Assistant</string>
 </resources>
