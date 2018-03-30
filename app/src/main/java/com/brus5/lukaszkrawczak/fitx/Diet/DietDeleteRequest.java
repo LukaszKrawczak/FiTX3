@@ -14,7 +14,7 @@ import java.util.Map;
  */
 
 public class DietDeleteRequest extends StringRequest{
-    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/DietDeleteRequest.php";
+    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/DeleteRequest.php";
     private Map<String,String> params;
     public DietDeleteRequest(int id, String weight, String username, String date, Response.Listener<String> listener){
 

@@ -9,7 +9,7 @@ import com.android.volley.toolbox.StringRequest;
  */
 
 public class DietProductsSearch extends StringRequest{
-    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/DietProductsSearch.php";
+    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/ProductsSearch.php";
 
     public DietProductsSearch(Response.Listener<String> listener){
 

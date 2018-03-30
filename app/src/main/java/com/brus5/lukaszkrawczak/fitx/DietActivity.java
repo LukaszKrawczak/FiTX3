@@ -1,5 +1,6 @@
 package com.brus5.lukaszkrawczak.fitx;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -7,13 +8,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Diet.Diet;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietDeleteMeal;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietDeleteRequest;
+import com.brus5.lukaszkrawczak.fitx.Diet.DietEditWeight;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietListAdapter;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietShowByUser;
 import com.brus5.lukaszkrawczak.fitx.Diet.DietUpdateKcalResult;
@@ -55,24 +64,35 @@ public class DietActivity extends AppCompatActivity {
     String weight;
     int id,userIDint,userAgeint;
 
+
+    double proteins = 0d;
+    double  fats = 0d;
+    double  carbs = 0d;
+
+    double  pWeight = 0d;
+
     ArrayList<String> productWeight = new ArrayList<>();
-//    ArrayList<Spanned> productNameList = new ArrayList<Spanned>();
+
+    //    ArrayList<Spanned> productNameList = new ArrayList<Spanned>();
     ArrayList<Diet> dietArrayList = new ArrayList<>();
 
     ArrayList<String> kcalList = new ArrayList<>();
     ArrayList<String> proteinsList = new ArrayList<>();
+
     ArrayList<String> fatsList = new ArrayList<>();
     ArrayList<String> carbsList = new ArrayList<>();
-
-
-//    ArrayAdapter<String> adapterWeight;
+    //    ArrayAdapter<String> adapterWeight;
 //    ArrayAdapter<Spanned> adapterName;
     ListView mTaskListView;
     DietListAdapter adapter;
+
+
+
     /* Gettings date */
     Calendar c = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     String date = simpleDateFormat.format(c.getTime());
+    String cDate = simpleDateFormat.format(c.getTime());
     String dateInsde;
     ProgressBar progressBarProteins,progressBarFats,progressBarCarbs,progressBarKcal;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -85,6 +105,193 @@ public class DietActivity extends AppCompatActivity {
         setSupportActionBar(toolbar1);
         mTaskListView = findViewById(R.id.list_diet);
         getWindow().setStatusBarColor(ContextCompat.getColor(DietActivity.this,R.color.color_main_activity_statusbar));
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButtonTEST);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity2.class);
+                searchForMeal.putExtra("userIDint",userIDint);
+                searchForMeal.putExtra("userFirstName",userFirstName);
+                searchForMeal.putExtra("userName",userName);
+                searchForMeal.putExtra("userBirthday",userBirthday);
+                searchForMeal.putExtra("userAgeint",userAgeint);
+                searchForMeal.putExtra("userPassword",userPassword);
+                searchForMeal.putExtra("userEmail", userEmail);
+                searchForMeal.putExtra("userMale", userMale);
+                searchForMeal.putExtra("dateInsde", dateInsde);
+                DietActivity.this.startActivity(searchForMeal);
+            }
+        });
+
+
+        mTaskListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                View parent1 = (View) view.getParent();
+
+//                String selectedSweet = mTaskListView.getItemAtPosition(position).toString();
+
+                TextView taskTextView = view.findViewById(R.id.meal_title);
+                TextView tvId = view.findViewById(R.id.meal_id);
+                TextView tvWeight = view.findViewById(R.id.meal_weight);
+                final TextView tvProteins = view.findViewById(R.id.meal_proteins);
+                TextView tvFats =   view.findViewById(R.id.meal_fats);
+                TextView tvCarbs = view.findViewById(R.id.meal_carbs);
+                TextView tvKcal = view.findViewById(R.id.meal_kcal);
+
+               final String description = taskTextView.getText().toString();
+               final int idd = Integer.valueOf(tvId.getText().toString());
+               final String weight = String.valueOf(tvWeight.getText());
+               final String proteins = String.valueOf(tvProteins.getText());
+               final String fats = String.valueOf(tvFats.getText());
+               final String carbs = String.valueOf(tvCarbs.getText());
+               final String kcal = String.valueOf(tvKcal.getText());
+
+
+
+               setProteins(Double.valueOf(proteins));
+               setFats(Double.valueOf(fats));
+               setCarbs(Double.valueOf(carbs));
+
+
+                Log.d(TAG, "onItemLongClick: desc "+description );
+                Log.d(TAG, "onItemLongClick: idd "+idd );
+                Log.d(TAG, "onItemLongClick: weight "+weight );
+
+
+                LayoutInflater inflater = LayoutInflater.from(DietActivity.this);
+                View textEntryView = inflater.inflate(R.layout.activity_diet_options,null);
+
+                final TextView mProteins = textEntryView.findViewById(R.id.meal_proteins4);
+                final TextView mFats = textEntryView.findViewById(R.id.meal_fats4);
+                final TextView mCarbs = textEntryView.findViewById(R.id.meal_carbs4);
+
+
+                mProteins.setText(proteins);
+                mFats.setText(fats);
+                mCarbs.setText(carbs);
+
+
+//                double dProteins = Double.valueOf(proteins);
+//                double dFats = Double.valueOf(fats);
+//                double dCarbs = Double.valueOf(carbs);
+
+//                setProteins(Double.valueOf(proteins));
+
+
+                Log.e(TAG, "onItemLongClick: getProteins "+Double.valueOf(proteins)*100/Double.valueOf(weight));
+
+                final EditText editTextUserWeight = textEntryView.findViewById(R.id.editTextChangeWeight);
+
+                tvProteins.setText(proteins);
+                tvFats.setText(fats);
+                tvCarbs.setText(carbs);
+
+                editTextUserWeight.setText(weight);
+
+                final double dProteins = Double.valueOf(proteins) * 100 / Double.valueOf(weight);
+                final double dFats = Double.valueOf(fats) * 100 / Double.valueOf(weight);
+                final double dCarbs = Double.valueOf(carbs) * 100 / Double.valueOf(weight);
+                Log.e(TAG, "onItemLongClick: proteins100 "+dProteins );
+
+                editTextUserWeight.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                        double finalProteins = 0d;
+                        double finalFats = 0d;
+                        double finalCarbs = 0d;
+
+                        if (!s.toString().isEmpty()) {
+                            finalProteins = Double.valueOf(s.toString())/100 * dProteins;
+                            finalFats = Double.valueOf(s.toString())/100 * dFats;
+                            finalCarbs = Double.valueOf(s.toString())/100 * dCarbs;
+
+                            Log.e(TAG, "beforeTextChanged: proteins final "+finalProteins);
+                        }
+                        mProteins.setText(String.format("%.1f",finalProteins));
+                        mFats.setText(String.format("%.1f",finalFats));
+                        mCarbs.setText(String.format("%.1f",finalCarbs));
+//                        double value = getPweight()*100*getProteins()/getPweight();
+//                        mProteins.setText(String.format("%.1f",value));
+                    }
+                });
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(DietActivity.this);
+                alert.setTitle("Edit meal")
+                        .setView(textEntryView)
+                        .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Response.Listener<String> listener = new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Log.e(TAG,"response"+response);
+                                    }
+                                };
+                                DietEditWeight dietEditWeight = new DietEditWeight(idd,editTextUserWeight.getText().toString(),userName,dateInsde,listener);
+                                RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
+                                queue.add(dietEditWeight);
+                                // Load data after 0,5s
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        loadData();
+                                    }
+                                },500);
+                            }
+                        })
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Response.Listener<String> listener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.e(TAG,"response"+response);
+                            }
+                        };
+                        DietDeleteRequest dietDeleteRequest = new DietDeleteRequest(Integer.valueOf(idd),weight,userName,dateInsde,listener);
+                        RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
+                        queue.add(dietDeleteRequest);
+                        // Load data after 0,5s
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadData();
+                            }
+                        },500);
+                    }
+                })
+                        .setIcon(R.drawable.icon_diet1)
+                ;
+
+                alert.show().getWindow().setLayout(800,800);
+
+
+
+
+
+                Log.e(TAG, "onItemLongClick: desc "+description);
+                return true;
+
+
+            }
+        });
 
 
         Intent intent1 = getIntent();
@@ -127,8 +334,10 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onDateSelected(Date date, int position) {
                 dateInsde = simpleDateFormat.format(date.getTime());
+
                 Log.d(TAG, "onDateSelected: date "+date);
                 Log.d(TAG, "onDateSelected: dateInside "+dateInsde);
+                Log.d(TAG, "onDateSelected: cDate "+cDate);
 
                 loadData();
 
@@ -148,17 +357,23 @@ public class DietActivity extends AppCompatActivity {
                 },1000);
 
             }
-        });
+
+
+        }
+
+
+        );
 
     }
 
     private class LongRunningTask extends AsyncTask<Void,Void,Void>{
-
         @Override
         protected void onPreExecute() {
             Log.d(TAG, "onPreExecute: ");
             super.onPreExecute();
         }
+
+
         @Override
         protected Void doInBackground(Void... voids) {
             Log.d(TAG, "doInBackground: ");
@@ -166,6 +381,7 @@ public class DietActivity extends AppCompatActivity {
             loadData();
             return null;
         }
+
         @Override
         protected void onPostExecute(Void aVoid) {
             Log.d(TAG, "onPostExecute: updateUI");
@@ -173,15 +389,12 @@ public class DietActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
         }
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.meal, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -201,6 +414,7 @@ public class DietActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private void loadData() {
 
         productWeight.clear();
@@ -213,15 +427,15 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "onResponse: response "+response);
-                double kcalResult = 0;
-                double proteinsResult = 0;
-                double fatsResult = 0;
-                double carbsResult = 0;
+                double kcalResult = 0d;
+                double proteinsResult = 0d;
+                double fatsResult = 0d;
+                double carbsResult = 0d;
 
                 String proteinsratio = "";
                 String fatsratio = "";
                 String carbsratio="";
-                String result="";
+                String result="0";
 
 
 
@@ -261,14 +475,14 @@ public class DietActivity extends AppCompatActivity {
                     }
                     Log.d(TAG, "onResponse: productWeight "+productWeight);
                     JSONArray server_response = jsonObject.getJSONArray("server_response");
-                    String name;
+                    String name="";
                     int product_id;
                     double proteins;
                     double fats;
                     double carbs;
-                    String date;
-                    String username;
                     double kcal;
+                    String date="";
+                    String username="";
                     if (server_response.length() > 0){
                         for (int i = 0; i < server_response.length(); i++){
                             JSONObject c = server_response.getJSONObject(i);
@@ -280,27 +494,20 @@ public class DietActivity extends AppCompatActivity {
                             kcal = Double.valueOf(c.getString("kcal"));
                             username = c.getString("username");
                             date = c.getString("date");
-
                             proteins = proteins*(Double.valueOf(productWeight.get(i))/100);
                             fats = fats*(Double.valueOf(productWeight.get(i))/100);
                             carbs = carbs*(Double.valueOf(productWeight.get(i))/100);
 
                             double finalkcal = kcal * ((Double.valueOf(productWeight.get(i)))*0.01);
-
-                            String Name = name.substring(0,1).toUpperCase() + name.substring(1);
+                            Log.e(TAG, "onResponse: date "+date);
+                            String upName = name.substring(0,1).toUpperCase() + name.substring(1);
 
                             kcalList.add(String.format("%.1f",finalkcal));
                             proteinsList.add(String.format("%.1f",proteins));
                             fatsList.add(String.format("%.1f",fats));
                             carbsList.add(String.format("%.1f",carbs));
-
-                            Diet diet = new Diet(String.valueOf(product_id), Name, productWeight.get(i), String.format("%.1f",proteins), String.format("%.1f",fats), String.format("%.1f",carbs),String.format("%.0f",finalkcal));
+                            Diet diet = new Diet(String.valueOf(product_id), upName, productWeight.get(i), String.format("%.1f",proteins), String.format("%.1f",fats), String.format("%.1f",carbs),String.format("%.0f",finalkcal));
                             dietArrayList.add(diet);
-//                            Diet diet = new Diet(String.valueOf(product_id),Name,String.valueOf(proteins),String.valueOf(fats),String.valueOf(carbs),String.valueOf(weight),username,date);
-//                            dietArrayList.add(diet);
-//                            productNameList.add(Html.fromHtml("<medium>"+Name+" <b>"+productWeight.get(i)+" g</b></medium>"+"<br><small>"+product_id+"</small><br>"+"<small>"+"Proteins: "+"<font color=#99ccff><b>"+String.format("%.1f",proteins)+"</b></font>"+"<font color=#c1c3bb>"+" / </font>"+"Fats: "+"<font color=#d9b526><b>"+String.format("%.1f",fats)+"</b></font>"+"<font color=#c1c3bb>"+" / </font>"+"Carbohydrates: "+"<font color=#ff9980><b>"+String.format("%.1f",carbs)+"</b></font>"+" "+"</small>"+"<br><b><small>"+String.format("%.0f",kcal)+" kCal</small></b>"));
-
-                            // TODO: 20.03.2018 need to make the calorie counter and then parsing and sending to mysql
                         }
 
                         for (int a = 0; a < server_response.length(); a++){
@@ -398,7 +605,7 @@ public class DietActivity extends AppCompatActivity {
 
                     Log.i(TAG, "onResponse: proteinGoal: "+proteinGoal+" fatGoal: "+fatGoal+" carbGoal: "+carbsGoal);
 
-                    if (kcalResult > 0) {
+                    if (kcalResult > 0d && cDate.equals(dateInsde)) {
 
                         Response.Listener<String> listener1 = new Response.Listener<String>() {
                             @Override
@@ -410,7 +617,7 @@ public class DietActivity extends AppCompatActivity {
                         RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
                         queue.add(dietUpdateKcalResult);
                     }
-                    else if (kcalResult == 0){
+                    else if (kcalResult == 0d){
                         Response.Listener<String> listener2 = new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -431,6 +638,8 @@ public class DietActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+
+
             }
         };
         DietShowByUser dietShowByUser = new DietShowByUser(userName, dateInsde, responseListener);
@@ -438,35 +647,11 @@ public class DietActivity extends AppCompatActivity {
         queue.add(dietShowByUser);
     }
 
-    public void deleteMealTask(View view) {
-        View parent = (View) view.getParent();
-        TextView taskTextView = parent.findViewById(R.id.meal_title);
-        TextView tvId = parent.findViewById(R.id.meal_id);
-        TextView tvWeight = parent.findViewById(R.id.meal_weight);
 
-        String description = String.valueOf(taskTextView.getText());
-        String id = String.valueOf(tvId.getText());
-        String weight = String.valueOf(tvWeight.getText());
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+//    public void deleteMealTask(View view) {
 
-            }
-        };
-        DietDeleteRequest dietDeleteRequest = new DietDeleteRequest(Integer.valueOf(id),weight,userName,dateInsde,responseListener);
-        RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
-        queue.add(dietDeleteRequest);
 
-        Log.d(TAG, "deleteMealTask: id " + id);
-        Log.d(TAG, "deleteMealTask: weight "+ weight);
-        Log.d(TAG, "deleteMealTask: username "+userName);
-        Log.d(TAG, "deleteMealTask: dateInside "+dateInsde);
-
-        productWeight.clear();
-        dietArrayList.clear();
-        new LongRunningTask().execute();
-    }
 
     @Override
     protected void onRestart() {
@@ -477,5 +662,70 @@ public class DietActivity extends AppCompatActivity {
         new LongRunningTask().execute();
         super.onRestart();
     }
+
+
+
+    //    }
+//        new LongRunningTask().execute();
+//        dietArrayList.clear();
+//        productWeight.clear();
+//
+//        Log.d(TAG, "deleteMealTask: dateInside "+dateInsde);
+//        Log.d(TAG, "deleteMealTask: username "+userName);
+//        Log.d(TAG, "deleteMealTask: weight "+ weight);
+//        Log.d(TAG, "deleteMealTask: id " + id);
+//
+//        queue.add(dietDeleteRequest);
+//        RequestQueue queue = Volley.newRequestQueue(DietActivity.this);
+//        DietDeleteRequest dietDeleteRequest = new DietDeleteRequest(Integer.valueOf(id),weight,userName,dateInsde,responseListener);
+//        };
+//            }
+//
+//            public void onResponse(String response) {
+//            @Override
+//        Response.Listener<String> responseListener = new Response.Listener<String>() {
+//
+//        String weight = String.valueOf(tvWeight.getText());
+//        String id = String.valueOf(tvId.getText());
+//        String description = String.valueOf(taskTextView.getText());
+//
+//        TextView tvWeight = parent.findViewById(R.id.meal_weight);
+//        TextView tvId = parent.findViewById(R.id.meal_id);
+//        TextView taskTextView = parent.findViewById(R.id.meal_title);
+//        View parent = (View) view.getParent();
+
+
+
+    public double getProteins() {
+        return proteins;
+    }
+
+    public void setProteins(double proteins) {
+        this.proteins = proteins;
+    }
+
+    public double getFats() {
+        return fats;
+    }
+
+    public void setFats(double fats) {
+        this.fats = fats;
+    }
+
+    public double getCarbs() {
+        return carbs;
+    }
+
+    public void setCarbs(double carbs) {
+        this.carbs = carbs;
+    }
+
+    //    public int setCountKcal(int proteins, int fats, int carbs){
+//        return proteins*4+fats*9+carbs*4;
+//    }
+    public double getCountKcal(){
+        return proteins*4.0+fats*9.0+carbs*4.0;
+    }
+
 }
 

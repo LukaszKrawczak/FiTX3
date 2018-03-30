@@ -1,6 +1,5 @@
 package com.brus5.lukaszkrawczak.fitx.Diet;
 
-
 import android.annotation.SuppressLint;
 import android.util.Log;
 
@@ -15,7 +14,7 @@ import java.util.Map;
  */
 
 public class DietProductsSearchByName extends StringRequest{
-    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/DietProductsSearchByName.php";
+    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/ProductsSearchByName.php";
     private Map<String,String> params;
     public DietProductsSearchByName(String name, Response.Listener<String> listener){
         super(Method.POST,UPDATE_REQUEST_URL,listener,null);

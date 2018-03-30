@@ -53,11 +53,11 @@ public class TrainingListAdapter extends ArrayAdapter<Training> {
         tvName.setText(task_name);
         tvId.setText(task_id);
 
-        if (task_done.equals("1")){
-            cbDone.setChecked(true);
-        } else  if (task_done.equals("0")){
-            cbDone.setChecked(false);
-        }
+//        if (task_done.equals("1")){
+//            cbDone.setChecked(true);
+//        } else  if (task_done.equals("0")){
+//            cbDone.setChecked(false);
+//        }
 
         return convertView;
 

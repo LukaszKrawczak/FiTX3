@@ -47,7 +47,6 @@
 //
 //        Button btLogout = findViewById(R.id.btFbLogout);
 ////        LoginButton loginButton = findViewById(R.id.btFbLogin);
-//        // TODO need to add logout to UserProfileActivitybackup
 //
 //        btLogout.setOnClickListener(new View.OnClickListener() {
 //            @Override

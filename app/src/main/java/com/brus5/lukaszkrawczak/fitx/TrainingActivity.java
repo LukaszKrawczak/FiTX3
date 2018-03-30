@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +27,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.brus5.lukaszkrawczak.fitx.Training.Training;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingDeleteRequest;
-import com.brus5.lukaszkrawczak.fitx.Training.TrainingDoneRequest;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertRequest;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingListAdapter;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingShowByUser;
@@ -93,6 +92,13 @@ public class TrainingActivity extends AppCompatActivity {
         userMale = intent1.getStringExtra("userMale");
         Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
 
+mTaskListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.e(TAG, "onItemLongClick: position"+position);
+        return true;
+    }
+});
 
         HorizontalCalendar horizontalCalendar;
 
@@ -277,34 +283,34 @@ public class TrainingActivity extends AppCompatActivity {
         Log.e(TAG,"adapter: "+adapter);
     }
 
-    public void doneTrainingTask(View view) {
-        View parent = (View) view.getParent();
-        TextView taskIdTextView = parent.findViewById(R.id.task_id);
-        TextView taskTextView = parent.findViewById(R.id.task_title);
-        CheckBox taskCheckBox = parent.findViewById(R.id.task_done);
-        String id = String.valueOf(taskIdTextView.getText());
-        String description = String.valueOf(taskTextView.getText());
-        String done = String.valueOf(taskCheckBox.isChecked());
-        int doneint = 0;
-        if (done.equals("true")){
-            doneint = 1;
-        }else if (done.equals("false")){
-            doneint = 0;
-        }
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-            }
-        };
-        TrainingDoneRequest trainingDoneRequest = new TrainingDoneRequest(id,doneint,responseListener);
-        RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
-        requestQueue.add(trainingDoneRequest);
-
-        Log.e(TAG, "id: "+id);
-        Log.e(TAG, "doneTrainingTask: "+description);
-        Log.e(TAG, "done: "+done);
-    }
+//    public void doneTrainingTask(View view) {
+//        View parent = (View) view.getParent();
+//        TextView taskIdTextView = parent.findViewById(R.id.task_id);
+//        TextView taskTextView = parent.findViewById(R.id.task_title);
+//        CheckBox taskCheckBox = parent.findViewById(R.id.task_done);
+//        String id = String.valueOf(taskIdTextView.getText());
+//        String description = String.valueOf(taskTextView.getText());
+//        String done = String.valueOf(taskCheckBox.isChecked());
+//        int doneint = 0;
+//        if (done.equals("true")){
+//            doneint = 1;
+//        }else if (done.equals("false")){
+//            doneint = 0;
+//        }
+//        Response.Listener<String> responseListener = new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//
+//            }
+//        };
+//        TrainingDoneRequest trainingDoneRequest = new TrainingDoneRequest(id,doneint,responseListener);
+//        RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
+//        requestQueue.add(trainingDoneRequest);
+//
+//        Log.e(TAG, "id: "+id);
+//        Log.e(TAG, "doneTrainingTask: "+description);
+//        Log.e(TAG, "done: "+done);
+//    }
 
 
 

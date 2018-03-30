@@ -23,50 +23,45 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".UserRegisterActivity" />
         <activity android:name=".UserProfileActivitybackup" />
-        <activity android:name=".UserProfileActivity"
-                  android:theme="@style/FiTX3theme.noBar"
-                  android:windowSoftInputMode="stateHidden">
-        </activity>
-        <activity android:name=".TrainingActivity"
-                  android:label="Training"
-                  android:theme="@style/FiTX3theme.noBar">
-        </activity>
+        <activity
+            android:name=".UserProfileActivity"
+            android:theme="@style/FiTX3theme.noBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".TrainingActivity"
+            android:label="Training"
+            android:theme="@style/FiTX3theme.noBar" />
         <activity
             android:name=".DietActivity"
-            android:theme="@style/FiTX3theme.noBar"
-            android:label="Diet">
-        </activity>
+            android:label="Diet"
+            android:theme="@style/FiTX3theme.noBar" />
         <activity android:name=".MetacalcActivity" />
         <activity android:name=".MetacalcActivity2" />
         <activity
             android:name=".MetacalcActivity3"
             android:label="Calorie Calculator"
+            android:theme="@style/FiTX3theme.noBar" />
+        <activity
+            android:name=".Metacalc.MetacalcGymActivity"
+            android:label="Add gym training"
+            android:theme="@style/FiTX3theme.noBar" />
+        <activity
+            android:name=".Metacalc.MetacalcAreoActivity"
+            android:label="Add cardio training"
+            android:theme="@style/FiTX3theme.noBar" />
+        <activity
+            android:name=".DietSearchActivity"
+            android:label="Search for product"
             android:theme="@style/FiTX3theme.noBar">
 
-        </activity>
-        <activity
-            android:label="Add gym training"
-            android:name=".Metacalc.MetacalcGymActivity"
-            android:theme="@style/FiTX3theme.noBar"
-            >
-        </activity>
-        <activity
-            android:label="Add cardio training"
-            android:name=".Metacalc.MetacalcAreoActivity"
-            android:theme="@style/FiTX3theme.noBar"
-
-            >
-        </activity>
-        <activity android:label="Search for product"
-                  android:name=".DietSearchActivity"
-                  android:theme="@style/FiTX3theme.noBar">
-                  <!--android:theme="@style/FiTX3theme.noBar"-->
+            <!-- android:theme="@style/FiTX3theme.noBar" -->
 
         </activity>
 
@@ -77,8 +72,10 @@
         <activity
             android:name=".Main2Activity"
             android:label="@string/fitx"
-            android:theme="@style/FiTX3theme.noBar">
-        </activity>
+            android:theme="@style/FiTX3theme.noBar" />
+        <activity android:name=".DietSearchActivity2"
+            android:theme="@style/FiTX3theme.noBar"
+            android:label="Search for product"/>
     </application>
 
 </manifest>

@@ -2,8 +2,10 @@ package com.brus5.lukaszkrawczak.fitx;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -46,19 +45,12 @@ public class DietSearchActivity extends AppCompatActivity{
 
     private static final String TAG = "SearchForMeal.java";
 
-    // Generating some useful variables
-//    String name, username, age, password, email, male, somatotypeS;
-//    int id;
-
     String userFirstName, userName, userUserName, userBirthday, userPassword, userEmail, userMale, dateInsde;
     int userIDint,userAgeint;
 
-    int mealID;
-    String mealName;
     String productName;
-    boolean executed = false;
-    String[] products = {"You don't see any meal? Add your product in the top right corner."};
     String[] products100;
+
     // Getting date
     Calendar c = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -87,6 +79,7 @@ public class DietSearchActivity extends AppCompatActivity{
     ArrayList<HashMap<String, String>> productList;
 
     // onCreate
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -406,16 +399,16 @@ public class DietSearchActivity extends AppCompatActivity{
     // Adding items to listview
     public void addItems(){
 
-        Animation animation = new AlphaAnimation(0.0f,1.0f);
+//        Animation animation = new AlphaAnimation(0.0f,1.0f);
 //        Animation animation = new ScaleAnimation(1,1,0,1);
 
-        lv.setAnimation(animation);
+//        lv.setAnimation(animation);
         adapter = new ArrayAdapter<Object>(this, R.layout.meal_row_search, R.id.product_name,products100);
         lv.setAdapter(adapter);
 
         lv.setVisibility(View.VISIBLE);
-        animation.setDuration(500);
-        animation.startNow();
+//        animation.setDuration(500);
+//        animation.startNow();
 
     }
 
@@ -458,28 +451,14 @@ public class DietSearchActivity extends AppCompatActivity{
                 final EditText etFats = textEntryView.findViewById(R.id.etFats);
                 final EditText etKcal = textEntryView.findViewById(R.id.etKcal);
 
-                final int kcal = 0;
-                final String kcals = "";
-                Log.e(TAG,"etProductName: "+etProductName.getText().toString());
-                Log.e(TAG,"etProteins: "+etProteins.getText().toString());
-                Log.e(TAG,"etFats: "+etFats.getText().toString());
-                Log.e(TAG,"etCarbs: "+etCarbs.getText().toString());
-
                 etProteins.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        Log.d(TAG, "beforeTextChanged: s "+s);
-                        Log.d(TAG, "beforeTextChanged: start "+start);
-                        Log.d(TAG, "beforeTextChanged: count "+count);
-                        Log.d(TAG, "beforeTextChanged: after "+after);
                     }
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        Log.d(TAG, "onTextChanged: s "+s);
-                        Log.d(TAG, "onTextChanged: start "+start);
-                        Log.d(TAG, "onTextChanged: before "+before);
-                        Log.d(TAG, "onTextChanged: count "+count);
+
                     }
 
                     @Override

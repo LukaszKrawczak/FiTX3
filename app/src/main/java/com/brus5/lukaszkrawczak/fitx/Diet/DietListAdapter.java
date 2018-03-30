@@ -32,6 +32,9 @@ public class DietListAdapter extends ArrayAdapter<Diet>{
         mResource = resource;
     }
 
+
+
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -59,16 +62,21 @@ public class DietListAdapter extends ArrayAdapter<Diet>{
 //            result = convertView;
 //        }
 
+
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent,false);
 
-        TextView meal_title = convertView.findViewById(R.id.meal_title);
+
+        final TextView meal_title = convertView.findViewById(R.id.meal_title);
         TextView meal_weight = convertView.findViewById(R.id.meal_weight);
         TextView meal_proteins = convertView.findViewById(R.id.meal_proteins);
         TextView meal_fats = convertView.findViewById(R.id.meal_fats);
         TextView meal_carbs = convertView.findViewById(R.id.meal_carbs);
         TextView meal_id = convertView.findViewById(R.id.meal_id);
         TextView meal_kcal = convertView.findViewById(R.id.meal_kcal);
+
+
 
         meal_title.setText(name);
         meal_weight.setText(weight);
@@ -78,8 +86,8 @@ public class DietListAdapter extends ArrayAdapter<Diet>{
         meal_id.setText(id);
         meal_kcal.setText(kcal);
 
-        Count count = new Count(Integer.valueOf(kcal));
-        Log.d(TAG, "getView: getCount "+count.getCount());
+//        Count count = new Count(Integer.valueOf(kcal));
+//        Log.d(TAG, "getView: getCount "+count.getCount());
 
 
 
@@ -90,6 +98,8 @@ public class DietListAdapter extends ArrayAdapter<Diet>{
 
         return convertView;
     }
+
+
 }
 
 

@@ -15,7 +15,7 @@ import java.util.Map;
  */
 
 public class DietShowByUser extends StringRequest{
-    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/DietShowByUser.php";
+    private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Diet/ShowByUser.php";
     private Map<String,String> params;
     public DietShowByUser(String username, String date, Response.Listener<String> listener){
         super(Method.POST,UPDATE_REQUEST_URL,listener,null);

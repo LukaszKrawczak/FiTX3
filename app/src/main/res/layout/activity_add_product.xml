@@ -21,7 +21,7 @@
 
     <EditText
         android:id="@+id/etProteins"
-        android:layout_width="200dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -29,7 +29,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Proteins"
+        android:hint="P"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/etName"
         app:layout_constraintRight_toRightOf="@+id/etName"
@@ -38,12 +38,12 @@
 
     <EditText
         android:id="@+id/etCarbs"
-        android:layout_width="200dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Carbs"
+        android:hint="C"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etFats"
@@ -51,12 +51,12 @@
 
     <EditText
         android:id="@+id/etFats"
-        android:layout_width="200dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Fats"
+        android:hint="F"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etProteins"
@@ -64,7 +64,7 @@
 
     <EditText
         android:id="@+id/etKcal"
-        android:layout_width="200dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

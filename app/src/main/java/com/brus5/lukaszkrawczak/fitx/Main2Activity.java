@@ -556,9 +556,6 @@ public class Main2Activity extends AppCompatActivity
                         }
                     }
 
-
-
-
                     for (String graphDAT : wDateArray) {
                         dateList1.add(simpleDateFormat.parse(graphDAT));
                     }
