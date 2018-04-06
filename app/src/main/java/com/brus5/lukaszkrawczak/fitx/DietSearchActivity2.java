@@ -53,7 +53,7 @@ public class DietSearchActivity2 extends AppCompatActivity {
 
     // Getting date
     Calendar c = Calendar.getInstance();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String date = simpleDateFormat.format(c.getTime());
 
 
@@ -211,7 +211,7 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
         Log.e(TAG, "onItemLongClick: getProteins "+Double.valueOf(proteins)*100/Double.valueOf(weight));
 
-        final EditText editTextUserWeight = textEntryView.findViewById(R.id.editTextChangeWeight);
+        final EditText editTextUserWeight = textEntryView.findViewById(R.id.editTextRestTime);
 
         tvProteins.setText(proteins);
         tvFats.setText(fats);

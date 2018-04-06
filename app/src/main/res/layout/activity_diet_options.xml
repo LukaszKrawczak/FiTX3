@@ -7,7 +7,7 @@
 
 
     <EditText
-        android:id="@+id/editTextChangeWeight"
+        android:id="@+id/editTextRestTime"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -33,7 +33,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextChangeWeight" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextRestTime" />
 
     <TextView
         android:id="@+id/meal_proteins4"
@@ -133,7 +133,7 @@
         android:elevation="5dp"
         android:text="Product weight:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextChangeWeight" />
+        app:layout_constraintTop_toTopOf="@+id/editTextRestTime" />
 
 
 </android.support.constraint.ConstraintLayout>

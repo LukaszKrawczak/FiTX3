@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity{
 
         final Intent intent = getIntent();
 
+
+
         defaultLogin = intent.getBooleanExtra("defaultLogin",false);
 
         if (defaultLogin){

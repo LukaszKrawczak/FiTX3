@@ -4,31 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brus5.lukaszkrawczak.fitx.UserProfileActivitybackup">
+    tools:context="com.brus5.lukaszkrawczak.fitx.UserProfileActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imageView2"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="104dp"
-            android:background="#ca7ded"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <ImageView
-            android:id="@+id/imageViewHeader"
-            android:layout_width="0dp"
-            android:layout_height="104dp"
-            android:cropToPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_profile" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarUserProfileActivity"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#0078f0"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
 
         <TextView
             android:id="@+id/textView26"
@@ -38,7 +32,7 @@
             android:layout_marginTop="8dp"
             android:text="First name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewHeader" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
         <EditText
             android:id="@+id/editTextUserFirstName"

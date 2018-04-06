@@ -80,7 +80,7 @@ public class MetacalcActivity3 extends AppCompatActivity implements View.OnClick
 
     // getting dateToday
     Calendar c = Calendar.getInstance();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//dd.MM.yyyy
     String dateToday = simpleDateFormat.format(c.getTime());
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

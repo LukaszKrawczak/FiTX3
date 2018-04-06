@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +42,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     /* Gettings date */
     Calendar c = Calendar.getInstance();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String dateToday = simpleDateFormat.format(c.getTime());
 
 
@@ -53,7 +54,11 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_user_profile);
-        getWindow().setStatusBarColor(ContextCompat.getColor(UserProfileActivity.this,R.color.color_profile_activity_statusbar));
+//        getWindow().setStatusBarColor(ContextCompat.getColor(UserProfileActivity.this,R.color.color_profile_activity_statusbar));
+
+        Toolbar toolbar3 = findViewById(R.id.toolbarUserProfileActivity);
+        setSupportActionBar(toolbar3);
+        getWindow().setStatusBarColor(ContextCompat.getColor(UserProfileActivity.this,R.color.color_main_activity_statusbar));
 
         init();
 
@@ -182,6 +187,16 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
                                 LoginManager.getInstance().logOut();
+
+
+//                                SharedPreferences preferences = getSharedPreferences("username",0);
+//                                preferences.edit().remove(username).clear().apply();
+
+
+                                SaveSharedPreference.clearUserName(UserProfileActivity.this);
+
+
+                                Log.e(TAG, "onClick: SaveSharedPreference "+SaveSharedPreference.getUserName(UserProfileActivity.this));
                                 Intent intent = new Intent(UserProfileActivity.this,UserLoginActivity.class);
                                 startActivity(intent);
                                 finish();

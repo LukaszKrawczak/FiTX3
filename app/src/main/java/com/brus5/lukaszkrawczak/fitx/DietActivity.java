@@ -90,7 +90,7 @@ public class DietActivity extends AppCompatActivity {
 
     /* Gettings date */
     Calendar c = Calendar.getInstance();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String date = simpleDateFormat.format(c.getTime());
     String cDate = simpleDateFormat.format(c.getTime());
     String dateInsde;
@@ -184,7 +184,7 @@ public class DietActivity extends AppCompatActivity {
 
                 Log.e(TAG, "onItemLongClick: getProteins "+Double.valueOf(proteins)*100/Double.valueOf(weight));
 
-                final EditText editTextUserWeight = textEntryView.findViewById(R.id.editTextChangeWeight);
+                final EditText editTextUserWeight = textEntryView.findViewById(R.id.editTextRestTime);
 
                 tvProteins.setText(proteins);
                 tvFats.setText(fats);
@@ -605,7 +605,7 @@ public class DietActivity extends AppCompatActivity {
 
                     Log.i(TAG, "onResponse: proteinGoal: "+proteinGoal+" fatGoal: "+fatGoal+" carbGoal: "+carbsGoal);
 
-                    if (kcalResult > 0d && cDate.equals(dateInsde)) {
+                    if (kcalResult > 0d) {
 
                         Response.Listener<String> listener1 = new Response.Listener<String>() {
                             @Override

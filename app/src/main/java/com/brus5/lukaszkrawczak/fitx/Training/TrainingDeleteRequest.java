@@ -14,13 +14,13 @@ import java.util.Map;
 public class TrainingDeleteRequest extends StringRequest{
     private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Training/TrainingDeleteRequest.php";
     private Map<String,String> params;
-    public TrainingDeleteRequest(String username, String date, String description, Response.Listener<String> listener){
+    public TrainingDeleteRequest(int id, String username, String date, Response.Listener<String> listener){
 
         super(Method.POST,UPDATE_REQUEST_URL,listener,null);
         params = new HashMap<>();
+        params.put("id", id+"");
         params.put("username", username);
         params.put("date", date);
-        params.put("description", description);
     }
 
     @Override

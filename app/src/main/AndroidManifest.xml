@@ -61,6 +61,16 @@
             android:label="Search for product"
             android:theme="@style/FiTX3theme.noBar">
 
+
+            <!-- android:theme="@style/FiTX3theme.noBar" -->
+
+        </activity>
+        <activity
+            android:name=".TrainingSearchActivity2"
+            android:label="Search for training"
+            android:theme="@style/FiTX3theme.noBar">
+
+
             <!-- android:theme="@style/FiTX3theme.noBar" -->
 
         </activity>

@@ -255,6 +255,10 @@ public class UserLoginActivity extends AppCompatActivity {
             finish();
         }
 
+        if(SaveSharedPreference.getUserName(UserLoginActivity.this).length() == 0)
+
+        {
+
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -285,6 +289,8 @@ public class UserLoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(UserLoginActivity.this, Main2Activity.class);
                                     intent.putExtra("userName", userName);
                                     intent.putExtra("defaultLogin",true);
+                                    SaveSharedPreference.setUserName(UserLoginActivity.this,userName);
+                                    SaveSharedPreference.setDefLogin(UserLoginActivity.this,true);
                                     UserLoginActivity.this.startActivity(intent);
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(UserLoginActivity.this);
@@ -321,6 +327,21 @@ public class UserLoginActivity extends AppCompatActivity {
 
         });
 
+//        Intent intent = new Intent(UserLoginActivity.this, Main2Activity.class);
+//        intent.putExtra("defaultLogin",true);
+//        UserLoginActivity.this.startActivity(intent);
+
+
+            // call Login Activity
+        }
+        else
+        {
+            Intent intent = new Intent(UserLoginActivity.this, Main2Activity.class);
+            intent.putExtra("defaultLogin",true);
+
+            UserLoginActivity.this.startActivity(intent);
+        }
+
     }
 
     // running up facebookLogin
@@ -354,7 +375,5 @@ public class UserLoginActivity extends AppCompatActivity {
             }, 1000);
         }
     }
-
-
 
 }

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/editTextWeight10"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight2"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight9" />
+
+    <EditText
+        android:id="@+id/editTextWeight8"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight2"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight7" />
+
+    <EditText
+        android:id="@+id/editTextReps9"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps2"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReps8" />
+
+    <EditText
+        android:id="@+id/editTextReps8"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps2"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReps7" />
+
+    <EditText
+        android:id="@+id/editTextWeight9"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight2"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight8" />
+
+    <EditText
+        android:id="@+id/editTextWeight7"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight2"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight6" />
+
+    <EditText
+        android:id="@+id/editTextWeight6"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight2"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWeight2" />
+
+    <EditText
+        android:id="@+id/editTextReps7"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps2"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReps6" />
+
+    <TextView
+        android:id="@+id/textViewWeight2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Weight"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewWeight1" />
+
+    <TextView
+        android:id="@+id/textViewReps2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="Reps"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/textViewWeight2"
+        app:layout_constraintTop_toTopOf="@+id/textViewWeight2" />
+
+    <EditText
+        android:id="@+id/editTextRestTime4"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+
+        android:elevation="1dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"
+        android:text="60"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight1"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight1"
+        app:layout_constraintTop_toBottomOf="@+id/task_name4"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/task_name4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="training name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/task_restTime4"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Rest time:"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_name4" />
+
+    <EditText
+        android:id="@+id/editTextReps1"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps1"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReps1" />
+
+    <TextView
+        android:id="@+id/textViewReps1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:text="Reps"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_restTime4" />
+
+    <TextView
+        android:id="@+id/textViewWeight1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Weight"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewReps1"
+        app:layout_constraintTop_toTopOf="@+id/textViewReps1" />
+
+    <EditText
+        android:id="@+id/editTextWeight1"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight1"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWeight1" />
+
+    <Button
+        android:id="@+id/buttonAddSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="50dp"
+        android:text="Add set"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight10" />
+
+    <EditText
+        android:id="@+id/editTextReps2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps1"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReps1" />
+
+    <EditText
+        android:id="@+id/editTextWeight2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight1"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight1" />
+
+    <EditText
+        android:id="@+id/editTextReps3"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps1"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReps2" />
+
+    <EditText
+        android:id="@+id/editTextReps5"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps1"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReps4" />
+
+    <EditText
+        android:id="@+id/editTextWeight3"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight1"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight2" />
+
+    <EditText
+        android:id="@+id/editTextReps4"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps1"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReps3" />
+
+    <EditText
+        android:id="@+id/editTextWeight4"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight1"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight3" />
+
+    <EditText
+        android:id="@+id/editTextWeight5"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWeight1"
+        app:layout_constraintStart_toStartOf="@+id/textViewWeight1"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight4" />
+
+    <TextView
+        android:id="@+id/textViewNumber1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="1"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps1"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps1" />
+
+    <TextView
+        android:id="@+id/textViewNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="2"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps2"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps2" />
+
+    <TextView
+        android:id="@+id/textViewNumber3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="3"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps3"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps3" />
+
+    <TextView
+        android:id="@+id/textViewNumber4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="4"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps4"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps4" />
+
+    <TextView
+        android:id="@+id/textViewNumber5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="5"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps5"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps5" />
+
+    <EditText
+        android:id="@+id/editTextReps6"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps2"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReps2" />
+
+    <EditText
+        android:id="@+id/editTextReps10"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewReps2"
+        app:layout_constraintStart_toStartOf="@+id/textViewReps2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReps9" />
+
+    <TextView
+        android:id="@+id/textViewNumber6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="6"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps6"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps6" />
+
+    <TextView
+        android:id="@+id/textViewNumber7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="7"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps7"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps7" />
+
+    <TextView
+        android:id="@+id/textViewNumber8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="8"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps8"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps8" />
+
+    <TextView
+        android:id="@+id/textViewNumber9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="9"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps9"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps9" />
+
+    <TextView
+        android:id="@+id/textViewNumber10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="10"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextReps10"
+        app:layout_constraintEnd_toStartOf="@+id/editTextReps10" />
+
+    <Button
+        android:id="@+id/buttonCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Check"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAddSet"
+        app:layout_constraintTop_toTopOf="@+id/buttonAddSet" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -49,6 +49,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +65,7 @@ public class Main2Activity extends AppCompatActivity
 
     int userIDint, userAgeint;
 
-    boolean defaultLogin = true;
+    boolean defaultLogin = false;
     Button btn;
     ArrayList<String> resultArray = new ArrayList<>();
     ArrayList<String> dateArray = new ArrayList<>();
@@ -79,7 +80,7 @@ public class Main2Activity extends AppCompatActivity
 
     /* Gettings date */
     Calendar c = Calendar.getInstance();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String date = simpleDateFormat.format(c.getTime());
 
     GraphView graph;
@@ -116,16 +117,20 @@ public class Main2Activity extends AppCompatActivity
 
         final Intent intent = getIntent();
 
-        defaultLogin = intent.getBooleanExtra("defaultLogin",false);
+        defaultLogin = SaveSharedPreference.getDefLogin(Main2Activity.this);
+
+        Log.e(TAG, "onCreate: SaveShared "+SaveSharedPreference.getDefLogin(Main2Activity.this));
 
         if (defaultLogin){
-            userName = intent.getStringExtra("userName");
+//            userName = intent.getStringExtra("userName");
+            userName = SaveSharedPreference.getUserName(Main2Activity.this);
         }
         else {
             userName = com.facebook.Profile.getCurrentProfile().getId();
             Bundle b = intent.getExtras();
             String nameTest = b.getString("first_name");
             Log.e(TAG,"nameTest: "+nameTest);
+            Log.e(TAG, "onCreate: SaveShared fb "+SaveSharedPreference.getDefLogin(Main2Activity.this));
         }
 
 //        Calendar calendar = Calendar.getInstance();
@@ -587,7 +592,7 @@ public class Main2Activity extends AppCompatActivity
                         public void onTap(Series series, DataPointInterface dataPoint) {
                             Log.d(TAG, "onTap: dataPoint.getY() "+dataPoint.getY());
                             Log.d(TAG, "onTap: dataPoint.getX() "+dataPoint.getX());
-                            Toast.makeText(Main2Activity.this, dataPoint.getY()+ " kg", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Main2Activity.this, dataPoint.getY()+ " eated kcal", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -618,7 +623,7 @@ public class Main2Activity extends AppCompatActivity
 
                     viewport.setXAxisBoundsManual(true);
                     viewport.setMinX(1.520114E12); //1.5185628E12
-                    viewport.setMaxX(1.521714E12); // 1.5186492E12
+                    viewport.setMaxX(1.521714E12); //1.5186492E12
                     viewport.setScrollable(true);
                     viewport.scrollToEnd();
 
@@ -653,6 +658,7 @@ public class Main2Activity extends AppCompatActivity
         handler2.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Collections.sort(dateList);
                 generateData3();
             }
         },100);

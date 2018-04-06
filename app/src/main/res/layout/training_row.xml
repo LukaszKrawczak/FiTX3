@@ -16,15 +16,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/task_title"
+        android:id="@+id/task_name"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="32dp"
         android:text="Hello"
-        android:textSize="12sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintStart_toEndOf="@+id/task_done"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,17 +32,18 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:onClick="deleteTrainingTask"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/presence_offline" />
 
-    <!--<CheckBox-->
-        <!--android:id="@+id/task_done"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:onClick="doneTrainingTask"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
+<!--    <CheckBox
+        android:id="@+id/task_done"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:onClick="doneTrainingTask"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/task_id"
@@ -56,51 +56,121 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/task_reps"
+        android:id="@+id/task_set1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="12"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_done" />
+        app:layout_constraintTop_toBottomOf="@+id/task_restTime" />
 
     <TextView
-        android:id="@+id/textView63"
+        android:id="@+id/task_restTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="60"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/textView61"
+        app:layout_constraintTop_toTopOf="@+id/textView61" />
+
+    <TextView
+        android:id="@+id/task_set2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="120"
-        app:layout_constraintStart_toEndOf="@+id/task_reps"
-        app:layout_constraintTop_toTopOf="@+id/task_reps" />
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_set1" />
 
     <TextView
-        android:id="@+id/textView64"
+        android:id="@+id/task_set3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reps"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toTopOf="@+id/task_reps"
-        app:layout_constraintStart_toStartOf="@+id/task_reps" />
+        android:layout_marginStart="60dp"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/task_set1" />
 
     <TextView
-        android:id="@+id/textView65"
+        android:id="@+id/task_set4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rest"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView63"
-        app:layout_constraintStart_toStartOf="@+id/textView63" />
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/task_set3"
+        app:layout_constraintTop_toTopOf="@+id/task_set2" />
 
     <TextView
-        android:id="@+id/textView68"
+        android:id="@+id/task_set5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="44dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView63"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="120dp"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/task_set3" />
+
+    <TextView
+        android:id="@+id/task_set6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/task_set5"
+        app:layout_constraintTop_toTopOf="@+id/task_set4" />
+
+    <TextView
+        android:id="@+id/task_set7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/task_set5" />
+
+    <TextView
+        android:id="@+id/task_set8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/task_set7"
+        app:layout_constraintTop_toTopOf="@+id/task_set6" />
+
+    <TextView
+        android:id="@+id/task_set9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="240dp"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/task_set7" />
+
+    <TextView
+        android:id="@+id/task_set10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/task_set9"
+        app:layout_constraintTop_toTopOf="@+id/task_set8" />
+
+    <TextView
+        android:id="@+id/textView61"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Rest:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_name" />
 
 </android.support.constraint.ConstraintLayout>
 </RelativeLayout>
