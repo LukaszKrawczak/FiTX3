@@ -27,7 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:label="FiTX - Gym Tracker"
+            android:theme="@style/FiTX3theme.noBar" />
         <activity android:name=".UserRegisterActivity" />
         <activity android:name=".UserProfileActivitybackup" />
         <activity
@@ -61,7 +64,6 @@
             android:label="Search for product"
             android:theme="@style/FiTX3theme.noBar">
 
-
             <!-- android:theme="@style/FiTX3theme.noBar" -->
 
         </activity>
@@ -69,7 +71,6 @@
             android:name=".TrainingSearchActivity2"
             android:label="Search for training"
             android:theme="@style/FiTX3theme.noBar">
-
 
             <!-- android:theme="@style/FiTX3theme.noBar" -->
 
@@ -83,9 +84,18 @@
             android:name=".Main2Activity"
             android:label="@string/fitx"
             android:theme="@style/FiTX3theme.noBar" />
-        <activity android:name=".DietSearchActivity2"
-            android:theme="@style/FiTX3theme.noBar"
-            android:label="Search for product"/>
+        <activity
+            android:name=".DietSearchActivity2"
+            android:label="Search for product"
+            android:theme="@style/FiTX3theme.noBar" />
+        <activity
+            android:name=".UserRegisterActivityFirstPage"
+            android:label="FiTX/Registration"
+            android:theme="@style/FiTX3theme.noBar" />
+        <activity
+            android:name=".UserRegisterActivitySecondPage"
+            android:label="FiTX/Registration"
+            android:theme="@style/FiTX3theme.noBar" />
     </application>
 
 </manifest>

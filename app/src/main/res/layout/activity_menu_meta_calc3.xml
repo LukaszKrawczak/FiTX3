@@ -331,12 +331,14 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="120dp"
+        android:layout_marginEnd="60dp"
         android:text="Your score is"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:visibility="invisible"
+        android:textSize="18sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -345,6 +347,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textColor="@color/colorAccent"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textView22"
@@ -355,9 +358,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="kCal"
+        android:text="KCAL"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:visibility="invisible"
+        android:textSize="18sp"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/textViewFinalResult"
         app:layout_constraintTop_toTopOf="@+id/textViewFinalResult" />
 

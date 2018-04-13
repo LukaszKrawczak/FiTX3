@@ -6,73 +6,103 @@
     android:layout_height="match_parent"
     tools:context="com.brus5.lukaszkrawczak.fitx.MainActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#0078f0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
+
     <TextView
-        android:id="@+id/tvWelcome"
+        android:id="@+id/output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Siema!!!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.032" />
-
-    <Button
-        android:id="@+id/btUserProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="User Profile"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <Button
-        android:id="@+id/btMetaCalc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Metabolic Calculator"
-        app:layout_constraintTop_toBottomOf="@+id/btUserProfile"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <Button
-        android:id="@+id/btTraining"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Training"
-        app:layout_constraintTop_toBottomOf="@+id/btMetaCalc"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <Button
-        android:id="@+id/btDiet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Diet"
-        app:layout_constraintTop_toBottomOf="@+id/btTraining"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <Button
-        android:id="@+id/btTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:text="Test"
-        app:layout_constraintStart_toEndOf="@+id/btDiet"
-        tools:layout_editor_absoluteY="219dp" />
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graph123" />
 
     <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph"
-        android:layout_width="338dp"
+        android:id="@+id/graph123"
+        android:layout_width="wrap_content"
         android:layout_height="180dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btDiet"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/buttonProfile"
+        style="@style/com_facebook_loginview_silver_style"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w,1.5:1"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDiet" />
+
+    <Button
+        android:id="@+id/buttonDiet"
+        style="@style/com_facebook_loginview_silver_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Diet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w,1.5:1"
+        app:layout_constraintEnd_toStartOf="@+id/buttonMetacalc" />
+
+    <Button
+        android:id="@+id/buttonTraining"
+        style="@style/com_facebook_loginview_silver_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="200dp"
+        android:text="Training"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w,1.5:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonMetacalc"
+        style="@style/com_facebook_loginview_silver_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="KCAL++"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w,1.5:1"
+        app:layout_constraintEnd_toStartOf="@+id/buttonTraining" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="385dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="548dp" />
 
 </android.support.constraint.ConstraintLayout>

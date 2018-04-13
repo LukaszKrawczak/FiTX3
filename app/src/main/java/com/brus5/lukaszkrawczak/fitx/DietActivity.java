@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -106,25 +105,25 @@ public class DietActivity extends AppCompatActivity {
         mTaskListView = findViewById(R.id.list_diet);
         getWindow().setStatusBarColor(ContextCompat.getColor(DietActivity.this,R.color.color_main_activity_statusbar));
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButtonTEST);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity2.class);
-                searchForMeal.putExtra("userIDint",userIDint);
-                searchForMeal.putExtra("userFirstName",userFirstName);
-                searchForMeal.putExtra("userName",userName);
-                searchForMeal.putExtra("userBirthday",userBirthday);
-                searchForMeal.putExtra("userAgeint",userAgeint);
-                searchForMeal.putExtra("userPassword",userPassword);
-                searchForMeal.putExtra("userEmail", userEmail);
-                searchForMeal.putExtra("userMale", userMale);
-                searchForMeal.putExtra("dateInsde", dateInsde);
-                DietActivity.this.startActivity(searchForMeal);
-            }
-        });
+//        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButtonTEST);
+//
+//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity2.class);
+//                searchForMeal.putExtra("userIDint",userIDint);
+//                searchForMeal.putExtra("userFirstName",userFirstName);
+//                searchForMeal.putExtra("userName",userName);
+//                searchForMeal.putExtra("userBirthday",userBirthday);
+//                searchForMeal.putExtra("userAgeint",userAgeint);
+//                searchForMeal.putExtra("userPassword",userPassword);
+//                searchForMeal.putExtra("userEmail", userEmail);
+//                searchForMeal.putExtra("userMale", userMale);
+//                searchForMeal.putExtra("dateInsde", dateInsde);
+//                DietActivity.this.startActivity(searchForMeal);
+//            }
+//        });
 
 
         mTaskListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -399,7 +398,19 @@ public class DietActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_search_meal_1:
-                Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity.class);
+//                Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity.class);
+//                searchForMeal.putExtra("userIDint",userIDint);
+//                searchForMeal.putExtra("userFirstName",userFirstName);
+//                searchForMeal.putExtra("userName",userName);
+//                searchForMeal.putExtra("userBirthday",userBirthday);
+//                searchForMeal.putExtra("userAgeint",userAgeint);
+//                searchForMeal.putExtra("userPassword",userPassword);
+//                searchForMeal.putExtra("userEmail", userEmail);
+//                searchForMeal.putExtra("userMale", userMale);
+//                searchForMeal.putExtra("dateInsde", dateInsde);
+//                DietActivity.this.startActivity(searchForMeal);
+
+                Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity2.class);
                 searchForMeal.putExtra("userIDint",userIDint);
                 searchForMeal.putExtra("userFirstName",userFirstName);
                 searchForMeal.putExtra("userName",userName);
@@ -410,6 +421,7 @@ public class DietActivity extends AppCompatActivity {
                 searchForMeal.putExtra("userMale", userMale);
                 searchForMeal.putExtra("dateInsde", dateInsde);
                 DietActivity.this.startActivity(searchForMeal);
+
         }
         return super.onOptionsItemSelected(item);
     }

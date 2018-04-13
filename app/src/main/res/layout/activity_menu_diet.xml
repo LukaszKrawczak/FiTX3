@@ -340,16 +340,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView47"
         app:layout_constraintStart_toEndOf="@+id/tvTotalKcal" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButtonTEST"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/list_diet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/floatingActionButtonTEST"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:clickable="true"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/list_diet"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:srcCompat="@android:drawable/ic_input_add" />-->
 
     <!--<ListView-->
     <!--android:layout_width="wrap_content"-->

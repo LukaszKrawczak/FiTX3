@@ -213,7 +213,7 @@ public class UserLoginActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(UserLoginActivity.this,Main2Activity.class);
+                        Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
                         intent.putExtra("loginResult",loginResult.toString());
                         intent.putExtras(parameters);
                         startActivity(intent);
@@ -250,7 +250,7 @@ public class UserLoginActivity extends AppCompatActivity {
         // if accesstoken isn't null then start new Activity which is MainActivity.class
         // after that, closing UserLoginActivity with finish();
         if (accessToken != null){
-            Intent intent = new Intent(UserLoginActivity.this,Main2Activity.class);
+            Intent intent = new Intent(UserLoginActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -262,7 +262,7 @@ public class UserLoginActivity extends AppCompatActivity {
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserLoginActivity.this, UserRegisterActivity.class);
+                Intent intent = new Intent(UserLoginActivity.this, UserRegisterActivityFirstPage.class);
                 UserLoginActivity.this.startActivity(intent);
             }
         });
@@ -286,12 +286,13 @@ public class UserLoginActivity extends AppCompatActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 boolean success = jsonObject.getBoolean("success");
                                 if (success) {
-                                    Intent intent = new Intent(UserLoginActivity.this, Main2Activity.class);
+                                    Intent intent = new Intent(UserLoginActivity.this, MainActivity.class);
                                     intent.putExtra("userName", userName);
                                     intent.putExtra("defaultLogin",true);
                                     SaveSharedPreference.setUserName(UserLoginActivity.this,userName);
                                     SaveSharedPreference.setDefLogin(UserLoginActivity.this,true);
                                     UserLoginActivity.this.startActivity(intent);
+                                    finish();
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(UserLoginActivity.this);
                                     builder.setMessage("Login failed")
@@ -336,7 +337,7 @@ public class UserLoginActivity extends AppCompatActivity {
         }
         else
         {
-            Intent intent = new Intent(UserLoginActivity.this, Main2Activity.class);
+            Intent intent = new Intent(UserLoginActivity.this, MainActivity.class);
             intent.putExtra("defaultLogin",true);
 
             UserLoginActivity.this.startActivity(intent);

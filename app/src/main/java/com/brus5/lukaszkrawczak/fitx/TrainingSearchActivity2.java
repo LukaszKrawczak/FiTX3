@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -403,60 +404,63 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        TrainingSet trainingSet = new TrainingSet(editTextWeight1.getText().toString(),editTextWeight2.getText().toString(),editTextWeight3.getText().toString(),editTextWeight4.getText().toString(),editTextWeight5.getText().toString(),editTextWeight6.getText().toString(),editTextWeight7.getText().toString(),editTextWeight8.getText().toString(),editTextWeight9.getText().toString(),editTextWeight10.getText().toString(),editTextReps1.getText().toString(),editTextReps2.getText().toString(),editTextReps3.getText().toString(),editTextReps4.getText().toString(),editTextReps5.getText().toString(),editTextReps6.getText().toString(),editTextReps7.getText().toString(),editTextReps8.getText().toString(),editTextReps9.getText().toString(),editTextReps10.getText().toString());
+                        TrainingSet trainingSet = new TrainingSet(editTextWeight1.getText().toString(), editTextWeight2.getText().toString(), editTextWeight3.getText().toString(), editTextWeight4.getText().toString(), editTextWeight5.getText().toString(), editTextWeight6.getText().toString(), editTextWeight7.getText().toString(), editTextWeight8.getText().toString(), editTextWeight9.getText().toString(), editTextWeight10.getText().toString(), editTextReps1.getText().toString(), editTextReps2.getText().toString(), editTextReps3.getText().toString(), editTextReps4.getText().toString(), editTextReps5.getText().toString(), editTextReps6.getText().toString(), editTextReps7.getText().toString(), editTextReps8.getText().toString(), editTextReps9.getText().toString(), editTextReps10.getText().toString());
 
-                        if (setNumber == 1){
+                        if (setNumber == 1) {
                             reps = trainingSet.getReps1();
                             weight = trainingSet.getWeight1();
                         }
-                        if (setNumber == 2){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2();
+                        if (setNumber == 2) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2();
                         }
-                        if (setNumber == 3){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3();
+                        if (setNumber == 3) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3();
                         }
-                        if (setNumber == 4){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4();
+                        if (setNumber == 4) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4();
                         }
-                        if (setNumber == 5){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5();
+                        if (setNumber == 5) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5();
                         }
-                        if (setNumber == 6){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6();
+                        if (setNumber == 6) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6();
                         }
-                        if (setNumber == 7){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7();
+                        if (setNumber == 7) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6() + "." + trainingSet.getReps7();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6() + "." + trainingSet.getWeight7();
                         }
-                        if (setNumber == 8){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8();
+                        if (setNumber == 8) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6() + "." + trainingSet.getReps7() + "." + trainingSet.getReps8();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6() + "." + trainingSet.getWeight7() + "." + trainingSet.getWeight8();
                         }
-                        if (setNumber == 9){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8()+"."+trainingSet.getReps9();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8()+"."+trainingSet.getWeight9();
+                        if (setNumber == 9) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6() + "." + trainingSet.getReps7() + "." + trainingSet.getReps8() + "." + trainingSet.getReps9();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6() + "." + trainingSet.getWeight7() + "." + trainingSet.getWeight8() + "." + trainingSet.getWeight9();
                         }
-                        if (setNumber == 10){
-                            reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8()+"."+trainingSet.getReps9()+"."+trainingSet.getReps10();
-                            weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8()+"."+trainingSet.getWeight9()+"."+trainingSet.getWeight10();
+                        if (setNumber == 10) {
+                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6() + "." + trainingSet.getReps7() + "." + trainingSet.getReps8() + "." + trainingSet.getReps9() + "." + trainingSet.getReps10();
+                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6() + "." + trainingSet.getWeight7() + "." + trainingSet.getWeight8() + "." + trainingSet.getWeight9() + "." + trainingSet.getWeight10();
                         }
 
+                        if (reps.isEmpty() || weight.isEmpty()) {
+                            Toast.makeText(TrainingSearchActivity2.this, "Add training failed. You need to add atleast one serie.", Toast.LENGTH_LONG).show();
+                        } else {
 
                         Response.Listener<String> listener = new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.e(TAG,"response"+response);
+                                Log.e(TAG, "response" + response);
                             }
                         };
-                        TrainingInsertTraining trainingInsertTraining = new TrainingInsertTraining(idd,0,editTextRestTime4.getText().toString(), reps,weight,userName,dateInsde,"blabla",listener);
+                        TrainingInsertTraining trainingInsertTraining = new TrainingInsertTraining(idd, 0, editTextRestTime4.getText().toString(), reps, weight, userName, dateInsde, "blabla", listener);
                         RequestQueue requestQueue = Volley.newRequestQueue(TrainingSearchActivity2.this);
                         requestQueue.add(trainingInsertTraining);
-
+                    }
         inputSearch.setText("");
 
                     }
