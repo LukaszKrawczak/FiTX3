@@ -1,6 +1,7 @@
 package com.brus5.lukaszkrawczak.fitx;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -32,18 +33,31 @@ import java.util.regex.Pattern;
 
 public class UserRegisterActivitySecondPage extends AppCompatActivity {
 
+    private static final String TAG = "UserRegisterActivitySec";
+
     public static final int STATUS_OK = 1;
     public static final int STATUS_NOT_OK = 0;
+
+    private int cUserName = 0;
+    private int cUserFirstName = 0;
+    private int cUserPassword = 0;
+    private int cUserRepassword = 0;
+    private int cUserEmail = 0;
+    private int cUserBirthday = 0;
+    private int cUserMale = 0;
+
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    private String userName, userFirstName, userPassword, userEmail, userBirthday, userMale;
+// FIXME: 18.04.2018 need to make username without white char's and special char's.
 
     ImageView imageViewUsername, imageViewName, imageViewPassword, imageViewRetypePass, imageViewEmail, imageViewBirthday, imageViewSex;
     RadioButton radioButtonWoman, radioButtonMan;
     DatePickerDialog datePickerDialog;
-    Button buttonDateAdd, buttonDateEdit;
-    TextView textViewBirthday;
+    Button buttonDateAdd, buttonDateEdit, buttonNextStep;
 
+    TextView textViewBirthday;
     private String password;
     private String passwordRe;
 
@@ -82,7 +96,7 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(final Editable s) {
                 if (s.toString().length() > 4) {
 
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -97,6 +111,8 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
 //                                    UserRegisterActivitySecondPage.this.startActivity(intent);
 
                                     imageViewUsername.setImageResource(R.drawable.icon_confirm);
+                                    cUserName = STATUS_OK;
+                                    userName = s.toString();
 
                                 }
                             } catch (JSONException e) {
@@ -112,6 +128,7 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
                                                 .create()
                                                 .show();
                                         imageViewUsername.setImageResource(R.drawable.icon_decline);
+                                        cUserName = STATUS_NOT_OK;
                                     }
                                 } catch (JSONException e1) {
                                     e1.printStackTrace();
@@ -148,9 +165,12 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 1) {
                     imageViewName.setImageResource(R.drawable.icon_confirm);
+                    cUserFirstName = STATUS_OK;
+                    userFirstName = s.toString();
                 }
                 else {
                     imageViewName.setImageResource(R.drawable.icon_decline);
+                    cUserFirstName = STATUS_NOT_OK;
                 }
             }
         });
@@ -172,9 +192,12 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 4) {
                     imageViewPassword.setImageResource(R.drawable.icon_confirm);
+                    cUserPassword = STATUS_OK;
+                    setPassword(s.toString());
                 }
                 else {
                     imageViewPassword.setImageResource(R.drawable.icon_decline);
+                    cUserPassword = STATUS_NOT_OK;
                 }
             }
         });
@@ -196,9 +219,12 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 4 && editTextRegisterPassword.getText().toString().equals(editTextRegisterRetypepassword.getText().toString())) {
                     imageViewRetypePass.setImageResource(R.drawable.icon_confirm);
+                    cUserRepassword = STATUS_OK;
+                    setPasswordRe(s.toString());
                 }
                 else {
                     imageViewRetypePass.setImageResource(R.drawable.icon_decline);
+                    cUserRepassword = STATUS_NOT_OK;
                 }
             }
         });
@@ -220,9 +246,12 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (VALID_EMAIL_ADDRESS_REGEX.matcher(s.toString()).matches()) {
                     imageViewEmail.setImageResource(R.drawable.icon_confirm);
+                    cUserEmail = STATUS_OK;
+                    userEmail = s.toString();
                 }
                 else {
                     imageViewEmail.setImageResource(R.drawable.icon_decline);
+                    cUserEmail = STATUS_NOT_OK;
                 }
             }
         });
@@ -232,7 +261,7 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
             System.out.println(email + " is " + (VALID_EMAIL_ADDRESS_REGEX.matcher(email).matches() ? "valid" : "invalid"));
         }
 
-
+        Log.e(TAG, "onCreate: checking1");
         textViewBirthday = findViewById(R.id.textViewBirthday);
 
         buttonDateAdd = findViewById(R.id.buttonDateAdd);
@@ -267,12 +296,16 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
                                     buttonDateAdd.setVisibility(View.INVISIBLE);
                                     buttonDateEdit.setVisibility(View.VISIBLE);
                                     imageViewBirthday.setImageResource(R.drawable.icon_confirm);
+                                    cUserBirthday = STATUS_OK;
+                                    userBirthday = textViewBirthday.getText().toString();
                                 }
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
             }
         });
+
+        Log.e(TAG, "onCreate: checking2");
 
         buttonDateEdit = findViewById(R.id.buttonDateEdit);
         buttonDateEdit.setOnClickListener(new View.OnClickListener() {
@@ -307,6 +340,8 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
                                     buttonDateAdd.setVisibility(View.INVISIBLE);
                                     buttonDateEdit.setVisibility(View.VISIBLE);
                                     imageViewBirthday.setImageResource(R.drawable.icon_confirm);
+                                    cUserBirthday = STATUS_OK;
+                                    userBirthday = textViewBirthday.getText().toString();
                                 }
                             }
                         }, mYear, mMonth, mDay);
@@ -314,7 +349,7 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
             }
         });
 
-
+        Log.e(TAG, "onCreate: checking3");
 
         radioButtonMan = findViewById(R.id.radioButtonMan);
         radioButtonWoman = findViewById(R.id.radioButtonWoman);
@@ -325,6 +360,8 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
                 radioButtonWoman.setChecked(true);
                 radioButtonMan.setChecked(false);
                 imageViewSex.setImageResource(R.drawable.icon_confirm);
+                cUserMale = STATUS_OK;
+                userMale = "w";
             }
         });
 
@@ -334,8 +371,56 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
                 radioButtonWoman.setChecked(false);
                 radioButtonMan.setChecked(true);
                 imageViewSex.setImageResource(R.drawable.icon_confirm);
+                cUserMale = STATUS_OK;
+                userMale = "m";
             }
         });
+
+
+        /*
+        imageViewUsername = findViewById(R.id.imageViewUsername);
+        imageViewName = findViewById(R.id.imageViewName);
+        imageViewPassword = findViewById(R.id.imageViewPassword);
+        imageViewRetypePass = findViewById(R.id.imageViewRetypePass);
+        imageViewEmail = findViewById(R.id.imageViewEmail);
+        imageViewBirthday = findViewById(R.id.imageViewBirthday);
+        imageViewSex = findViewById(R.id.imageViewSex);*/
+
+        Log.e(TAG, "onCreate: checking4");
+
+        buttonNextStep = findViewById(R.id.buttonNextStep1);
+
+
+
+
+
+            buttonNextStep.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (cUserName == STATUS_OK && cUserFirstName == STATUS_OK && cUserPassword == STATUS_OK && cUserRepassword == STATUS_OK && cUserEmail == STATUS_OK && cUserBirthday == STATUS_OK && cUserMale == STATUS_OK) {
+
+                        if (getPassword().equals(getPasswordRe())) {
+                            userPassword = getPassword();
+                        }
+
+                        Intent intent = new Intent(UserRegisterActivitySecondPage.this, UserRegisterActivityThirdPage.class);
+                        intent.putExtra("userName", userName);
+                        intent.putExtra("userFirstName", userFirstName);
+                        intent.putExtra("userPassword", userPassword);
+                        intent.putExtra("userEmail", userEmail);
+                        intent.putExtra("userBirthday", userBirthday);
+                        intent.putExtra("userMale", userMale);
+                        UserRegisterActivitySecondPage.this.startActivity(intent);
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserRegisterActivitySecondPage.this);
+                        builder.setMessage("Please add proper data")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+                    }
+                    }
+            });
 
 
 

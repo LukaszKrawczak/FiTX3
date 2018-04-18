@@ -96,6 +96,12 @@
             android:name=".UserRegisterActivitySecondPage"
             android:label="FiTX/Registration"
             android:theme="@style/FiTX3theme.noBar" />
+        <activity
+            android:name=".UserRegisterActivityThirdPage"
+            android:label="FiTX/Registration"
+            android:theme="@style/FiTX3theme.noBar" >
+
+        </activity>
     </application>
 
 </manifest>
