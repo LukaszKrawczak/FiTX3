@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +63,8 @@ public class MainActivity extends AppCompatActivity{
     ArrayList<String> weightArray = new ArrayList<>();
     ArrayList<String> wDateArray = new ArrayList<>();
 
-
+    int canEat = 0;
+    int eatedKcal = 0;
 
     final List<Date> dateList = new ArrayList<>();
     final List<Date> dateList1 = new ArrayList<>();
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity{
     String date = simpleDateFormat.format(c.getTime());
 
     GraphView graph;
-
+    TextView textViewCalorieStatus;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,10 @@ public class MainActivity extends AppCompatActivity{
         toolbar.setElevation(0);
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this,R.color.color_main_activity_statusbar));
         graph = findViewById(R.id.graph123);
+        textViewCalorieStatus = findViewById(R.id.textViewCalorieStatus);
+        String lol = "asd,pl     przecinek, kropka.";
 
+        Log.e(TAG, "onCreate: "+lol.replace(",","."));
 
         final Intent intent = getIntent();
 
@@ -216,12 +221,13 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
             Log.e(TAG,"doInBackground");
-            return "userID "+userID+"\nuserFirstName "+userFirstName+"\nuserName "+userName+"\nuserAge "+String.valueOf(userAgeint)+"\nuserPassword "+userPassword+"\nuserEmail "+userEmail+"\nuserMale "+userMale;
+//            return "userID "+userID+"\nuserFirstName "+userFirstName+"\nuserName "+userName+"\nuserAge "+String.valueOf(userAgeint)+"\nuserPassword "+userPassword+"\nuserEmail "+userEmail+"\nuserMale "+userMale;
+            return "Hello "+userFirstName+" here are some information you \nshould know:";
         }
         @Override
         protected void onPostExecute(String result) {
-            TextView txt = (TextView) findViewById(R.id.output);
-            txt.setText(result); // txt.setText(result);
+            TextView textViewOutput = (TextView) findViewById(R.id.textViewOutput);
+            textViewOutput.setText(result); // txt.setText(result);
             // might want to change "executed" for the returned string passed
             // into onPostExecute() but that is upto you
             Log.e(TAG,"onPostExecute");
@@ -229,8 +235,8 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         protected void onPreExecute() {
-            TextView txt = (TextView) findViewById(R.id.output);
-            txt.setText("Loading...");
+            TextView textViewOutput = (TextView) findViewById(R.id.textViewOutput);
+            textViewOutput.setText("Loading...");
             Log.e(TAG,"onPreExecute");
             batchPersonalInformation();
             batchGraphResult();
@@ -347,12 +353,16 @@ public class MainActivity extends AppCompatActivity{
                         dateArray.add("10.01.2018");
                     }
 
+
+
                     LineGraphSeries<DataPoint> series5 = new LineGraphSeries<>(new DataPoint[]{});
 
                     int count = dateList.size();
                     for (int j = count; j>0; j--){
                         Date x = dateList.get(dateList.size()-j);
-                        Double y = Double.parseDouble(resultArray.get(resultArray.size()-j));
+                        Double y = Double.parseDouble(resultArray.get(resultArray.size()-j).replace(",","."));
+//                        canEat = y.intValue();
+                        setCanEat(y.intValue());
                         DataPoint v = new DataPoint(x,y);
                         series5.appendData(v,true,count,true);
                     }
@@ -371,17 +381,7 @@ public class MainActivity extends AppCompatActivity{
                         }
                     });
 
-//                    calendar.add(Calendar.DATE,-120);
-//                    final Date d3 = calendar.getTime();
-//                    long l7 = d3.getTime();
-//                    calendar.add(Calendar.DATE,260);
-//                    final Date d4 = calendar.getTime();
-//                    long l9 = d4.getTime();
-//                    Date d8 = dateList.get(dateList.size()-1);
-//                    long l8 = d8.getTime()+2*86400;
-
-//                    Log.e("SPRAWdzAM",""+dateList.get(0).getTime());
-//                    Log.e("SPRAWdzAM",""+l8);
+                    Log.e(TAG, "onResponse: canEat "+canEat);
 
                     graph.getGridLabelRenderer().setHorizontalLabelsAngle(150);
                     graph.getGridLabelRenderer().setTextSize(25);
@@ -508,7 +508,9 @@ public class MainActivity extends AppCompatActivity{
                     int count = dateList1.size();
                     for (int j = count; j>0; j--){
                         Date x = dateList1.get(dateList1.size()-j);
-                        Double y = Double.parseDouble(weightArray.get(weightArray.size()-j));
+                        Double y = Double.parseDouble(weightArray.get(weightArray.size()-j).replace(",","."));
+//                        eatedKcal = y.intValue();
+                        setEatedKcal(y.intValue());
                         DataPoint v = new DataPoint(x,y);
                         series5.appendData(v,true,count,true);
                     }
@@ -526,18 +528,6 @@ public class MainActivity extends AppCompatActivity{
                             Toast.makeText(MainActivity.this, dataPoint.getY()+ " eated kcal", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-//                    calendar.add(Calendar.DATE,-120);
-//                    final Date d3 = calendar.getTime();
-//                    long l7 = d3.getTime();
-//                    calendar.add(Calendar.DATE,260);
-//                    final Date d4 = calendar.getTime();
-//                    long l9 = d4.getTime();
-//                    Date d8 = dateList.get(dateList.size()-1);
-//                    long l8 = d8.getTime()+2*86400;
-
-//                    Log.e("SPRAWdzAM",""+dateList.get(0).getTime());
-//                    Log.e("SPRAWdzAM",""+l8);
 
                     graph.getGridLabelRenderer().setHorizontalLabelsAngle(150);
                     graph.getGridLabelRenderer().setTextSize(25);
@@ -557,6 +547,77 @@ public class MainActivity extends AppCompatActivity{
                     viewport.setScrollable(true);
                     viewport.scrollToEnd();
 
+                    textViewCalorieStatus.setText(getCanEat()-getEatedKcal()+" kcal");
+
+                    SeekBar seekBarState = findViewById(R.id.seekBarState);
+
+//                    double percent5 = getEatedKcal()*0.05d; // 19.3 kcal
+                    double percentFive = getCanEat()*0.05d; // 120 kcal
+                    double percentTen = getCanEat()*0.10d; // 240 kcal
+                    double percentFifteen = getCanEat()*0.15d; // 360 kcal
+
+
+
+
+                    double weightGainPlus = getCanEat()+percentFifteen;
+                    Log.e(TAG, "onResponse: weightGainPlus "+weightGainPlus );
+                    double weightGain = getCanEat()+percentTen;
+                    Log.e(TAG, "onResponse: weightGain " +weightGain );
+                    double balancedPlus = getCanEat()+percentFive;
+                    Log.e(TAG, "onResponse: balancedPlus "+balancedPlus );
+                    double balancedMinus = getCanEat()-percentFive;
+                    Log.e(TAG, "onResponse: balancedMinus "+balancedMinus );
+                    double weightLoss = getCanEat()-percentTen;
+                    Log.e(TAG, "onResponse: weightLoss "+weightLoss );
+                    double weightLossPlus = getCanEat()-percentFifteen;
+                    Log.e(TAG, "onResponse: weightLossPlus "+weightLossPlus );
+
+                    // FIXME: 25.04.2018 work here
+
+
+
+
+                    Log.e(TAG, "onResponse: percentFive "+percentFive );
+
+
+
+                    if (getEatedKcal() > weightGainPlus){
+                        seekBarState.setProgress(0);
+                    } else  {
+                        seekBarState.setProgress(1);
+                    }
+
+
+
+
+                    if (checkBalanced(getEatedKcal(),balancedMinus,balancedPlus)){
+                        seekBarState.setProgress(2);
+                    }
+
+
+                    if (getEatedKcal() <= weightLoss) {
+                        seekBarState.setProgress(3);
+                    } if (getEatedKcal() <= weightLossPlus) {
+                        seekBarState.setProgress(4);
+                    }
+
+
+                    double value = getCanEat()-percentFive;
+
+
+
+                    // 2040 - 85%
+                    // 2160 - 90%
+                    // 2280 - 95%
+                    // 2400 - 100%
+                    // 2520 - 105%
+                    // 2640 - 110%
+                    // 2760 - 115%
+
+
+                    Log.e(TAG, "onResponse: eatedKcal: "+eatedKcal); //386 kcal
+                    Log.e(TAG, "onResponse: percentFive: "+percentFive); // 19.3kcal
+                    Log.e(TAG, "onResponse: value: "+value); // 2264.8 kcal
 
                     graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()){
                         @Override
@@ -603,7 +664,7 @@ public class MainActivity extends AppCompatActivity{
         Double y;
         for (int i = 1; i<count; i++){
             x = dateList.get(dateList.size()-i);
-            y = Double.parseDouble(resultArray.get(resultArray.size()-i));
+            y = Double.parseDouble(resultArray.get(resultArray.size()-i).replace(",","."));
             DataPoint v = new DataPoint(x,y);
             values[i] = v;
         }
@@ -649,11 +710,25 @@ public class MainActivity extends AppCompatActivity{
         return ageS;
     }
 
+    public int getCanEat() {return canEat;}
+
+    public void setCanEat(int canEat) {
+        this.canEat = canEat;
+    }
+
+    public int getEatedKcal() {
+        return eatedKcal;
+    }
+
+    public void setEatedKcal(int eatedKcal) {
+        this.eatedKcal = eatedKcal;
+    }
 
 
-
-
-
+    boolean checkBalanced(double checkValue, double lowerValue, double higherValue){
+        if (checkValue >= lowerValue && checkValue <= higherValue) return true;
+        return false;
+    }
 
 
 }

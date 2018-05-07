@@ -331,7 +331,7 @@ public class Main2Activity extends AppCompatActivity
 
         @Override
         protected void onPostExecute(String result) {
-            TextView txt = (TextView) findViewById(R.id.output);
+            TextView txt = (TextView) findViewById(R.id.textViewOutput);
             txt.setText(result); // txt.setText(result);
             // might want to change "executed" for the returned string passed
             // into onPostExecute() but that is upto you
@@ -340,7 +340,7 @@ public class Main2Activity extends AppCompatActivity
 
         @Override
         protected void onPreExecute() {
-            TextView txt = (TextView) findViewById(R.id.output);
+            TextView txt = (TextView) findViewById(R.id.textViewOutput);
             txt.setText("Loading...");
             Log.e(TAG,"onPreExecute");
             batchPersonalInformation();

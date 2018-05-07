@@ -21,13 +21,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
+import com.brus5.lukaszkrawczak.fitx.Training.DTO.TrainingInsertDTO;
+import com.brus5.lukaszkrawczak.fitx.Training.DTO.TrainingSearchDTO;
 import com.brus5.lukaszkrawczak.fitx.Training.Training;
-import com.brus5.lukaszkrawczak.fitx.Training.TrainingInsertTraining;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingListSearchAdapter;
-import com.brus5.lukaszkrawczak.fitx.Training.TrainingSearchByName;
+import com.brus5.lukaszkrawczak.fitx.Training.TrainingServiceCopy;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingSet;
 
 import org.json.JSONArray;
@@ -38,9 +36,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class TrainingSearchActivity2 extends AppCompatActivity {
+public class TrainingSearchActivity extends AppCompatActivity{
 
-    private static final String TAG = "TrainingSearchActivity2";
+    private static final String TAG = "TrainingSearchActivity";
 
     String userFirstName, userName, userUserName, userBirthday, userPassword, userEmail, userMale, dateInsde;
     int userIDint,userAgeint;
@@ -59,6 +57,10 @@ public class TrainingSearchActivity2 extends AppCompatActivity {
 
     String reps = "";
     String weight = "";
+
+
+    TrainingSearchDTO trainingSearchDTO = new TrainingSearchDTO();
+    TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class TrainingSearchActivity2 extends AppCompatActivity {
 
         Toolbar toolbar3 = findViewById(R.id.toolbarDietSearch);
         setSupportActionBar(toolbar3);
-        getWindow().setStatusBarColor(ContextCompat.getColor(TrainingSearchActivity2.this,R.color.color_main_activity_statusbar));
+        getWindow().setStatusBarColor(ContextCompat.getColor(TrainingSearchActivity.this,R.color.color_main_activity_statusbar));
         mTaskListView = findViewById(R.id.viewProducts1);
 
         Intent intent1 = getIntent();
@@ -87,18 +89,99 @@ public class TrainingSearchActivity2 extends AppCompatActivity {
         inputSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                trainingArrayList.clear();
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                trainingSearchDTO.description = s.toString();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                trainingArrayList.clear();
-                final Response.Listener<String> responseListener = new Response.Listener<String>() {
+                trainingServiceCopy.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
+//                Log.d(TAG, "afterTextChanged: "+trainingServiceCopy.getShowTrainingByName());
+
+
+
+
+                try {
+                    JSONObject jsonObject = new JSONObject(String.valueOf(trainingServiceCopy.getShowTrainingByName()));
+                    JSONArray server_response = jsonObject.getJSONArray("server_response");
+
+
+                    String name;
+                    int id;
+                    String username;
+                    String date;
+                    String done;
+                    String description;
+
+
+                    if (server_response.length() > 0){
+                        for (int i = 0; i < server_response.length(); i++){
+                            JSONObject c = server_response.getJSONObject(i);
+                            id = Integer.valueOf(c.getString("id"));
+                            username = c.getString("username");
+                            date = c.getString("date");
+                            description = c.getString("description");
+
+                            Log.e(TAG, "onResponse: description "+description);
+
+                            String upName = description.substring(0,1).toUpperCase() + description.substring(1);
+
+                            Training training = new Training(String.valueOf(id),description,null,null,null);
+
+                            trainingArrayList.add(training);
+
+                            adapter = new TrainingListSearchAdapter(TrainingSearchActivity.this,R.layout.training_search_row,trainingArrayList);
+                            mTaskListView.setAdapter(adapter);
+                            mTaskListView.invalidate();
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+//                TrainingSearchByName trainingSearchByName = new TrainingSearchByName(s.toString(),responseListener);
+//                RequestQueue queue = Volley.newRequestQueue(TrainingSearchActivity.this);
+//                queue.add(trainingSearchByName);
+
+
+
+
+
+                // FIXME: 06.05.2018 ogarnąć asychroniczne pobieranie danych.
+
+//                LongRunningTask longRunningTask = new LongRunningTask();
+//                longRunningTask.execute(trainingServiceCopy.getShowTrainingByName());
+
+
+
+
+//                Handler handler = new Handler();
+//                final TrainingServiceCopy TrainingServiceCopy = trainingServiceCopy;
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.i(TAG, "afterTextChanged: "+ TrainingServiceCopy.getShowTrainingByName());
+//                    }
+//                },1000);
+
+
+
+
+
+
+
+
+            }
+
+            /*            @Override
+            public void afterTextChanged(Editable s) {
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "onResponse: response "+response);
@@ -106,6 +189,8 @@ public class TrainingSearchActivity2 extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray server_response = jsonObject.getJSONArray("server_response");
+
+
 
                             String name;
                             int id;
@@ -123,7 +208,6 @@ public class TrainingSearchActivity2 extends AppCompatActivity {
                                     date = c.getString("date");
                                     description = c.getString("description");
 
-
                                     Log.e(TAG, "onResponse: description "+description);
 
                                     String upName = description.substring(0,1).toUpperCase() + description.substring(1);
@@ -132,7 +216,7 @@ public class TrainingSearchActivity2 extends AppCompatActivity {
 
                                     trainingArrayList.add(training);
 
-                                    adapter = new TrainingListSearchAdapter(TrainingSearchActivity2.this,R.layout.training_search_row,trainingArrayList);
+                                    adapter = new TrainingListSearchAdapter(TrainingSearchActivity.this,R.layout.training_search_row,trainingArrayList);
                                     mTaskListView.setAdapter(adapter);
                                     mTaskListView.invalidate();
 
@@ -145,14 +229,17 @@ public class TrainingSearchActivity2 extends AppCompatActivity {
 
                     }
                 };
-                TrainingSearchByName trainingSearchByName = new TrainingSearchByName(s.toString(),responseListener);
-                RequestQueue queue = Volley.newRequestQueue(TrainingSearchActivity2.this);
-                queue.add(trainingSearchByName);
-            }
+//                TrainingSearchByName trainingSearchByName = new TrainingSearchByName(s.toString(),responseListener);
+//                RequestQueue queue = Volley.newRequestQueue(TrainingSearchActivity.this);
+//                queue.add(trainingSearchByName);
+
+                TrainingSearchDTO trainingSearchDTO = new TrainingSearchDTO();
+                trainingSearchDTO.description = s.toString();
+
+                TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
+                trainingServiceCopy.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
+            }*/
         });
-
-
-
 
 
 mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -174,17 +261,13 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         TextView task_set10 = view.findViewById(R.id.task_set10);
         TextView task_id = view.findViewById(R.id.task_id);
 
-
-
         final String description = task_name.getText().toString();
         final int idd = Integer.valueOf(task_id.getText().toString());
 
         Log.e(TAG, "onItemClick: desc"+description );
         Log.e(TAG, "onItemClick: idd"+idd );
 
-
-
-        LayoutInflater inflater = LayoutInflater.from(TrainingSearchActivity2.this);
+        LayoutInflater inflater = LayoutInflater.from(TrainingSearchActivity.this);
         View textEntryView = inflater.inflate(R.layout.activity_training_options,null);
 
         final EditText editTextRestTime4 = textEntryView.findViewById(R.id.editTextRestTime4);
@@ -229,7 +312,7 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
         final Button buttonAddSet = textEntryView.findViewById(R.id.buttonAddSet);
-        final Button buttonCheck = textEntryView.findViewById(R.id.buttonCheck);
+
 
 
         final ArrayList<String> reps_list = new ArrayList<>();
@@ -256,14 +339,9 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 Log.e(TAG, "onClick: reps_list "+reps_list.size());
                 Log.e(TAG, "onClick: reps_list "+reps_list);
                 Log.e(TAG, "onClick: weight_list "+weight_list);
-
                 Log.e(TAG, "onItemClick: editTextReps1 "+ editTextReps1.getText().toString());
-
                 Log.e(TAG, "onClick: click: "+setNumber);
 
-
-
-// FIXME: 05.04.2018 working right here... add each element to arraylist and then convert to 10.10.10 format...
 
                 if (setNumber == 1){
                     editTextReps1.setVisibility(View.VISIBLE);
@@ -358,46 +436,8 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
 
-        buttonCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "onClick: reps "+reps );
 
-//                arrayWeight.add(editTextWeight1.getText().toString());
-//                arrayWeight.add(editTextWeight2.getText().toString());
-//                arrayWeight.add(editTextWeight3.getText().toString());
-//                arrayWeight.add(editTextWeight4.getText().toString());
-//                arrayWeight.add(editTextWeight5.getText().toString());
-//                arrayWeight.add(editTextWeight6.getText().toString());
-//                arrayWeight.add(editTextWeight7.getText().toString());
-//                arrayWeight.add(editTextWeight8.getText().toString());
-//                arrayWeight.add(editTextWeight9.getText().toString());
-//                arrayWeight.add(editTextWeight10.getText().toString());
-//                arrayReps.add(editTextReps1.getText().toString());
-//                arrayReps.add(editTextReps2.getText().toString());
-//                arrayReps.add(editTextReps3.getText().toString());
-//                arrayReps.add(editTextReps4.getText().toString());
-//                arrayReps.add(editTextReps5.getText().toString());
-//                arrayReps.add(editTextReps6.getText().toString());
-//                arrayReps.add(editTextReps7.getText().toString());
-//                arrayReps.add(editTextReps8.getText().toString());
-//                arrayReps.add(editTextReps9.getText().toString());
-//                arrayReps.add(editTextReps10.getText().toString());
-
-
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(TrainingSearchActivity2.this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(TrainingSearchActivity.this);
         alert.setTitle("Add training")
                 .setView(textEntryView)
                 .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
@@ -448,21 +488,37 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         }
 
                         if (reps.isEmpty() || weight.isEmpty()) {
-                            Toast.makeText(TrainingSearchActivity2.this, "Add training failed. You need to add atleast one serie.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(TrainingSearchActivity.this, "Add training failed. You need to add atleast one serie.", Toast.LENGTH_LONG).show();
                         } else {
 
-                        Response.Listener<String> listener = new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.e(TAG, "response" + response);
-                            }
-                        };
-                        TrainingInsertTraining trainingInsertTraining = new TrainingInsertTraining(idd, 0, editTextRestTime4.getText().toString(), reps, weight, userName, dateInsde, "blabla", listener);
-                        RequestQueue requestQueue = Volley.newRequestQueue(TrainingSearchActivity2.this);
-                        requestQueue.add(trainingInsertTraining);
-                    }
-        inputSearch.setText("");
+//                        Response.Listener<String> listener = new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                Log.e(TAG, "response" + response);
+//                            }
+//                        };
+//                        TrainingInsertTraining trainingInsertTraining = new TrainingInsertTraining(idd, 0, editTextRestTime4.getText().toString(), reps, weight, userName, dateInsde, "blabla", listener);
+//                        RequestQueue requestQueue = Volley.newRequestQueue(TrainingSearchActivity.this);
+//                        requestQueue.add(trainingInsertTraining);
 
+
+                            TrainingInsertDTO trainingInsertDTO = new TrainingInsertDTO();
+                            trainingInsertDTO.id = idd;
+                            trainingInsertDTO.done = 0;
+                            trainingInsertDTO.rest = editTextRestTime4.getText().toString();
+                            trainingInsertDTO.reps = reps;
+                            trainingInsertDTO.weight = weight;
+                            trainingInsertDTO.userName = userName;
+                            trainingInsertDTO.date = dateInsde;
+                            trainingInsertDTO.notepad = "clacla";
+
+
+                            TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
+                            trainingServiceCopy.InsertTraining(trainingInsertDTO,TrainingSearchActivity.this);
+
+                        }
+        inputSearch.setText("");
+        adapter.clear();
                     }
                 })
                 .setIcon(R.drawable.icon_plan)
@@ -480,6 +536,16 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
     }
+
+    public JSONObject getShowTrainingByName(TrainingServiceCopy trainingServiceCopy){
+        return trainingServiceCopy.getShowTrainingByName();
+    }
+
+    public void doSomething(TrainingServiceCopy trainingServiceCopy){
+        Log.i(TAG, "doSomething: "+trainingServiceCopy.getShowTrainingByName());
+    }
+
+
 
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Instantiate menu XML files into Menu object

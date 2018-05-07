@@ -9,6 +9,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -24,113 +25,291 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/editTextUserName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="First name"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-        <EditText
-            android:id="@+id/editTextUserFirstName"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:ems="10"
-            android:hint="Firstname"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
         <TextView
             android:id="@+id/textView33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="Username"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUserFirstName" />
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserName"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserName"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserName" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileUserName"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserName"
+            app:layout_constraintStart_toEndOf="@+id/editTextUserName"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserName"
+            app:srcCompat="@drawable/icon_confirm" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileEmail"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserEmail"
+            app:layout_constraintStart_toEndOf="@+id/editTextUserEmail"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserEmail"
+            app:srcCompat="@drawable/icon_confirm" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileHeight"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserHeight"
+            app:layout_constraintStart_toEndOf="@+id/editTextUserHeight"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserHeight"
+            app:srcCompat="@drawable/icon_confirm" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileWeight"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserWeight"
+            app:layout_constraintStart_toEndOf="@+id/editTextUserWeight"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserWeight"
+            app:srcCompat="@drawable/icon_confirm" />
 
         <EditText
-            android:id="@+id/editTextUserName"
-            android:layout_width="160dp"
+            android:id="@+id/editTextUserFirstName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Username"
+            android:hint="Firstname"
             android:inputType="textPersonName"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="66dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="First name"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserFirstName"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserFirstName"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserFirstName" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileFirstName"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserFirstName"
+            app:layout_constraintStart_toEndOf="@+id/editTextUserFirstName"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserFirstName"
+            app:srcCompat="@drawable/icon_confirm" />
+
+        <EditText
+            android:id="@+id/editTextUserbirthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="DD.MM.YYYY"
+            android:inputType="textPersonName"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserFirstName" />
 
         <TextView
             android:id="@+id/textView35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="Birthday"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserbirthday"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserbirthday"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserbirthday" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileBirthday"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserbirthday"
+            app:layout_constraintStart_toEndOf="@+id/editTextUserbirthday"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserbirthday"
+            app:srcCompat="@drawable/icon_confirm" />
 
         <EditText
-            android:id="@+id/editTextUserbirthday"
-            android:layout_width="160dp"
+            android:id="@+id/editTextUserPassword"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Birthday"
-            android:inputType="textPersonName"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView35" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserbirthday" />
 
         <TextView
             android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="Password"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUserbirthday" />
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserPassword"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserPassword"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserPassword" />
+
+        <ImageView
+            android:id="@+id/imageViewProfilePassword"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserPassword"
+            app:layout_constraintStart_toEndOf="@+id/editTextUserPassword"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserPassword"
+            app:srcCompat="@drawable/icon_confirm" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileRetypePassword"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserRetypePassword"
+            app:layout_constraintStart_toEndOf="@+id/editTextUserRetypePassword"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserRetypePassword"
+            app:srcCompat="@drawable/icon_confirm" />
+
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="Password"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserRetypePassword"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserRetypePassword"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserRetypePassword" />
 
         <EditText
-            android:id="@+id/editTextUserPassword"
-            android:layout_width="160dp"
+            android:id="@+id/editTextUserEmail"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView36" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserRetypePassword" />
 
         <TextView
             android:id="@+id/textView37"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="Height"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserHeight"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserHeight"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserHeight" />
+
+        <EditText
+            android:id="@+id/editTextUserRetypePassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Repeat password"
+            android:inputType="textPersonName"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUserEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserPassword" />
 
         <EditText
             android:id="@+id/editTextUserHeight"
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Height in cm"
             android:inputType="numberDecimal"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView37" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserEmail" />
 
         <SeekBar
             android:id="@+id/seekBarUserSomatotype"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -140,37 +319,45 @@
             android:progress="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView38" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewUserSomatotype" />
 
         <TextView
             android:id="@+id/textView38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:text="Somatotype"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUserHeight"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserWeight" />
 
         <TextView
             android:id="@+id/textView39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="Weight"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUserHeight" />
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserWeight"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserWeight"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserWeight" />
 
         <EditText
             android:id="@+id/editTextUserWeight"
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Weight in kg"
             android:inputType="numberDecimal"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView39" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserHeight" />
 
         <Button
             android:id="@+id/buttonProfileAccept"
@@ -202,48 +389,43 @@
             android:id="@+id/textView41"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="E-mail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUserPassword" />
-
-        <EditText
-            android:id="@+id/editTextUserEmail"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:ems="10"
-            android:hint="E-mail"
-            android:inputType="textEmailAddress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView41" />
+            app:layout_constraintBottom_toBottomOf="@+id/editTextUserEmail"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserEmail"
+            app:layout_constraintTop_toTopOf="@+id/editTextUserEmail" />
 
         <ImageView
             android:id="@+id/imageViewUserSomatotype"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/seekBarUserSomatotype"
+            android:layout_height="180dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView38"
             app:srcCompat="@drawable/somatotype_man_endomorph_" />
 
         <TextView
             android:id="@+id/textView45"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:text="Proteins Ratio"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seekBarUserSomatotype" />
+            android:textSize="8sp"
+            app:layout_constraintBottom_toTopOf="@+id/editTextProteinsRatio"
+            app:layout_constraintEnd_toEndOf="@+id/editTextProteinsRatio"
+            app:layout_constraintStart_toStartOf="@+id/editTextProteinsRatio" />
 
         <TextView
             android:id="@+id/textView46"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fats Ratio"
+            android:textSize="8sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView45" />
@@ -253,23 +435,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:text="Carbs Ratio"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView46" />
+            android:textSize="8sp"
+            app:layout_constraintBottom_toTopOf="@+id/editTextCarbsRatio"
+            app:layout_constraintEnd_toEndOf="@+id/editTextCarbsRatio"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/editTextCarbsRatio" />
 
         <EditText
             android:id="@+id/editTextProteinsRatio"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="42dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
             android:inputType="number"
             android:text="40"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/textView45"
-            app:layout_constraintStart_toStartOf="@+id/textView45"
-            app:layout_constraintTop_toBottomOf="@+id/textView45" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView96" />
 
         <EditText
             android:id="@+id/editTextFatsRatio"
@@ -290,40 +475,44 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="24dp"
             android:ems="10"
             android:inputType="number"
             android:text="40"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/textView48"
-            app:layout_constraintStart_toStartOf="@+id/textView48"
-            app:layout_constraintTop_toBottomOf="@+id/textView48" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView46" />
 
         <TextView
-            android:id="@+id/textView49"
+            android:id="@+id/textView94"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="Endomorph"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekBarUserSomatotype" />
+
+        <TextView
+            android:id="@+id/textView95"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="Ectomorph"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekBarUserSomatotype" />
+
+        <TextView
+            android:id="@+id/textView96"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text=":"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextFatsRatio"
-            app:layout_constraintStart_toEndOf="@+id/editTextProteinsRatio"
-            app:layout_constraintTop_toTopOf="@+id/textView45" />
-
-        <TextView
-            android:id="@+id/textView50"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text=":"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextCarbsRatio"
-            app:layout_constraintStart_toEndOf="@+id/editTextFatsRatio"
-            app:layout_constraintTop_toTopOf="@+id/textView45" />
+            android:text="Mesomorph"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView95"
+            app:layout_constraintStart_toEndOf="@+id/textView94"
+            app:layout_constraintTop_toBottomOf="@+id/seekBarUserSomatotype" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -623,12 +623,9 @@ public class TrainingActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.d(TAG, "onResponse: response "+response);
                 try {
-
                     JSONObject jsonObject = new JSONObject(response);
-
-
-
                     JSONArray trainings_info = jsonObject.getJSONArray("trainings_info");
+
                     String done;
                     String rest;
                     String reps;
@@ -690,12 +687,11 @@ public class TrainingActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add_training:
-                Intent searchForTraining = new Intent(TrainingActivity.this, TrainingSearchActivity2.class);
+                Intent searchForTraining = new Intent(TrainingActivity.this, TrainingSearchActivity.class);
                 searchForTraining.putExtra("userIDint",userIDint);
                 searchForTraining.putExtra("userFirstName",userFirstName);
                 searchForTraining.putExtra("userName",userName);

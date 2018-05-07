@@ -68,7 +68,7 @@
 
         </activity>
         <activity
-            android:name=".TrainingSearchActivity2"
+            android:name=".TrainingSearchActivity"
             android:label="Search for training"
             android:theme="@style/FiTX3theme.noBar">
 

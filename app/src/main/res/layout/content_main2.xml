@@ -28,7 +28,7 @@
         app:srcCompat="@drawable/logo_main_activity" />-->
 
     <TextView
-        android:id="@+id/output"
+        android:id="@+id/textViewOutput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

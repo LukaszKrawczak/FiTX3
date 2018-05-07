@@ -1,3 +1,4 @@
+/*
 package com.brus5.lukaszkrawczak.fitx;
 
 import android.content.DialogInterface;
@@ -276,13 +277,15 @@ public class DietSearchActivity extends AppCompatActivity{
                             JSONObject c = server_response.getJSONObject(i);
                             id = c.getString("id");
                             name = c.getString("name");
+*/
 /*
                                     weight = c.getString("weight");
                                     proteins = c.getString("proteins");
                                     fats = c.getString("fats");
                                     carbs = c.getString("carbs");
                                     date = c.getString("date");
-*/
+*//*
+
                             productNameList.add(name);
                             productIDList.add(Integer.valueOf(id));
                             products2.add(name);
@@ -638,3 +641,4 @@ public class DietSearchActivity extends AppCompatActivity{
 
 
 }
+*/

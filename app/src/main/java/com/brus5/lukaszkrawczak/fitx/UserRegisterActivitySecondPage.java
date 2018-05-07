@@ -46,6 +46,10 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
     private int cUserBirthday = 0;
     private int cUserMale = 0;
 
+    String sDayOfMonth = "";
+    String sMonthOfYear = "";
+    String sYear = "";
+
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -290,8 +294,24 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
                                             .create()
                                             .show();
                                 } else {
-                                    textViewBirthday.setText(dayOfMonth + "."
-                                            + (monthOfYear + 1) + "." + year);
+
+                                    int iMonthOfYear = monthOfYear+1;
+
+                                    if (dayOfMonth<10){
+                                        sDayOfMonth = "0"+dayOfMonth;
+                                    } else sDayOfMonth = ""+dayOfMonth;
+                                    if (monthOfYear+1 < 10){
+                                        sMonthOfYear = "0"+iMonthOfYear;
+                                    } else sMonthOfYear = ""+iMonthOfYear;
+
+                                    textViewBirthday.setText(sDayOfMonth + "."
+                                            + (sMonthOfYear + "." + year));
+
+
+                                    Log.e(TAG, "onDateSet: "+dayOfMonth + "." + monthOfYear + "." + year);
+
+//                                    textViewBirthday.setText(dayOfMonth + "."
+//                                            + (monthOfYear + 1) + "." + year);
                                     textViewBirthday.setVisibility(View.VISIBLE);
                                     buttonDateAdd.setVisibility(View.INVISIBLE);
                                     buttonDateEdit.setVisibility(View.VISIBLE);
@@ -306,6 +326,8 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
         });
 
         Log.e(TAG, "onCreate: checking2");
+
+
 
         buttonDateEdit = findViewById(R.id.buttonDateEdit);
         buttonDateEdit.setOnClickListener(new View.OnClickListener() {
@@ -334,8 +356,22 @@ public class UserRegisterActivitySecondPage extends AppCompatActivity {
                                             .show();
                                 } else {
 
-                                    textViewBirthday.setText(dayOfMonth + "."
-                                            + (monthOfYear + 1) + "." + year);
+                                    int iMonthOfYear = monthOfYear+1;
+
+                                    if (dayOfMonth<10){
+                                        sDayOfMonth = "0"+dayOfMonth;
+                                    } else sDayOfMonth = ""+dayOfMonth;
+                                    if (monthOfYear+1 < 10){
+                                        sMonthOfYear = "0"+iMonthOfYear;
+                                    } else sMonthOfYear = ""+iMonthOfYear;
+
+                                    textViewBirthday.setText(sDayOfMonth + "."
+                                            + (sMonthOfYear + "." + year));
+
+
+                                    Log.e(TAG, "onDateSet: "+dayOfMonth + "." + monthOfYear + "." + year);
+//                                    textViewBirthday.setText(dayOfMonth + "."
+//                                            + (monthOfYear + 1) + "." + year);
                                     textViewBirthday.setVisibility(View.VISIBLE);
                                     buttonDateAdd.setVisibility(View.INVISIBLE);
                                     buttonDateEdit.setVisibility(View.VISIBLE);

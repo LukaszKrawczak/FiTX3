@@ -169,6 +169,7 @@ public class DietActivity extends AppCompatActivity {
                 final TextView mCarbs = textEntryView.findViewById(R.id.meal_carbs4);
 
 
+
                 mProteins.setText(proteins);
                 mFats.setText(fats);
                 mCarbs.setText(carbs);
@@ -495,6 +496,12 @@ public class DietActivity extends AppCompatActivity {
                     double kcal;
                     String date="";
                     String username="";
+
+                    String sProteins;
+                    String sFats;
+                    String sCarbs;
+
+
                     if (server_response.length() > 0){
                         for (int i = 0; i < server_response.length(); i++){
                             JSONObject c = server_response.getJSONObject(i);
@@ -506,6 +513,29 @@ public class DietActivity extends AppCompatActivity {
                             kcal = Double.valueOf(c.getString("kcal"));
                             username = c.getString("username");
                             date = c.getString("date");
+
+// FIXME: 22.04.2018 double . ,
+
+//                            double cProteins = proteins;
+//                            double cFats = fats;
+//                            double cCarbs = carbs;
+//                            double cKcal = kcal;
+//
+//
+//                            if (String.valueOf(cKcal).contains(",")){
+//                                cProteins = Double.valueOf(String.valueOf(proteins).replace(",","."));
+//                                cFats = Double.valueOf(String.valueOf(proteins).replace(",","."));
+//                                cCarbs = Double.valueOf(String.valueOf(proteins).replace(",","."));
+//                                cKcal = Double.valueOf(String.valueOf(kcal).replace(",","."));
+//                            }
+
+
+                            /* IMPORTANT
+                            cProteins = cProteins*(Double.valueOf(productWeight.get(i))/100);
+                            fats = fats*(Double.valueOf(productWeight.get(i))/100);
+                            carbs = carbs*(Double.valueOf(productWeight.get(i))/100);
+                            */
+
                             proteins = proteins*(Double.valueOf(productWeight.get(i))/100);
                             fats = fats*(Double.valueOf(productWeight.get(i))/100);
                             carbs = carbs*(Double.valueOf(productWeight.get(i))/100);
@@ -514,11 +544,11 @@ public class DietActivity extends AppCompatActivity {
                             Log.e(TAG, "onResponse: date "+date);
                             String upName = name.substring(0,1).toUpperCase() + name.substring(1);
 
-                            kcalList.add(String.format("%.1f",finalkcal));
-                            proteinsList.add(String.format("%.1f",proteins));
-                            fatsList.add(String.format("%.1f",fats));
-                            carbsList.add(String.format("%.1f",carbs));
-                            Diet diet = new Diet(String.valueOf(product_id), upName, productWeight.get(i), String.format("%.1f",proteins), String.format("%.1f",fats), String.format("%.1f",carbs),String.format("%.0f",finalkcal));
+                            proteinsList.add(String.format("%.1f",proteins).replace(",","."));
+                            fatsList.add(String.format("%.1f",fats).replace(",","."));
+                            carbsList.add(String.format("%.1f",carbs).replace(",","."));
+                            kcalList.add(String.format("%.1f",finalkcal).replace(",","."));
+                            Diet diet = new Diet(String.valueOf(product_id), upName, productWeight.get(i), String.format("%.1f",proteins).replace(",","."), String.format("%.1f",fats).replace(",","."), String.format("%.1f",carbs).replace(",","."),String.format("%.0f",finalkcal).replace(",","."));
                             dietArrayList.add(diet);
                         }
 
@@ -532,16 +562,16 @@ public class DietActivity extends AppCompatActivity {
 
 
                     TextView tvProteins = findViewById(R.id.tvProteins);
-                    tvProteins.setText(String.format("%.1f",proteinsResult));
+                    tvProteins.setText(String.format("%.1f",proteinsResult).replace(",","."));
 
                     TextView tvFats = findViewById(R.id.tvFats);
-                    tvFats.setText(String.format("%.1f",fatsResult));
+                    tvFats.setText(String.format("%.1f",fatsResult).replace(",","."));
 
                     TextView tvCarbs = findViewById(R.id.tvCarbs);
-                    tvCarbs.setText(String.format("%.1f",carbsResult));
+                    tvCarbs.setText(String.format("%.1f",carbsResult).replace(",","."));
 
                     TextView tvKcal = findViewById(R.id.tvKcal);
-                    tvKcal.setText(String.format("%.0f",kcalResult));
+                    tvKcal.setText(String.format("%.0f",kcalResult).replace(",","."));
 
                     Double proteinGoal = 0d;
                     Double fatGoal = 0d;

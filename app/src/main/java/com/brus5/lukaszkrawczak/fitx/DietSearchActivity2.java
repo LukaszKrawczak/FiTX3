@@ -56,6 +56,7 @@ public class DietSearchActivity2 extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String date = simpleDateFormat.format(c.getTime());
 
+    // FIXME: 19.04.2018 if i type sil and theres sirolin world theres is bug - need to fix it
 
     double proteins = 0d;
     double  fats = 0d;
@@ -144,6 +145,10 @@ public class DietSearchActivity2 extends AppCompatActivity {
                                     carbs = c.getString("carbs");
                                     date = c.getString("date");
 */
+
+//                                    String cProteins = String.valueOf(proteins).replace(",",".");
+//                                    String cFats = String.valueOf(fats).replace(",",".");
+//                                    String cCarbs = String.valueOf(carbs).replace(",",".");
 
                                     Log.e(TAG, "onResponse: name "+name);
 

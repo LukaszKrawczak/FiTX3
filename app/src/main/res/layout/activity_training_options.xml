@@ -488,14 +488,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/editTextReps10"
         app:layout_constraintEnd_toStartOf="@+id/editTextReps10" />
 
-    <Button
-        android:id="@+id/buttonCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Check"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAddSet"
-        app:layout_constraintTop_toTopOf="@+id/buttonAddSet" />
 
 
 </android.support.constraint.ConstraintLayout>

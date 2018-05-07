@@ -24,16 +24,6 @@ public class Calculator {
     private double TEF;
     private double kcalResult;
 
-//    public double setBMR (double weight, double height, double age, String male){
-//        if (male.equals("m")){
-//            BMR = weight*9.99+height*6.25+age*4.92+5d;
-//        }else if (male.equals("w")){
-//            BMR = weight*9.99+height*6.25+age*4.92-161d;
-//        }
-//        Log.e(TAG,"BMR: " + BMR);
-//        return BMR;
-
-
 
     public void setHeight(double height) {
         this.height = height;
@@ -152,11 +142,4 @@ public class Calculator {
         return kcalResult = TEF + (0.1d * TEF);
     }
 
-    //    TEF = BMR + (GymTime * GymTea) + (AreoTime * AreoTEA) + (GymEpoc * BMR) + AreoEPOC + somatotype;
-//
-//    RESULT = TEF + (0.1d * TEF);
-
-//    TEF = BMR + (GymTime * GymTea) + (AreoTime * AreoTEA) + (GymEpoc * BMR) + AreoEPOC + somatotype;
-//
-//    RESULT = TEF + (0.1d * TEF);
 }

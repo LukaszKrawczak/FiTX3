@@ -80,11 +80,11 @@ public class DietListAdapter extends ArrayAdapter<Diet>{
 
         meal_title.setText(name);
         meal_weight.setText(weight);
-        meal_proteins.setText(proteins);
-        meal_fats.setText(fats);
-        meal_carbs.setText(carbs);
+        meal_proteins.setText(proteins.replace(",","."));
+        meal_fats.setText(fats.replace(",","."));
+        meal_carbs.setText(carbs.replace(",","."));
         meal_id.setText(id);
-        meal_kcal.setText(kcal);
+        meal_kcal.setText(kcal.replace(",","."));
 
 //        Count count = new Count(Integer.valueOf(kcal));
 //        Log.d(TAG, "getView: getCount "+count.getCount());
