@@ -99,9 +99,9 @@ public class TrainingActivity extends AppCompatActivity {
         userMale = intent1.getStringExtra("userMale");
         Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale);
 
-        mTaskListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 View parent1 = (View) view.getParent();
 
                 TextView task_name = view.findViewById(R.id.task_name);
@@ -530,11 +530,446 @@ public class TrainingActivity extends AppCompatActivity {
 
 
                 Log.e(TAG, "onItemLongClick: desc "+description);
-                return true;
-
-
+                return;
             }
         });
+
+//        mTaskListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                View parent1 = (View) view.getParent();
+//
+//                TextView task_name = view.findViewById(R.id.task_name);
+//                TextView task_rest = view.findViewById(R.id.task_restTime);
+//                TextView task_set1 = view.findViewById(R.id.task_set1);
+//                TextView task_set2 = view.findViewById(R.id.task_set2);
+//                TextView task_set3 = view.findViewById(R.id.task_set3);
+//                TextView task_set4 = view.findViewById(R.id.task_set4);
+//                TextView task_set5 = view.findViewById(R.id.task_set5);
+//                TextView task_set6 = view.findViewById(R.id.task_set6);
+//                TextView task_set7 = view.findViewById(R.id.task_set7);
+//                TextView task_set8 = view.findViewById(R.id.task_set8);
+//                TextView task_set9 = view.findViewById(R.id.task_set9);
+//                TextView task_set10 = view.findViewById(R.id.task_set10);
+//                final TextView task_id = view.findViewById(R.id.task_id);
+//                Log.e(TAG, "onItemLongClick: task_id "+task_id.getText().toString());
+//                final String description = task_name.getText().toString();
+//
+//                LayoutInflater inflater = LayoutInflater.from(TrainingActivity.this);
+//                View textEntryView = inflater.inflate(R.layout.activity_training_options,null);
+//
+//                final TextView mTask_name = textEntryView.findViewById(R.id.task_name4);
+//                final TextView mRest_time = textEntryView.findViewById(R.id.task_restTime4);
+//
+//                mTask_name.setText(task_name.getText().toString());
+//
+//                final EditText editTextRestTime4 = textEntryView.findViewById(R.id.editTextRestTime4);
+//                final EditText editTextReps1 = textEntryView.findViewById(R.id.editTextReps1);
+//                final EditText editTextReps2 = textEntryView.findViewById(R.id.editTextReps2);
+//                final EditText editTextReps3 = textEntryView.findViewById(R.id.editTextReps3);
+//                final EditText editTextReps4 = textEntryView.findViewById(R.id.editTextReps4);
+//                final EditText editTextReps5 = textEntryView.findViewById(R.id.editTextReps5);
+//                final EditText editTextReps6 = textEntryView.findViewById(R.id.editTextReps6);
+//                final EditText editTextReps7 = textEntryView.findViewById(R.id.editTextReps7);
+//                final EditText editTextReps8 = textEntryView.findViewById(R.id.editTextReps8);
+//                final EditText editTextReps9 = textEntryView.findViewById(R.id.editTextReps9);
+//                final EditText editTextReps10 = textEntryView.findViewById(R.id.editTextReps10);
+//                final EditText editTextWeight1 = textEntryView.findViewById(R.id.editTextWeight1);
+//                final EditText editTextWeight2 = textEntryView.findViewById(R.id.editTextWeight2);
+//                final EditText editTextWeight3 = textEntryView.findViewById(R.id.editTextWeight3);
+//                final EditText editTextWeight4 = textEntryView.findViewById(R.id.editTextWeight4);
+//                final EditText editTextWeight5 = textEntryView.findViewById(R.id.editTextWeight5);
+//                final EditText editTextWeight6 = textEntryView.findViewById(R.id.editTextWeight6);
+//                final EditText editTextWeight7 = textEntryView.findViewById(R.id.editTextWeight7);
+//                final EditText editTextWeight8 = textEntryView.findViewById(R.id.editTextWeight8);
+//                final EditText editTextWeight9 = textEntryView.findViewById(R.id.editTextWeight9);
+//                final EditText editTextWeight10 = textEntryView.findViewById(R.id.editTextWeight10);
+//                final TextView textViewNumber1 = textEntryView.findViewById(R.id.textViewNumber1);
+//                final TextView textViewNumber2 = textEntryView.findViewById(R.id.textViewNumber2);
+//                final TextView textViewNumber3 = textEntryView.findViewById(R.id.textViewNumber3);
+//                final TextView textViewNumber4 = textEntryView.findViewById(R.id.textViewNumber4);
+//                final TextView textViewNumber5 = textEntryView.findViewById(R.id.textViewNumber5);
+//                final TextView textViewNumber6 = textEntryView.findViewById(R.id.textViewNumber6);
+//                final TextView textViewNumber7 = textEntryView.findViewById(R.id.textViewNumber7);
+//                final TextView textViewNumber8 = textEntryView.findViewById(R.id.textViewNumber8);
+//                final TextView textViewNumber9 = textEntryView.findViewById(R.id.textViewNumber9);
+//                final TextView textViewNumber10 = textEntryView.findViewById(R.id.textViewNumber10);
+//
+//                final TextView textViewReps1 = textEntryView.findViewById(R.id.textViewReps1);
+//                final TextView textViewWeight1 = textEntryView.findViewById(R.id.textViewWeight1);
+//                final TextView textViewReps2 = textEntryView.findViewById(R.id.textViewReps2);
+//                final TextView textViewWeight2 = textEntryView.findViewById(R.id.textViewWeight2);
+//
+//
+//
+//                String mTask_rest = task_rest.getText().toString().replaceAll("\\p{Lower}", "");
+//                editTextRestTime4.setText(mTask_rest);
+//
+//                editTextReps1.setText(task_set1.getText().toString());
+//
+//                final Button buttonAddSet = textEntryView.findViewById(R.id.buttonAddSet);
+//
+//
+//                final ArrayList<String> reps_list = new ArrayList<>();
+//                final ArrayList<String> weight_list = new ArrayList<>();
+//
+//
+//
+//                if (task_set1.getText() != null  && !task_set1.getText().equals("")){
+//                    String mTask_reps = task_set1.getText().toString().replaceAll("\\p{Lower}", " ");
+//                    Log.e(TAG, "onItemLongClick: mtask_reps "+mTask_reps);
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps1.setText(reps_list.get(0));
+//                    editTextWeight1.setText(weight_list.get(0));
+//
+//                    editTextReps1.setVisibility(View.VISIBLE);
+//                    editTextWeight1.setVisibility(View.VISIBLE);
+//                    editTextWeight1.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber1.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 1;
+//
+//                }
+//                if (task_set2.getText() != null  && !task_set2.getText().equals("")){
+//                    String mTask_reps = task_set2.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps2.setText(reps_list.get(1));
+//                    editTextWeight2.setText(weight_list.get(1));
+//
+//                    editTextReps2.setVisibility(View.VISIBLE);
+//                    editTextWeight2.setVisibility(View.VISIBLE);
+//                    editTextWeight2.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber2.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 2;
+//                }
+//                if (task_set3.getText() != null  && !task_set3.getText().equals("")){
+//                    String mTask_reps = task_set3.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps3.setText(reps_list.get(2));
+//                    editTextWeight3.setText(weight_list.get(2));
+//
+//                    editTextReps3.setVisibility(View.VISIBLE);
+//                    editTextWeight3.setVisibility(View.VISIBLE);
+//                    editTextWeight3.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber3.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 3;
+//                }
+//
+//                if (task_set4.getText() != null  && !task_set4.getText().equals("")){
+//                    String mTask_reps = task_set4.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps4.setText(reps_list.get(3));
+//                    editTextWeight4.setText(weight_list.get(3));
+//
+//                    editTextReps4.setVisibility(View.VISIBLE);
+//                    editTextWeight4.setVisibility(View.VISIBLE);
+//                    editTextWeight4.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber4.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 4;
+//                }
+//
+//                if (task_set5.getText() != null  && !task_set5.getText().equals("")){
+//                    String mTask_reps = task_set5.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps5.setText(reps_list.get(4));
+//                    editTextWeight5.setText(weight_list.get(4));
+//
+//                    editTextReps5.setVisibility(View.VISIBLE);
+//                    editTextWeight5.setVisibility(View.VISIBLE);
+//                    editTextWeight5.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber5.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 5;
+//                }
+//
+//                if (task_set6.getText() != null  && !task_set6.getText().equals("")){
+//                    String mTask_reps = task_set6.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps6.setText(reps_list.get(5));
+//                    editTextWeight6.setText(weight_list.get(5));
+//
+//                    editTextReps6.setVisibility(View.VISIBLE);
+//                    editTextWeight6.setVisibility(View.VISIBLE);
+//                    editTextWeight6.setVisibility(View.VISIBLE);
+//
+//                    textViewReps2.setVisibility(View.VISIBLE);
+//                    textViewWeight2.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber6.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 6;
+//                }
+//
+//                if (task_set7.getText() != null  && !task_set7.getText().equals("")){
+//                    String mTask_reps = task_set7.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps7.setText(reps_list.get(6));
+//                    editTextWeight7.setText(weight_list.get(6));
+//
+//                    editTextReps7.setVisibility(View.VISIBLE);
+//                    editTextWeight7.setVisibility(View.VISIBLE);
+//                    editTextWeight7.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber7.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 7;
+//                }
+//
+//                if (task_set8.getText() != null  && !task_set8.getText().equals("")){
+//                    String mTask_reps = task_set8.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps8.setText(reps_list.get(7));
+//                    editTextWeight8.setText(weight_list.get(7));
+//
+//                    editTextReps8.setVisibility(View.VISIBLE);
+//                    editTextWeight8.setVisibility(View.VISIBLE);
+//                    editTextWeight8.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber8.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 8;
+//                }
+//
+//                if (task_set9.getText() != null  && !task_set9.getText().equals("")){
+//                    String mTask_reps = task_set9.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps9.setText(reps_list.get(8));
+//                    editTextWeight9.setText(weight_list.get(8));
+//
+//                    editTextReps9.setVisibility(View.VISIBLE);
+//                    editTextWeight9.setVisibility(View.VISIBLE);
+//                    editTextWeight9.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber9.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 9;
+//                }
+//
+//                if (task_set10.getText() != null  && !task_set10.getText().equals("")){
+//                    String mTask_reps = task_set10.getText().toString().replaceAll("\\p{Lower}"," ");
+//                    String[] mReps_table = mTask_reps.split("\\s+");
+//                    reps_list.add(mReps_table[0]);
+//                    weight_list.add(mReps_table[1]);
+//                    editTextReps10.setText(reps_list.get(9));
+//                    editTextWeight10.setText(weight_list.get(9));
+//
+//                    editTextReps10.setVisibility(View.VISIBLE);
+//                    editTextWeight10.setVisibility(View.VISIBLE);
+//                    editTextWeight10.setVisibility(View.VISIBLE);
+//
+//                    textViewNumber10.setVisibility(View.VISIBLE);
+//
+//                    setNumber = 10;
+//                }
+//
+//
+//                buttonAddSet.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        setNumber++;
+//
+//                        Log.e(TAG, "onClick: reps_list "+reps_list.size());
+//                        Log.e(TAG, "onClick: reps_list "+reps_list);
+//                        Log.e(TAG, "onClick: weight_list "+weight_list);
+//
+//
+//                        Log.e(TAG, "onClick: click: "+setNumber);
+//
+//                        if (editTextReps1.getVisibility() == View.VISIBLE){
+//
+//                        }
+//
+//                        if (setNumber == 1){
+//                            editTextReps1.setVisibility(View.VISIBLE);
+//                            editTextWeight1.setVisibility(View.VISIBLE);
+//                            textViewNumber1.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 2){
+//                            editTextReps2.setVisibility(View.VISIBLE);
+//                            editTextWeight2.setVisibility(View.VISIBLE);
+//                            textViewNumber2.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 3){
+//                            editTextReps3.setVisibility(View.VISIBLE);
+//                            editTextWeight3.setVisibility(View.VISIBLE);
+//                            textViewNumber3.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 4){
+//                            editTextReps4.setVisibility(View.VISIBLE);
+//                            editTextWeight4.setVisibility(View.VISIBLE);
+//                            textViewNumber4.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 5){
+//                            editTextReps5.setVisibility(View.VISIBLE);
+//                            editTextWeight5.setVisibility(View.VISIBLE);
+//                            textViewNumber5.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 6){
+//                            editTextReps6.setVisibility(View.VISIBLE);
+//                            editTextWeight6.setVisibility(View.VISIBLE);
+//                            textViewNumber6.setVisibility(View.VISIBLE);
+//
+//                            textViewReps2.setVisibility(View.VISIBLE);
+//                            textViewWeight2.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 7){
+//                            editTextReps7.setVisibility(View.VISIBLE);
+//                            editTextWeight7.setVisibility(View.VISIBLE);
+//                            textViewNumber7.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 8){
+//                            editTextReps8.setVisibility(View.VISIBLE);
+//                            editTextWeight8.setVisibility(View.VISIBLE);
+//                            textViewNumber8.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 9){
+//                            editTextReps9.setVisibility(View.VISIBLE);
+//                            editTextWeight9.setVisibility(View.VISIBLE);
+//                            textViewNumber9.setVisibility(View.VISIBLE);
+//                        }
+//                        if (setNumber == 10){
+//                            editTextReps10.setVisibility(View.VISIBLE);
+//                            editTextWeight10.setVisibility(View.VISIBLE);
+//                            textViewNumber10.setVisibility(View.VISIBLE);
+//                        }
+//
+//                    }
+//                });
+//
+//                AlertDialog.Builder alert = new AlertDialog.Builder(TrainingActivity.this);
+//                alert.setTitle("Edit exercise")
+//                        .setView(textEntryView)
+//                        .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//
+//                                TrainingSet trainingSet = new TrainingSet(editTextWeight1.getText().toString(),editTextWeight2.getText().toString(),editTextWeight3.getText().toString(),editTextWeight4.getText().toString(),editTextWeight5.getText().toString(),editTextWeight6.getText().toString(),editTextWeight7.getText().toString(),editTextWeight8.getText().toString(),editTextWeight9.getText().toString(),editTextWeight10.getText().toString(),editTextReps1.getText().toString(),editTextReps2.getText().toString(),editTextReps3.getText().toString(),editTextReps4.getText().toString(),editTextReps5.getText().toString(),editTextReps6.getText().toString(),editTextReps7.getText().toString(),editTextReps8.getText().toString(),editTextReps9.getText().toString(),editTextReps10.getText().toString());
+//
+//                                if (setNumber == 1){
+//                                    reps = trainingSet.getReps1();
+//                                    weight = trainingSet.getWeight1();
+//                                }
+//                                if (setNumber == 2){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2();
+//                                }
+//                                if (setNumber == 3){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3();
+//                                }
+//                                if (setNumber == 4){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4();
+//                                }
+//                                if (setNumber == 5){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5();
+//                                }
+//                                if (setNumber == 6){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6();
+//                                }
+//                                if (setNumber == 7){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7();
+//                                }
+//                                if (setNumber == 8){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8();
+//                                }
+//                                if (setNumber == 9){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8()+"."+trainingSet.getReps9();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8()+"."+trainingSet.getWeight9();
+//                                }
+//                                if (setNumber == 10){
+//                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8()+"."+trainingSet.getReps9()+"."+trainingSet.getReps10();
+//                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8()+"."+trainingSet.getWeight9()+"."+trainingSet.getWeight10();
+//                                }
+//
+//                                Response.Listener<String> listener = new Response.Listener<String>() {
+//                                    @Override
+//                                    public void onResponse(String response) {
+//                                        Log.e(TAG,"response"+response);
+//                                    }
+//                                };
+//
+//
+//                                String v = String.valueOf(reps_list);
+//
+//                                Log.e(TAG, "onClick: reps_list "+v );
+//                                Log.e(TAG, "onClick: lista " +Integer.valueOf(task_id.getText().toString())+ "   "+editTextRestTime4.getText().toString()+ "   "+reps+ "   "+weight+ "   "+userName+ "   "+dateInsde);
+//                                TrainingEditTraining trainingEditTraining = new TrainingEditTraining(task_id.getText().toString(),editTextRestTime4.getText().toString(),reps,weight,userName,dateInsde,listener);
+//                                RequestQueue queue = Volley.newRequestQueue(TrainingActivity.this);
+//                                queue.add(trainingEditTraining);
+//                                // Load data after 0,5s
+//                                Handler handler = new Handler();
+//                                handler.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        onRestart();
+//                                    }
+//                                },500);
+//                            }
+//                        })
+//                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Response.Listener<String> listener = new Response.Listener<String>() {
+//                                    @Override
+//                                    public void onResponse(String response) {
+//                                        Log.e(TAG,"response"+response);
+//                                    }
+//                                };
+//                                TrainingDeleteRequest trainingDeleteRequest = new TrainingDeleteRequest(Integer.valueOf(task_id.getText().toString()),userName, dateInsde, listener);
+//                                RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
+//                                requestQueue.add(trainingDeleteRequest);
+//                                // Load data after 0,5s
+//                                onRestart();
+//                            }
+//                        })
+//                        .setIcon(R.drawable.icon_training)
+//                ;
+//
+//                alert.show();
+//
+//
+//
+//
+//
+//                Log.e(TAG, "onItemLongClick: desc "+description);
+//                return true;
+//
+//
+//            }
+//        });
 
         HorizontalCalendar horizontalCalendar;
 

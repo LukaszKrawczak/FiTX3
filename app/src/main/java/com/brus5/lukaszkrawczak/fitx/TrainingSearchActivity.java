@@ -100,33 +100,20 @@ public class TrainingSearchActivity extends AppCompatActivity{
             @Override
             public void afterTextChanged(Editable s) {
                 trainingServiceCopy.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
-//                Log.d(TAG, "afterTextChanged: "+trainingServiceCopy.getShowTrainingByName());
-
-
-
-
                 try {
                     JSONObject jsonObject = new JSONObject(String.valueOf(trainingServiceCopy.getShowTrainingByName()));
                     JSONArray server_response = jsonObject.getJSONArray("server_response");
 
-
-                    String name;
                     int id;
-                    String username;
-                    String date;
-                    String done;
                     String description;
-
 
                     if (server_response.length() > 0){
                         for (int i = 0; i < server_response.length(); i++){
                             JSONObject c = server_response.getJSONObject(i);
                             id = Integer.valueOf(c.getString("id"));
-                            username = c.getString("username");
-                            date = c.getString("date");
                             description = c.getString("description");
 
-                            Log.e(TAG, "onResponse: description "+description);
+                            Log.d(TAG, "afterTextChanged: "+description);
 
                             String upName = description.substring(0,1).toUpperCase() + description.substring(1);
 
@@ -145,127 +132,83 @@ public class TrainingSearchActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
 
-//                TrainingSearchByName trainingSearchByName = new TrainingSearchByName(s.toString(),responseListener);
-//                RequestQueue queue = Volley.newRequestQueue(TrainingSearchActivity.this);
-//                queue.add(trainingSearchByName);
-
-
-
-
-
-                // FIXME: 06.05.2018 ogarnąć asychroniczne pobieranie danych.
-
-//                LongRunningTask longRunningTask = new LongRunningTask();
-//                longRunningTask.execute(trainingServiceCopy.getShowTrainingByName());
-
-
-
-
-//                Handler handler = new Handler();
-//                final TrainingServiceCopy TrainingServiceCopy = trainingServiceCopy;
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Log.i(TAG, "afterTextChanged: "+ TrainingServiceCopy.getShowTrainingByName());
-//                    }
-//                },1000);
-
-
-
-
-
-
-
-
             }
 
-            /*            @Override
-            public void afterTextChanged(Editable s) {
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(TAG, "onResponse: response "+response);
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray server_response = jsonObject.getJSONArray("server_response");
-
-
-
-                            String name;
-                            int id;
-                            String username;
-                            String date;
-                            String done;
-                            String description;
-
-
-                            if (server_response.length() > 0){
-                                for (int i = 0; i < server_response.length(); i++){
-                                    JSONObject c = server_response.getJSONObject(i);
-                                    id = Integer.valueOf(c.getString("id"));
-                                    username = c.getString("username");
-                                    date = c.getString("date");
-                                    description = c.getString("description");
-
-                                    Log.e(TAG, "onResponse: description "+description);
-
-                                    String upName = description.substring(0,1).toUpperCase() + description.substring(1);
-
-                                    Training training = new Training(String.valueOf(id),description,null,null,null);
-
-                                    trainingArrayList.add(training);
-
-                                    adapter = new TrainingListSearchAdapter(TrainingSearchActivity.this,R.layout.training_search_row,trainingArrayList);
-                                    mTaskListView.setAdapter(adapter);
-                                    mTaskListView.invalidate();
-
-                                }
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                };
-//                TrainingSearchByName trainingSearchByName = new TrainingSearchByName(s.toString(),responseListener);
-//                RequestQueue queue = Volley.newRequestQueue(TrainingSearchActivity.this);
-//                queue.add(trainingSearchByName);
-
-                TrainingSearchDTO trainingSearchDTO = new TrainingSearchDTO();
-                trainingSearchDTO.description = s.toString();
-
-                TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
-                trainingServiceCopy.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
-            }*/
+//                        @Override
+//            public void afterTextChanged(Editable s) {
+//                Response.Listener<String> responseListener = new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Log.d(TAG, "onResponse: response "+response);
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(response);
+//                            JSONArray server_response = jsonObject.getJSONArray("server_response");
+//
+//
+//
+//                            String name;
+//                            int id;
+//                            String username;
+//                            String date;
+//                            String done;
+//                            String description;
+//
+//
+//                            if (server_response.length() > 0){
+//                                for (int i = 0; i < server_response.length(); i++){
+//                                    JSONObject c = server_response.getJSONObject(i);
+//                                    id = Integer.valueOf(c.getString("id"));
+//                                    username = c.getString("username");
+//                                    date = c.getString("date");
+//                                    description = c.getString("description");
+//
+//                                    Log.e(TAG, "onResponse: description "+description);
+//
+//                                    String upName = description.substring(0,1).toUpperCase() + description.substring(1);
+//
+//                                    Training training = new Training(String.valueOf(id),description,null,null,null);
+//
+//                                    trainingArrayList.add(training);
+//
+//                                    adapter = new TrainingListSearchAdapter(TrainingSearchActivity.this,R.layout.training_search_row,trainingArrayList);
+//                                    mTaskListView.setAdapter(adapter);
+//                                    mTaskListView.invalidate();
+//
+//                                }
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                };
+////                TrainingSearchByName trainingSearchByName = new TrainingSearchByName(s.toString(),responseListener);
+////                RequestQueue queue = Volley.newRequestQueue(TrainingSearchActivity.this);
+////                queue.add(trainingSearchByName);
+//
+//                TrainingSearchDTO trainingSearchDTO = new TrainingSearchDTO();
+//                trainingSearchDTO.description = s.toString();
+//
+//                TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
+//                trainingServiceCopy.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
+//            }
         });
 
 
 mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "onItemClick: "+position+" "+id);
+
 
         TextView task_name = view.findViewById(R.id.task_name);
-        TextView task_rest = view.findViewById(R.id.task_restTime);
-        TextView task_set1 = view.findViewById(R.id.task_set1);
-        TextView task_set2 = view.findViewById(R.id.task_set2);
-        TextView task_set3 = view.findViewById(R.id.task_set3);
-        TextView task_set4 = view.findViewById(R.id.task_set4);
-        TextView task_set5 = view.findViewById(R.id.task_set5);
-        TextView task_set6 = view.findViewById(R.id.task_set6);
-        TextView task_set7 = view.findViewById(R.id.task_set7);
-        TextView task_set8 = view.findViewById(R.id.task_set8);
-        TextView task_set9 = view.findViewById(R.id.task_set9);
-        TextView task_set10 = view.findViewById(R.id.task_set10);
         TextView task_id = view.findViewById(R.id.task_id);
 
         final String description = task_name.getText().toString();
         final int idd = Integer.valueOf(task_id.getText().toString());
 
-        Log.e(TAG, "onItemClick: desc"+description );
-        Log.e(TAG, "onItemClick: idd"+idd );
+        Log.d(TAG, "onItemClick: "+position+" "+id+" "+description);
 
         LayoutInflater inflater = LayoutInflater.from(TrainingSearchActivity.this);
         View textEntryView = inflater.inflate(R.layout.activity_training_options,null);
@@ -302,140 +245,164 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         final TextView textViewNumber9 = textEntryView.findViewById(R.id.textViewNumber9);
         final TextView textViewNumber10 = textEntryView.findViewById(R.id.textViewNumber10);
 
-        final TextView textViewReps1 = textEntryView.findViewById(R.id.textViewReps1);
-        final TextView textViewWeight1 = textEntryView.findViewById(R.id.textViewWeight1);
-        final TextView textViewReps2 = textEntryView.findViewById(R.id.textViewReps2);
-        final TextView textViewWeight2 = textEntryView.findViewById(R.id.textViewWeight2);
 
         final TextView mTask_name = textEntryView.findViewById(R.id.task_name4);
-        final TextView mRest_time = textEntryView.findViewById(R.id.task_restTime4);
-
 
         final Button buttonAddSet = textEntryView.findViewById(R.id.buttonAddSet);
 
-
-
-        final ArrayList<String> reps_list = new ArrayList<>();
-        final ArrayList<String> weight_list = new ArrayList<>();
-
         mTask_name.setText(task_name.getText().toString());
 
-        final ArrayList<String> arrayReps = new ArrayList<>();
-
-        final ArrayList<String> arrayWeight = new ArrayList<>();
-
-
-
-//                String reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8()+"."+trainingSet.getReps9()+"."+trainingSet.getReps10()+".";
-        Log.e(TAG, "onClick: reps "+reps);
 
         buttonAddSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
                 setNumber++;
 
-                Log.e(TAG, "onClick: reps_list "+reps_list.size());
-                Log.e(TAG, "onClick: reps_list "+reps_list);
-                Log.e(TAG, "onClick: weight_list "+weight_list);
-                Log.e(TAG, "onItemClick: editTextReps1 "+ editTextReps1.getText().toString());
-                Log.e(TAG, "onClick: click: "+setNumber);
+                switch (setNumber){
+                    case 1:
+                        editTextReps1.setVisibility(View.VISIBLE);
+                        editTextWeight1.setVisibility(View.VISIBLE);
+                        textViewNumber1.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        editTextReps2.setVisibility(View.VISIBLE);
+                        editTextWeight2.setVisibility(View.VISIBLE);
+                        textViewNumber2.setVisibility(View.VISIBLE);
+                        break;
+                    case 3:
+                        editTextReps3.setVisibility(View.VISIBLE);
+                        editTextWeight3.setVisibility(View.VISIBLE);
+                        textViewNumber3.setVisibility(View.VISIBLE);
+                        break;
+                    case 4:
+                        editTextReps4.setVisibility(View.VISIBLE);
+                        editTextWeight4.setVisibility(View.VISIBLE);
+                        textViewNumber4.setVisibility(View.VISIBLE);
+                        break;
+                    case 5:
+                        editTextReps5.setVisibility(View.VISIBLE);
+                        editTextWeight5.setVisibility(View.VISIBLE);
+                        textViewNumber5.setVisibility(View.VISIBLE);
+                        break;
+                    case 6:
+                        editTextReps6.setVisibility(View.VISIBLE);
+                        editTextWeight6.setVisibility(View.VISIBLE);
+                        textViewNumber6.setVisibility(View.VISIBLE);
+                        break;
+                    case 7:
+                        editTextReps7.setVisibility(View.VISIBLE);
+                        editTextWeight7.setVisibility(View.VISIBLE);
+                        textViewNumber7.setVisibility(View.VISIBLE);
+                        break;
+                    case 8:
+                        editTextReps8.setVisibility(View.VISIBLE);
+                        editTextWeight8.setVisibility(View.VISIBLE);
+                        textViewNumber8.setVisibility(View.VISIBLE);
+                        break;
+                    case 9:
+                        editTextReps9.setVisibility(View.VISIBLE);
+                        editTextWeight9.setVisibility(View.VISIBLE);
+                        textViewNumber9.setVisibility(View.VISIBLE);
+                        break;
+                    case 10:
+                        editTextReps10.setVisibility(View.VISIBLE);
+                        editTextWeight10.setVisibility(View.VISIBLE);
+                        textViewNumber10.setVisibility(View.VISIBLE);
+                        break;
 
-
-                if (setNumber == 1){
-                    editTextReps1.setVisibility(View.VISIBLE);
-                    editTextWeight1.setVisibility(View.VISIBLE);
-                    textViewNumber1.setVisibility(View.VISIBLE);
                 }
-                if (setNumber == 2){
-                    editTextReps2.setVisibility(View.VISIBLE);
-                    editTextWeight2.setVisibility(View.VISIBLE);
-                    textViewNumber2.setVisibility(View.VISIBLE);
 
-                    arrayReps.add(editTextReps2.getText().toString());
-                    arrayWeight.add(editTextReps2.getText().toString());
-                }
-                if (setNumber == 3){
-                    arrayReps.add(editTextReps3.getText().toString());
-                    arrayWeight.add(editTextReps3.getText().toString());
-
-                    editTextReps3.setVisibility(View.VISIBLE);
-                    editTextWeight3.setVisibility(View.VISIBLE);
-                    textViewNumber3.setVisibility(View.VISIBLE);
-                }
-                if (setNumber == 4){
-
-                    arrayReps.add(editTextReps4.getText().toString());
-                    arrayWeight.add(editTextReps4.getText().toString());
-
-                    editTextReps4.setVisibility(View.VISIBLE);
-                    editTextWeight4.setVisibility(View.VISIBLE);
-                    textViewNumber4.setVisibility(View.VISIBLE);
-                }
-                if (setNumber == 5){
-
-                    arrayReps.add(editTextReps5.getText().toString());
-                    arrayWeight.add(editTextReps5.getText().toString());
-
-                    editTextReps5.setVisibility(View.VISIBLE);
-                    editTextWeight5.setVisibility(View.VISIBLE);
-                    textViewNumber5.setVisibility(View.VISIBLE);
-                }
-                if (setNumber == 6){
-
-                    arrayReps.add(editTextReps6.getText().toString());
-                    arrayWeight.add(editTextReps6.getText().toString());
-
-                    editTextReps6.setVisibility(View.VISIBLE);
-                    editTextWeight6.setVisibility(View.VISIBLE);
-                    textViewNumber6.setVisibility(View.VISIBLE);
-
-                    textViewReps2.setVisibility(View.VISIBLE);
-                    textViewWeight2.setVisibility(View.VISIBLE);
-                }
-                if (setNumber == 7){
-
-                    arrayReps.add(editTextReps7.getText().toString());
-                    arrayWeight.add(editTextReps7.getText().toString());
-
-                    editTextReps7.setVisibility(View.VISIBLE);
-                    editTextWeight7.setVisibility(View.VISIBLE);
-                    textViewNumber7.setVisibility(View.VISIBLE);
-                }
-                if (setNumber == 8){
-
-                    arrayReps.add(editTextReps8.getText().toString());
-                    arrayWeight.add(editTextReps8.getText().toString());
-
-                    editTextReps8.setVisibility(View.VISIBLE);
-                    editTextWeight8.setVisibility(View.VISIBLE);
-                    textViewNumber8.setVisibility(View.VISIBLE);
-                }
-                if (setNumber == 9){
-
-                    arrayReps.add(editTextReps9.getText().toString());
-                    arrayWeight.add(editTextReps9.getText().toString());
-
-                    editTextReps9.setVisibility(View.VISIBLE);
-                    editTextWeight9.setVisibility(View.VISIBLE);
-                    textViewNumber9.setVisibility(View.VISIBLE);
-                }
-                if (setNumber == 10){
-
-                    arrayReps.add(editTextReps10.getText().toString());
-                    arrayWeight.add(editTextReps10.getText().toString());
-
-                    editTextReps10.setVisibility(View.VISIBLE);
-                    editTextWeight10.setVisibility(View.VISIBLE);
-                    textViewNumber10.setVisibility(View.VISIBLE);
-                }
+//                if (setNumber == 1){
+//                    editTextReps1.setVisibility(View.VISIBLE);
+//                    editTextWeight1.setVisibility(View.VISIBLE);
+//                    textViewNumber1.setVisibility(View.VISIBLE);
+//                }
+//                if (setNumber == 2){
+//                    editTextReps2.setVisibility(View.VISIBLE);
+//                    editTextWeight2.setVisibility(View.VISIBLE);
+//                    textViewNumber2.setVisibility(View.VISIBLE);
+//
+//                    arrayReps.add(editTextReps2.getText().toString());
+//                    arrayWeight.add(editTextReps2.getText().toString());
+//                }
+//                if (setNumber == 3){
+//                    arrayReps.add(editTextReps3.getText().toString());
+//                    arrayWeight.add(editTextReps3.getText().toString());
+//
+//                    editTextReps3.setVisibility(View.VISIBLE);
+//                    editTextWeight3.setVisibility(View.VISIBLE);
+//                    textViewNumber3.setVisibility(View.VISIBLE);
+//                }
+//                if (setNumber == 4){
+//
+//                    arrayReps.add(editTextReps4.getText().toString());
+//                    arrayWeight.add(editTextReps4.getText().toString());
+//
+//                    editTextReps4.setVisibility(View.VISIBLE);
+//                    editTextWeight4.setVisibility(View.VISIBLE);
+//                    textViewNumber4.setVisibility(View.VISIBLE);
+//                }
+//                if (setNumber == 5){
+//
+//                    arrayReps.add(editTextReps5.getText().toString());
+//                    arrayWeight.add(editTextReps5.getText().toString());
+//
+//                    editTextReps5.setVisibility(View.VISIBLE);
+//                    editTextWeight5.setVisibility(View.VISIBLE);
+//                    textViewNumber5.setVisibility(View.VISIBLE);
+//                }
+//                if (setNumber == 6){
+//
+//                    arrayReps.add(editTextReps6.getText().toString());
+//                    arrayWeight.add(editTextReps6.getText().toString());
+//
+//                    editTextReps6.setVisibility(View.VISIBLE);
+//                    editTextWeight6.setVisibility(View.VISIBLE);
+//                    textViewNumber6.setVisibility(View.VISIBLE);
+//
+//                    textViewReps2.setVisibility(View.VISIBLE);
+//                    textViewWeight2.setVisibility(View.VISIBLE);
+//                }
+//                if (setNumber == 7){
+//
+//                    arrayReps.add(editTextReps7.getText().toString());
+//                    arrayWeight.add(editTextReps7.getText().toString());
+//
+//                    editTextReps7.setVisibility(View.VISIBLE);
+//                    editTextWeight7.setVisibility(View.VISIBLE);
+//                    textViewNumber7.setVisibility(View.VISIBLE);
+//                }
+//                if (setNumber == 8){
+//
+//                    arrayReps.add(editTextReps8.getText().toString());
+//                    arrayWeight.add(editTextReps8.getText().toString());
+//
+//                    editTextReps8.setVisibility(View.VISIBLE);
+//                    editTextWeight8.setVisibility(View.VISIBLE);
+//                    textViewNumber8.setVisibility(View.VISIBLE);
+//                }
+//                if (setNumber == 9){
+//
+//                    arrayReps.add(editTextReps9.getText().toString());
+//                    arrayWeight.add(editTextReps9.getText().toString());
+//
+//                    editTextReps9.setVisibility(View.VISIBLE);
+//                    editTextWeight9.setVisibility(View.VISIBLE);
+//                    textViewNumber9.setVisibility(View.VISIBLE);
+//                }
+//                if (setNumber == 10){
+//
+//                    arrayReps.add(editTextReps10.getText().toString());
+//                    arrayWeight.add(editTextReps10.getText().toString());
+//
+//                    editTextReps10.setVisibility(View.VISIBLE);
+//                    editTextWeight10.setVisibility(View.VISIBLE);
+//                    textViewNumber10.setVisibility(View.VISIBLE);
+//                }
 
             }
         });
-
-
-
 
         AlertDialog.Builder alert = new AlertDialog.Builder(TrainingSearchActivity.this);
         alert.setTitle("Add training")
@@ -446,61 +413,13 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                         TrainingSet trainingSet = new TrainingSet(editTextWeight1.getText().toString(), editTextWeight2.getText().toString(), editTextWeight3.getText().toString(), editTextWeight4.getText().toString(), editTextWeight5.getText().toString(), editTextWeight6.getText().toString(), editTextWeight7.getText().toString(), editTextWeight8.getText().toString(), editTextWeight9.getText().toString(), editTextWeight10.getText().toString(), editTextReps1.getText().toString(), editTextReps2.getText().toString(), editTextReps3.getText().toString(), editTextReps4.getText().toString(), editTextReps5.getText().toString(), editTextReps6.getText().toString(), editTextReps7.getText().toString(), editTextReps8.getText().toString(), editTextReps9.getText().toString(), editTextReps10.getText().toString());
 
-                        if (setNumber == 1) {
-                            reps = trainingSet.getReps1();
-                            weight = trainingSet.getWeight1();
-                        }
-                        if (setNumber == 2) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2();
-                        }
-                        if (setNumber == 3) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3();
-                        }
-                        if (setNumber == 4) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4();
-                        }
-                        if (setNumber == 5) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5();
-                        }
-                        if (setNumber == 6) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6();
-                        }
-                        if (setNumber == 7) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6() + "." + trainingSet.getReps7();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6() + "." + trainingSet.getWeight7();
-                        }
-                        if (setNumber == 8) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6() + "." + trainingSet.getReps7() + "." + trainingSet.getReps8();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6() + "." + trainingSet.getWeight7() + "." + trainingSet.getWeight8();
-                        }
-                        if (setNumber == 9) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6() + "." + trainingSet.getReps7() + "." + trainingSet.getReps8() + "." + trainingSet.getReps9();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6() + "." + trainingSet.getWeight7() + "." + trainingSet.getWeight8() + "." + trainingSet.getWeight9();
-                        }
-                        if (setNumber == 10) {
-                            reps = trainingSet.getReps1() + "." + trainingSet.getReps2() + "." + trainingSet.getReps3() + "." + trainingSet.getReps4() + "." + trainingSet.getReps5() + "." + trainingSet.getReps6() + "." + trainingSet.getReps7() + "." + trainingSet.getReps8() + "." + trainingSet.getReps9() + "." + trainingSet.getReps10();
-                            weight = trainingSet.getWeight1() + "." + trainingSet.getWeight2() + "." + trainingSet.getWeight3() + "." + trainingSet.getWeight4() + "." + trainingSet.getWeight5() + "." + trainingSet.getWeight6() + "." + trainingSet.getWeight7() + "." + trainingSet.getWeight8() + "." + trainingSet.getWeight9() + "." + trainingSet.getWeight10();
-                        }
+                        trainingSet.setSetNumber(setNumber);
+                        reps = trainingSet.getRepsAll();
+                        weight = trainingSet.getWeightsAll();
 
-                        if (reps.isEmpty() || weight.isEmpty()) {
-                            Toast.makeText(TrainingSearchActivity.this, "Add training failed. You need to add atleast one serie.", Toast.LENGTH_LONG).show();
+                        if (reps.isEmpty() || weight.isEmpty() || trainingSet.isEnteredValue()) {
+                            Toast.makeText(TrainingSearchActivity.this, "Add training failed. You need to add atleast one serie. Don't leave empty fields.", Toast.LENGTH_LONG).show();
                         } else {
-
-//                        Response.Listener<String> listener = new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                Log.e(TAG, "response" + response);
-//                            }
-//                        };
-//                        TrainingInsertTraining trainingInsertTraining = new TrainingInsertTraining(idd, 0, editTextRestTime4.getText().toString(), reps, weight, userName, dateInsde, "blabla", listener);
-//                        RequestQueue requestQueue = Volley.newRequestQueue(TrainingSearchActivity.this);
-//                        requestQueue.add(trainingInsertTraining);
-
 
                             TrainingInsertDTO trainingInsertDTO = new TrainingInsertDTO();
                             trainingInsertDTO.id = idd;
@@ -512,7 +431,6 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             trainingInsertDTO.date = dateInsde;
                             trainingInsertDTO.notepad = "clacla";
 
-
                             TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
                             trainingServiceCopy.InsertTraining(trainingInsertDTO,TrainingSearchActivity.this);
 
@@ -521,44 +439,11 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         adapter.clear();
                     }
                 })
-                .setIcon(R.drawable.icon_plan)
-        ;
-
+                .setIcon(R.drawable.icon_plan);
         alert.show();
-
         setNumber = 0;
-
         Log.e(TAG, "onItemLongClick: desc "+description);
-
     }
 });
-
-
-
     }
-
-    public JSONObject getShowTrainingByName(TrainingServiceCopy trainingServiceCopy){
-        return trainingServiceCopy.getShowTrainingByName();
-    }
-
-    public void doSomething(TrainingServiceCopy trainingServiceCopy){
-        Log.i(TAG, "doSomething: "+trainingServiceCopy.getShowTrainingByName());
-    }
-
-
-
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Instantiate menu XML files into Menu object
-//        getMenuInflater().inflate(R.menu.add_meal,menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.action_add_meal:
-//
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }

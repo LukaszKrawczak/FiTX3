@@ -2,6 +2,7 @@ package com.brus5.lukaszkrawczak.fitx.Training;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,7 +14,6 @@ import com.brus5.lukaszkrawczak.fitx.Configuration;
 import com.brus5.lukaszkrawczak.fitx.Training.DTO.TrainingInsertDTO;
 import com.brus5.lukaszkrawczak.fitx.Training.DTO.TrainingSearchDTO;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,11 +28,9 @@ public class TrainingServiceCopy {
     private Map<String,String> params;
     private static final String TAG = "TrainingService";
 
+    public static final String CONNECTION_INTERNET_FAILED = "Connection with failed";
+
     public JSONObject showTrainingByName;
-
-    public String variable;
-
-
 
     public void InsertTraining(final TrainingInsertDTO trainingInsertDTO, Context ctx){
 
@@ -77,7 +75,7 @@ public class TrainingServiceCopy {
 
     }
 
-    public void SearchTraining(final TrainingSearchDTO trainingSearchDTO, Context ctx){
+    public void SearchTraining(final TrainingSearchDTO trainingSearchDTO, final Context ctx){
 
         StringRequest strRequest = new StringRequest(Request.Method.POST, SEARCH_TRAINING_URL,
                 new Response.Listener<String>()
@@ -87,7 +85,6 @@ public class TrainingServiceCopy {
                     {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            JSONArray server_response = jsonObject.getJSONArray("server_response");
 
                             setShowTrainingByName(jsonObject);
 
@@ -104,7 +101,8 @@ public class TrainingServiceCopy {
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-
+                        Toast.makeText(ctx, CONNECTION_INTERNET_FAILED, Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onErrorResponse: Error"+error);
                     }
                 })
         {
@@ -129,11 +127,4 @@ public class TrainingServiceCopy {
         this.showTrainingByName = showTrainingByName;
     }
 
-    public String getVariable() {
-        return variable;
-    }
-
-    public void setVariable(String variable) {
-        this.variable = variable;
-    }
 }
