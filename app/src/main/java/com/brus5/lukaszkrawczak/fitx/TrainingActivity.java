@@ -2,7 +2,6 @@ package com.brus5.lukaszkrawczak.fitx;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +9,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,13 +25,13 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.brus5.lukaszkrawczak.fitx.Training.DTO.TrainingDeleteDTO;
+import com.brus5.lukaszkrawczak.fitx.Training.DTO.TrainingEditDTO;
 import com.brus5.lukaszkrawczak.fitx.Training.Training;
-import com.brus5.lukaszkrawczak.fitx.Training.TrainingDeleteRequest;
-import com.brus5.lukaszkrawczak.fitx.Training.TrainingEditTraining;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingListAdapter;
+import com.brus5.lukaszkrawczak.fitx.Training.TrainingService;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingSet;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingShowByUser;
-import com.jintin.mixadapter.MixAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,8 +52,6 @@ public class TrainingActivity extends AppCompatActivity {
     private static final String TAG = "TrainingActivity";
     String userName, userFirstName, userBirthday, userPassword, userEmail, userMale, userID;
     int id,userIDint,userAgeint;
-//    String name, username, age, password, email, male, somatotypeS;
-    String description;
 
     ArrayList<Training> trainingArrayList = new ArrayList<>();
 
@@ -67,9 +63,9 @@ public class TrainingActivity extends AppCompatActivity {
     int setNumber = 0;
     String reps = "";
     String weight = "";
-//    private ArrayAdapter<String> adapter;
+
     ListView mTaskListView;
-    MixAdapter<RecyclerView.ViewHolder> adapter1 = new MixAdapter<>();
+
     /* Gettings date */
     Calendar c = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -371,60 +367,58 @@ public class TrainingActivity extends AppCompatActivity {
 
                         }
 
-                        if (setNumber == 1){
-                            editTextReps1.setVisibility(View.VISIBLE);
-                            editTextWeight1.setVisibility(View.VISIBLE);
-                            textViewNumber1.setVisibility(View.VISIBLE);
+                        switch (setNumber){
+                            case 1:
+                                editTextReps1.setVisibility(View.VISIBLE);
+                                editTextWeight1.setVisibility(View.VISIBLE);
+                                textViewNumber1.setVisibility(View.VISIBLE);
+                                break;
+                            case 2:
+                                editTextReps2.setVisibility(View.VISIBLE);
+                                editTextWeight2.setVisibility(View.VISIBLE);
+                                textViewNumber2.setVisibility(View.VISIBLE);
+                                break;
+                            case 3:
+                                editTextReps3.setVisibility(View.VISIBLE);
+                                editTextWeight3.setVisibility(View.VISIBLE);
+                                textViewNumber3.setVisibility(View.VISIBLE);
+                                break;
+                            case 4:
+                                editTextReps4.setVisibility(View.VISIBLE);
+                                editTextWeight4.setVisibility(View.VISIBLE);
+                                textViewNumber4.setVisibility(View.VISIBLE);
+                                break;
+                            case 5:
+                                editTextReps5.setVisibility(View.VISIBLE);
+                                editTextWeight5.setVisibility(View.VISIBLE);
+                                textViewNumber5.setVisibility(View.VISIBLE);
+                                break;
+                            case 6:
+                                editTextReps6.setVisibility(View.VISIBLE);
+                                editTextWeight6.setVisibility(View.VISIBLE);
+                                textViewNumber6.setVisibility(View.VISIBLE);
+                                break;
+                            case 7:
+                                editTextReps7.setVisibility(View.VISIBLE);
+                                editTextWeight7.setVisibility(View.VISIBLE);
+                                textViewNumber7.setVisibility(View.VISIBLE);
+                                break;
+                            case 8:
+                                editTextReps8.setVisibility(View.VISIBLE);
+                                editTextWeight8.setVisibility(View.VISIBLE);
+                                textViewNumber8.setVisibility(View.VISIBLE);
+                                break;
+                            case 9:
+                                editTextReps9.setVisibility(View.VISIBLE);
+                                editTextWeight9.setVisibility(View.VISIBLE);
+                                textViewNumber9.setVisibility(View.VISIBLE);
+                                break;
+                            case 10:
+                                editTextReps10.setVisibility(View.VISIBLE);
+                                editTextWeight10.setVisibility(View.VISIBLE);
+                                textViewNumber10.setVisibility(View.VISIBLE);
+                                break;
                         }
-                        if (setNumber == 2){
-                            editTextReps2.setVisibility(View.VISIBLE);
-                            editTextWeight2.setVisibility(View.VISIBLE);
-                            textViewNumber2.setVisibility(View.VISIBLE);
-                        }
-                        if (setNumber == 3){
-                            editTextReps3.setVisibility(View.VISIBLE);
-                            editTextWeight3.setVisibility(View.VISIBLE);
-                            textViewNumber3.setVisibility(View.VISIBLE);
-                        }
-                        if (setNumber == 4){
-                            editTextReps4.setVisibility(View.VISIBLE);
-                            editTextWeight4.setVisibility(View.VISIBLE);
-                            textViewNumber4.setVisibility(View.VISIBLE);
-                        }
-                        if (setNumber == 5){
-                            editTextReps5.setVisibility(View.VISIBLE);
-                            editTextWeight5.setVisibility(View.VISIBLE);
-                            textViewNumber5.setVisibility(View.VISIBLE);
-                        }
-                        if (setNumber == 6){
-                            editTextReps6.setVisibility(View.VISIBLE);
-                            editTextWeight6.setVisibility(View.VISIBLE);
-                            textViewNumber6.setVisibility(View.VISIBLE);
-
-                            textViewReps2.setVisibility(View.VISIBLE);
-                            textViewWeight2.setVisibility(View.VISIBLE);
-                        }
-                        if (setNumber == 7){
-                            editTextReps7.setVisibility(View.VISIBLE);
-                            editTextWeight7.setVisibility(View.VISIBLE);
-                            textViewNumber7.setVisibility(View.VISIBLE);
-                        }
-                        if (setNumber == 8){
-                            editTextReps8.setVisibility(View.VISIBLE);
-                            editTextWeight8.setVisibility(View.VISIBLE);
-                            textViewNumber8.setVisibility(View.VISIBLE);
-                        }
-                        if (setNumber == 9){
-                            editTextReps9.setVisibility(View.VISIBLE);
-                            editTextWeight9.setVisibility(View.VISIBLE);
-                            textViewNumber9.setVisibility(View.VISIBLE);
-                        }
-                        if (setNumber == 10){
-                            editTextReps10.setVisibility(View.VISIBLE);
-                            editTextWeight10.setVisibility(View.VISIBLE);
-                            textViewNumber10.setVisibility(View.VISIBLE);
-                        }
-
                     }
                 });
 
@@ -434,89 +428,53 @@ public class TrainingActivity extends AppCompatActivity {
                         .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-
                                 TrainingSet trainingSet = new TrainingSet(editTextWeight1.getText().toString(),editTextWeight2.getText().toString(),editTextWeight3.getText().toString(),editTextWeight4.getText().toString(),editTextWeight5.getText().toString(),editTextWeight6.getText().toString(),editTextWeight7.getText().toString(),editTextWeight8.getText().toString(),editTextWeight9.getText().toString(),editTextWeight10.getText().toString(),editTextReps1.getText().toString(),editTextReps2.getText().toString(),editTextReps3.getText().toString(),editTextReps4.getText().toString(),editTextReps5.getText().toString(),editTextReps6.getText().toString(),editTextReps7.getText().toString(),editTextReps8.getText().toString(),editTextReps9.getText().toString(),editTextReps10.getText().toString());
 
-                                if (setNumber == 1){
-                                    reps = trainingSet.getReps1();
-                                    weight = trainingSet.getWeight1();
-                                }
-                                if (setNumber == 2){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2();
-                                }
-                                if (setNumber == 3){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3();
-                                }
-                                if (setNumber == 4){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4();
-                                }
-                                if (setNumber == 5){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5();
-                                }
-                                if (setNumber == 6){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6();
-                                }
-                                if (setNumber == 7){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7();
-                                }
-                                if (setNumber == 8){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8();
-                                }
-                                if (setNumber == 9){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8()+"."+trainingSet.getReps9();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8()+"."+trainingSet.getWeight9();
-                                }
-                                if (setNumber == 10){
-                                    reps = trainingSet.getReps1()+"."+trainingSet.getReps2()+"."+trainingSet.getReps3()+"."+trainingSet.getReps4()+"."+trainingSet.getReps5()+"."+trainingSet.getReps6()+"."+trainingSet.getReps7()+"."+trainingSet.getReps8()+"."+trainingSet.getReps9()+"."+trainingSet.getReps10();
-                                    weight = trainingSet.getWeight1()+"."+trainingSet.getWeight2()+"."+trainingSet.getWeight3()+"."+trainingSet.getWeight4()+"."+trainingSet.getWeight5()+"."+trainingSet.getWeight6()+"."+trainingSet.getWeight7()+"."+trainingSet.getWeight8()+"."+trainingSet.getWeight9()+"."+trainingSet.getWeight10();
-                                }
+                                trainingSet.setSetNumber(setNumber);
+                                reps = trainingSet.getRepsAll();
+                                weight = trainingSet.getWeightsAll();
 
-                                Response.Listener<String> listener = new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        Log.e(TAG,"response"+response);
-                                    }
-                                };
+                                if (reps.isEmpty() || weight.isEmpty() || trainingSet.isEnteredValue()) {
+                                    Toast.makeText(TrainingActivity.this, "Add training failed. You need to add atleast one serie. Don't leave empty fields.", Toast.LENGTH_LONG).show();
+                                } else {
 
+                                    TrainingEditDTO trainingEditDTO = new TrainingEditDTO();
+                                    trainingEditDTO.id = task_id.getText().toString();
+                                    trainingEditDTO.rest = editTextRestTime4.getText().toString();
+                                    trainingEditDTO.reps = reps;
+                                    trainingEditDTO.weight = weight;
+                                    trainingEditDTO.username = userName;
+                                    trainingEditDTO.date = dateInsde;
+
+                                    TrainingService trainingService = new TrainingService();
+                                    trainingService.EditTraining(trainingEditDTO, TrainingActivity.this);
+                                }
 
                                 String v = String.valueOf(reps_list);
 
                                 Log.e(TAG, "onClick: reps_list "+v );
                                 Log.e(TAG, "onClick: lista " +Integer.valueOf(task_id.getText().toString())+ "   "+editTextRestTime4.getText().toString()+ "   "+reps+ "   "+weight+ "   "+userName+ "   "+dateInsde);
-                                TrainingEditTraining trainingEditTraining = new TrainingEditTraining(task_id.getText().toString(),editTextRestTime4.getText().toString(),reps,weight,userName,dateInsde,listener);
-                                RequestQueue queue = Volley.newRequestQueue(TrainingActivity.this);
-                                queue.add(trainingEditTraining);
                                 // Load data after 0,5s
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        onRestart();
-                                    }
-                                },500);
+
+                                onRestart();
+
                             }
                         })
                         .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+
+
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Response.Listener<String> listener = new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        Log.e(TAG,"response"+response);
-                                    }
-                                };
-                                TrainingDeleteRequest trainingDeleteRequest = new TrainingDeleteRequest(Integer.valueOf(task_id.getText().toString()),userName, dateInsde, listener);
-                                RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
-                                requestQueue.add(trainingDeleteRequest);
-                                // Load data after 0,5s
+
+                                TrainingDeleteDTO trainingDeleteDTO = new TrainingDeleteDTO();
+                                trainingDeleteDTO.id = Integer.valueOf(task_id.getText().toString());
+                                trainingDeleteDTO.username = userName;
+                                trainingDeleteDTO.date = dateInsde;
+
+                                TrainingService trainingService = new TrainingService();
+                                trainingService.DeleteTraining(trainingDeleteDTO,TrainingActivity.this);
+
+//                                // Load data after 0,5s
                                 onRestart();
                             }
                         })
@@ -1010,40 +968,8 @@ public class TrainingActivity extends AppCompatActivity {
 
         });
         loadData();
-        wait2secs();
     }
 
-    private class LongRunningTask extends AsyncTask<Void,Void,Void> {
-
-        @Override
-        protected void onPreExecute() {
-            Log.d(TAG, "onPreExecute: ");
-            super.onPreExecute();
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Log.d(TAG, "doInBackground: ");
-
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Log.d(TAG, "onPostExecute: ");
-
-            super.onPostExecute(aVoid);
-        }
-    }
-    
-
-    private void wait2secs() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                updateUI();
-            }
-        },500);
-    }
 
     private void loadData() {
         arrayDone.clear();
@@ -1188,79 +1114,6 @@ public class TrainingActivity extends AppCompatActivity {
 
 
 
-    private void updateUI() {
-        
-        
-//        adapter = new ArrayAdapter<>(this, R.layout.training_row,R.id.task_title,arrayDescription);
-//        adapter = new ArrayAdapter<String>(this, R.layout.training_row,R.id.task_title,arrayDescription);
-//        mTaskListView.setAdapter(adapter);
-        Log.e(TAG,"adapter: "+adapter);
-    }
-
-//    public void doneTrainingTask(View view) {
-//        View parent = (View) view.getParent();
-//        TextView taskIdTextView = parent.findViewById(R.id.task_id);
-//        TextView taskTextView = parent.findViewById(R.id.task_title);
-//        CheckBox taskCheckBox = parent.findViewById(R.id.task_done);
-//        String id = String.valueOf(taskIdTextView.getText());
-//        String description = String.valueOf(taskTextView.getText());
-//        String done = String.valueOf(taskCheckBox.isChecked());
-//        int doneint = 0;
-//        if (done.equals("true")){
-//            doneint = 1;
-//        }else if (done.equals("false")){
-//            doneint = 0;
-//        }
-//        Response.Listener<String> responseListener = new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//
-//            }
-//        };
-//        TrainingDoneRequest trainingDoneRequest = new TrainingDoneRequest(id,doneint,responseListener);
-//        RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
-//        requestQueue.add(trainingDoneRequest);
-//
-//        Log.e(TAG, "id: "+id);
-//        Log.e(TAG, "doneTrainingTask: "+description);
-//        Log.e(TAG, "done: "+done);
-//    }
-
-
-
-//    public void deleteTrainingTask(View view){
-//        View parent = (View) view.getParent();
-//        TextView taskTextView = parent.findViewById(R.id.task_name);
-//        String description = String.valueOf(taskTextView.getText());
-//
-//        Response.Listener<String> responseListener = new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    boolean success =  jsonObject.getBoolean("success");
-//                    if (success) Log.e(TAG,"success"+response);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        };
-//
-////        TrainingDeleteRequest trainingDeleteRequest = new TrainingDeleteRequest(userName, dateInsde, description, responseListener);
-////        RequestQueue requestQueue = Volley.newRequestQueue(TrainingActivity.this);
-////        requestQueue.add(trainingDeleteRequest);
-//        Log.e(TAG, "CRASH1");
-//
-////        onRestart();
-//        Log.e(TAG, "CRASH2");
-//        Log.d(TAG, "task: "+description);
-//
-//        arrayDescription.clear();
-//        trainingArrayList.clear();
-//        new LongRunningTask().execute();
-//
-//    }
-
     @Override
     protected void onRestart() {
 //        adapter.clear();
@@ -1272,12 +1125,6 @@ public class TrainingActivity extends AppCompatActivity {
                 loadData();
             }
         },500);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                updateUI();
-            }
-        },1000);
         super.onRestart();
     }
 

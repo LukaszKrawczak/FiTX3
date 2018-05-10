@@ -25,7 +25,7 @@ import com.brus5.lukaszkrawczak.fitx.Training.DTO.TrainingInsertDTO;
 import com.brus5.lukaszkrawczak.fitx.Training.DTO.TrainingSearchDTO;
 import com.brus5.lukaszkrawczak.fitx.Training.Training;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingListSearchAdapter;
-import com.brus5.lukaszkrawczak.fitx.Training.TrainingServiceCopy;
+import com.brus5.lukaszkrawczak.fitx.Training.TrainingService;
 import com.brus5.lukaszkrawczak.fitx.Training.TrainingSet;
 
 import org.json.JSONArray;
@@ -58,9 +58,8 @@ public class TrainingSearchActivity extends AppCompatActivity{
     String reps = "";
     String weight = "";
 
-
     TrainingSearchDTO trainingSearchDTO = new TrainingSearchDTO();
-    TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
+    TrainingService trainingService = new TrainingService();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +81,6 @@ public class TrainingSearchActivity extends AppCompatActivity{
         userEmail = intent1.getStringExtra("userEmail");
         userMale = intent1.getStringExtra("userMale");
         dateInsde = intent1.getStringExtra("dateInsde");
-        Log.e(TAG,"informacje"+" "+userIDint+" "+userFirstName+" "+userName+" "+userBirthday+" "+userAgeint+" "+userPassword+" "+userEmail+" "+userMale+" "+dateInsde);
 
         inputSearch = findViewById(R.id.inputSearch1);
 
@@ -99,9 +97,9 @@ public class TrainingSearchActivity extends AppCompatActivity{
 
             @Override
             public void afterTextChanged(Editable s) {
-                trainingServiceCopy.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
+                trainingService.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
                 try {
-                    JSONObject jsonObject = new JSONObject(String.valueOf(trainingServiceCopy.getShowTrainingByName()));
+                    JSONObject jsonObject = new JSONObject(String.valueOf(trainingService.getShowTrainingByName()));
                     JSONArray server_response = jsonObject.getJSONArray("server_response");
 
                     int id;
@@ -112,26 +110,18 @@ public class TrainingSearchActivity extends AppCompatActivity{
                             JSONObject c = server_response.getJSONObject(i);
                             id = Integer.valueOf(c.getString("id"));
                             description = c.getString("description");
-
                             Log.d(TAG, "afterTextChanged: "+description);
-
                             String upName = description.substring(0,1).toUpperCase() + description.substring(1);
-
                             Training training = new Training(String.valueOf(id),description,null,null,null);
-
                             trainingArrayList.add(training);
-
                             adapter = new TrainingListSearchAdapter(TrainingSearchActivity.this,R.layout.training_search_row,trainingArrayList);
                             mTaskListView.setAdapter(adapter);
                             mTaskListView.invalidate();
-
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
 //                        @Override
@@ -191,8 +181,8 @@ public class TrainingSearchActivity extends AppCompatActivity{
 //                TrainingSearchDTO trainingSearchDTO = new TrainingSearchDTO();
 //                trainingSearchDTO.description = s.toString();
 //
-//                TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
-//                trainingServiceCopy.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
+//                TrainingService trainingService = new TrainingService();
+//                trainingService.SearchTraining(trainingSearchDTO,TrainingSearchActivity.this);
 //            }
         });
 
@@ -200,8 +190,6 @@ public class TrainingSearchActivity extends AppCompatActivity{
 mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
         TextView task_name = view.findViewById(R.id.task_name);
         TextView task_id = view.findViewById(R.id.task_id);
 
@@ -245,13 +233,11 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         final TextView textViewNumber9 = textEntryView.findViewById(R.id.textViewNumber9);
         final TextView textViewNumber10 = textEntryView.findViewById(R.id.textViewNumber10);
 
-
         final TextView mTask_name = textEntryView.findViewById(R.id.task_name4);
 
         final Button buttonAddSet = textEntryView.findViewById(R.id.buttonAddSet);
 
         mTask_name.setText(task_name.getText().toString());
-
 
         buttonAddSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,9 +296,7 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         editTextWeight10.setVisibility(View.VISIBLE);
                         textViewNumber10.setVisibility(View.VISIBLE);
                         break;
-
                 }
-
 //                if (setNumber == 1){
 //                    editTextReps1.setVisibility(View.VISIBLE);
 //                    editTextWeight1.setVisibility(View.VISIBLE);
@@ -400,7 +384,6 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                    editTextWeight10.setVisibility(View.VISIBLE);
 //                    textViewNumber10.setVisibility(View.VISIBLE);
 //                }
-
             }
         });
 
@@ -431,8 +414,8 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             trainingInsertDTO.date = dateInsde;
                             trainingInsertDTO.notepad = "clacla";
 
-                            TrainingServiceCopy trainingServiceCopy = new TrainingServiceCopy();
-                            trainingServiceCopy.InsertTraining(trainingInsertDTO,TrainingSearchActivity.this);
+                            TrainingService trainingService = new TrainingService();
+                            trainingService.InsertTraining(trainingInsertDTO,TrainingSearchActivity.this);
 
                         }
         inputSearch.setText("");
