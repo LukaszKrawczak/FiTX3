@@ -1,5 +1,6 @@
 package com.brus5.lukaszkrawczak.fitx;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -205,16 +206,14 @@ public class MainActivity extends AppCompatActivity{
         weightArray.clear();
         graph.removeAllSeries();
         new LongOperation().execute("");
-        Log.e(TAG,"onStart()");
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class LongOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             for (int i = 0; i < 5; i++) {
                 try {
-
-
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     Thread.interrupted();
@@ -249,6 +248,7 @@ public class MainActivity extends AppCompatActivity{
             Log.e(TAG,"onProgressUpdate");
         }
     }
+
     private void batchPersonalInformation() {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -269,6 +269,19 @@ public class MainActivity extends AppCompatActivity{
                             userPassword = c.getString("password");
                             userEmail = c.getString("email");
                             userMale = c.getString("male");
+
+                            SaveSharedPreference.setUserFirstName(MainActivity.this,c.getString("name"));
+                            SaveSharedPreference.setUserBirthday(MainActivity.this,c.getString("birthday"));
+                            SaveSharedPreference.setUserEmail(MainActivity.this,c.getString("email"));
+                            SaveSharedPreference.setUserGender(MainActivity.this,c.getString("male"));
+                            SaveSharedPreference.setUserID(MainActivity.this,c.getInt("user_id"));
+
+                            Log.e(TAG, "SaveSharedPreference: "+SaveSharedPreference.getUserFirstName(MainActivity.this));
+                            Log.e(TAG, "SaveSharedPreference: "+SaveSharedPreference.getUserBirthday(MainActivity.this));
+                            Log.e(TAG, "SaveSharedPreference: "+SaveSharedPreference.getUserEmail(MainActivity.this));
+                            Log.e(TAG, "SaveSharedPreference: "+SaveSharedPreference.getUserGender(MainActivity.this));
+                            Log.e(TAG, "SaveSharedPreference: "+SaveSharedPreference.getUserID(MainActivity.this));
+
                         }
                     }
                 } catch (JSONException e) {
@@ -287,8 +300,6 @@ public class MainActivity extends AppCompatActivity{
         RequestQueue queue1 = Volley.newRequestQueue(MainActivity.this);
         queue1.add(userInfoShowRequest);
     }
-
-
 
     private void batchGraphResult() {
         final Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -572,11 +583,6 @@ public class MainActivity extends AppCompatActivity{
                     double weightLossPlus = getCanEat()-percentFifteen;
                     Log.e(TAG, "onResponse: weightLossPlus "+weightLossPlus );
 
-                    // FIXME: 25.04.2018 work here
-
-
-
-
                     Log.e(TAG, "onResponse: percentFive "+percentFive );
 
 
@@ -655,7 +661,6 @@ public class MainActivity extends AppCompatActivity{
         },100);
     }
 
-
     private DataPoint[] generateData2(){
 
         int count = dateList.size();
@@ -710,12 +715,6 @@ public class MainActivity extends AppCompatActivity{
         return ageS;
     }
 
-    public int getCanEat() {return canEat;}
-
-    public void setCanEat(int canEat) {
-        this.canEat = canEat;
-    }
-
     public int getEatedKcal() {
         return eatedKcal;
     }
@@ -724,10 +723,15 @@ public class MainActivity extends AppCompatActivity{
         this.eatedKcal = eatedKcal;
     }
 
-
     boolean checkBalanced(double checkValue, double lowerValue, double higherValue){
         if (checkValue >= lowerValue && checkValue <= higherValue) return true;
         return false;
+    }
+
+    public int getCanEat() {return canEat;}
+
+    public void setCanEat(int canEat) {
+        this.canEat = canEat;
     }
 
 

@@ -18,7 +18,6 @@ public class TrainingShowByUser extends StringRequest{
     private static final String UPDATE_REQUEST_URL = "http://justfitx.xyz/Training/ShowByUser.php";
     private Map<String,String> params;
     public TrainingShowByUser(String username, String date, Response.Listener<String> listener){
-
         super(Method.POST,UPDATE_REQUEST_URL,listener,null);
         params = new HashMap<>();
         params.put("username", username);
@@ -31,5 +30,4 @@ public class TrainingShowByUser extends StringRequest{
         Log.e("UserProfileUpdateRequest","ParamsChecker"+params);
         return params;
     }
-
 }

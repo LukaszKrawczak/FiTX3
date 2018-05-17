@@ -1,5 +1,6 @@
 package com.brus5.lukaszkrawczak.fitx.Training;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -22,19 +23,23 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TrainingService {
+public class TrainingService{
 
     private static final String TRAINING = "Training/";
     private static final String INSERT_TRAINING_URL = Configuration.BASE_URL + TRAINING + "InsertTraining.php";
     private static final String EDIT_TRAINING_URL = Configuration.BASE_URL + TRAINING + "TrainingEditTraining.php";
     private static final String SEARCH_TRAINING_URL = Configuration.BASE_URL + TRAINING + "TrainingSearchByName.php";
     private static final String DELETE_TRAINING_URL = Configuration.BASE_URL + TRAINING + "TrainingDeleteRequest.php";
+    private static final String SHOW_TRAINING_URL = Configuration.BASE_URL + TRAINING + "ShowByUser.php";
     private Map<String,String> params;
     private static final String TAG = "TrainingService";
 
     public static final String CONNECTION_INTERNET_FAILED = "Connection with failed";
 
     public JSONObject showTrainingByName;
+    public JSONObject showUsersDailyTraining;
+
+    public Activity initActivity;
 
     public void InsertTraining(final TrainingInsertDTO trainingInsertDTO, Context ctx){
 
@@ -78,7 +83,6 @@ public class TrainingService {
 
 
     }
-
     public void SearchTraining(final TrainingSearchDTO trainingSearchDTO, final Context ctx){
 
         StringRequest strRequest = new StringRequest(Request.Method.POST, SEARCH_TRAINING_URL,
@@ -90,11 +94,10 @@ public class TrainingService {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             setShowTrainingByName(jsonObject);
-                            Log.e(TAG, "onResponse: "+getShowTrainingByName());
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d(TAG, "onResponse: "+response);
                         }
-                        Log.i(TAG, "onResponse: "+response);
                     }
                 },
                 new Response.ErrorListener()
@@ -119,7 +122,6 @@ public class TrainingService {
         RequestQueue queue = Volley.newRequestQueue(ctx);
         queue.add(strRequest);
     }
-
     public void EditTraining(final TrainingEditDTO trainingEditDTO, final Context ctx){
 
         StringRequest strRequest = new StringRequest(Request.Method.POST, EDIT_TRAINING_URL,
@@ -157,7 +159,6 @@ public class TrainingService {
         RequestQueue queue = Volley.newRequestQueue(ctx);
         queue.add(strRequest);
     }
-
     public void DeleteTraining(final TrainingDeleteDTO trainingDeleteDTO, final Context ctx){
 
         StringRequest strRequest = new StringRequest(Request.Method.POST, DELETE_TRAINING_URL,
@@ -193,6 +194,58 @@ public class TrainingService {
         queue.add(strRequest);
     }
 
+//    public void ShowUsersTraining(final TrainingShowByUserDTO trainingShowByUserDTO, final Context ctx){
+//
+//        StringRequest strRequest = new StringRequest(Request.Method.POST, SHOW_TRAINING_URL,
+//                new Response.Listener<String>()
+//                {
+//                    @Override
+//                    public void onResponse(String response)
+//                    {
+//                        Log.i(TAG, "onResponse: "+response);
+//                        try {
+//                            final JSONObject jsonObject = new JSONObject(response);
+//                            setShowUsersDailyTraining(jsonObject);
+//
+//                            Log.e(TAG, "loadData: "+response);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                },
+//                new Response.ErrorListener()
+//                {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error)
+//                    {
+//                        Toast.makeText(ctx, CONNECTION_INTERNET_FAILED, Toast.LENGTH_SHORT).show();
+//                        Log.e(TAG, "onErrorResponse: Error"+error);
+//                    }
+//                })
+//
+//        {
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//                params = new HashMap<>();
+//                params.put("username", trainingShowByUserDTO.username);
+//                params.put("date", trainingShowByUserDTO.date);
+//                return params;
+//            }
+//        };
+//
+//
+//
+//        RequestQueue queue = Volley.newRequestQueue(ctx);
+//        queue.add(strRequest);
+//
+//
+//
+//    }
+
+
+
     public JSONObject getShowTrainingByName() {
         return showTrainingByName;
     }
@@ -201,4 +254,11 @@ public class TrainingService {
         this.showTrainingByName = showTrainingByName;
     }
 
+    public JSONObject getShowUsersDailyTraining() {
+        return showUsersDailyTraining;
+    }
+
+    public void setShowUsersDailyTraining(JSONObject showUsersDailyTraining) {
+        this.showUsersDailyTraining = showUsersDailyTraining;
+    }
 }

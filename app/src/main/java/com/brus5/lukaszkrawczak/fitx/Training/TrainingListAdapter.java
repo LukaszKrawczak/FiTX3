@@ -3,7 +3,6 @@ package com.brus5.lukaszkrawczak.fitx.Training;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.brus5.lukaszkrawczak.fitx.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by lukaszkrawczak on 18.03.2018.
@@ -23,8 +21,8 @@ public class TrainingListAdapter extends ArrayAdapter<Training> {
 
     final private static String TAG = "TrainingListAdapter";
 
-
-
+    public static final String WEIGHT_UNITS = "kg";
+    public static final String DIVIDER = "x";
     private Context mContext;
     int mResource;
 
@@ -34,18 +32,14 @@ public class TrainingListAdapter extends ArrayAdapter<Training> {
         mResource = resource;
     }
 
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-
         String task_id = getItem(position).getTask_id();
         String task_name = getItem(position).getTask_name();
         String task_rest = getItem(position).getTask_rest();
         String task_weight = getItem(position).getTask_weight();
         String task_reps = getItem(position).getTask_reps();
-//        String task_done = getItem(position).getTask_done();
 
         Training training = new Training(task_id,task_name,task_rest,task_weight,task_reps);
 
@@ -65,26 +59,6 @@ public class TrainingListAdapter extends ArrayAdapter<Training> {
         TextView tvSet8 = convertView.findViewById(R.id.task_set8);
         TextView tvSet9 = convertView.findViewById(R.id.task_set9);
         TextView tvSet10 = convertView.findViewById(R.id.task_set10);
-//        TextView tvReps1 = convertView.findViewById(R.id.task_reps1);
-//        TextView tvReps2 = convertView.findViewById(R.id.task_reps2);
-//        TextView tvReps3 = convertView.findViewById(R.id.task_reps3);
-//        TextView tvReps4 = convertView.findViewById(R.id.task_reps4);
-//        TextView tvReps5 = convertView.findViewById(R.id.task_reps5);
-//        TextView tvReps6 = convertView.findViewById(R.id.task_reps6);
-//        TextView tvReps7 = convertView.findViewById(R.id.task_reps7);
-//        TextView tvReps8 = convertView.findViewById(R.id.task_reps8);
-//        TextView tvReps9 = convertView.findViewById(R.id.task_reps9);
-//        TextView tvReps10 = convertView.findViewById(R.id.task_reps10);
-//
-//        ImageView ivCol1 = convertView.findViewById(R.id.imageViewCol1);
-//        ImageView ivCol2 = convertView.findViewById(R.id.imageViewCol2);
-//        ImageView ivCol3 = convertView.findViewById(R.id.imageViewCol3);
-//        ImageView ivCol4 = convertView.findViewById(R.id.imageViewCol4);
-//        ImageView ivCol5 = convertView.findViewById(R.id.imageViewCol5);
-//        ImageView ivCol6 = convertView.findViewById(R.id.imageViewCol6);
-//        ImageView ivCol7 = convertView.findViewById(R.id.imageViewCol7);
-//        ImageView ivCol8 = convertView.findViewById(R.id.imageViewCol8);
-//        ImageView ivCol9 = convertView.findViewById(R.id.imageViewCol9);
 
         tvId.setText(task_id);
         tvName.setText(task_name);
@@ -96,64 +70,47 @@ public class TrainingListAdapter extends ArrayAdapter<Training> {
         String mTask_reps = task_reps.replaceAll("\\p{Punct}"," ");
         String[] mReps_table = mTask_reps.split("\\s+");
 
-        Log.e(TAG, "getView: weight_table"+ Arrays.toString(mWeight_table));
-        Log.e(TAG, "getView: mReps_table"+ Arrays.toString(mReps_table));
-        Log.e(TAG, "getView: lenght "+mWeight_table.length);
-
-
-
-if (mWeight_table.length >= 1){
-    tvSet1.setVisibility(View.VISIBLE);
-    tvSet1.setText(mReps_table[0]+"x"+mWeight_table[0]+"kg");
-}
-
-if (mWeight_table.length >= 2){
-    tvSet2.setVisibility(View.VISIBLE);
-    tvSet2.setText(mReps_table[1]+"x"+mWeight_table[1]+"kg");
-}
-
-if (mWeight_table.length >= 3){
-    tvSet3.setVisibility(View.VISIBLE);
-    tvSet3.setText(mReps_table[2]+"x"+mWeight_table[2]+"kg");
-}
-
+        if (mWeight_table.length >= 1){
+            tvSet1.setVisibility(View.VISIBLE);
+            tvSet1.setText(String.format("%s%s%s%s", mReps_table[0], DIVIDER, mWeight_table[0], WEIGHT_UNITS));
+            tvSet1.setText("asd");
+        }
+        if (mWeight_table.length >= 2){
+            tvSet2.setVisibility(View.VISIBLE);
+            tvSet2.setText(String.format("%s%s%s%s", mReps_table[1], DIVIDER, mWeight_table[1], WEIGHT_UNITS));
+        }
+        if (mWeight_table.length >= 3){
+            tvSet3.setVisibility(View.VISIBLE);
+            tvSet3.setText(String.format("%s%s%s%s", mReps_table[2], DIVIDER, mWeight_table[2], WEIGHT_UNITS));
+        }
         if (mWeight_table.length >= 4){
             tvSet4.setVisibility(View.VISIBLE);
-            tvSet4.setText(mReps_table[3]+"x"+mWeight_table[3]+"kg");
+            tvSet4.setText(String.format("%s%s%s%s", mReps_table[3], DIVIDER, mWeight_table[3], WEIGHT_UNITS));
         }
-
         if (mWeight_table.length >= 5){
             tvSet5.setVisibility(View.VISIBLE);
-            tvSet5.setText(mReps_table[4]+"x"+mWeight_table[4]+"kg");
+            tvSet5.setText(String.format("%s%s%s%s", mReps_table[4], DIVIDER, mWeight_table[4], WEIGHT_UNITS));
         }
-
         if (mWeight_table.length >= 6){
             tvSet6.setVisibility(View.VISIBLE);
-            tvSet6.setText(mReps_table[5]+"x"+mWeight_table[5]+"kg");
+            tvSet6.setText(String.format("%s%s%s%s", mReps_table[5], DIVIDER, mWeight_table[5], WEIGHT_UNITS));
         }
         if (mWeight_table.length >= 7){
             tvSet7.setVisibility(View.VISIBLE);
-            tvSet7.setText(mReps_table[6]+"x"+mWeight_table[6]+"kg");
+            tvSet7.setText(String.format("%s%s%s%s", mReps_table[6], DIVIDER, mWeight_table[6], WEIGHT_UNITS));
         }
-
         if (mWeight_table.length >= 8){
             tvSet8.setVisibility(View.VISIBLE);
-            tvSet8.setText(mReps_table[7]+"x"+mWeight_table[7]+"kg");
+            tvSet8.setText(String.format("%s%s%s%s", mReps_table[7], DIVIDER, mWeight_table[7], WEIGHT_UNITS));
         }
-
         if (mWeight_table.length >= 9){
             tvSet9.setVisibility(View.VISIBLE);
-            tvSet9.setText(mReps_table[8]+"x"+mWeight_table[8]+"kg");
+            tvSet9.setText(String.format("%s%s%s%s", mReps_table[8], DIVIDER, mWeight_table[8], WEIGHT_UNITS));
         }
-
         if (mWeight_table.length >= 10){
             tvSet10.setVisibility(View.VISIBLE);
-            tvSet10.setText(mReps_table[9]+"x"+mWeight_table[9]+"kg");
+            tvSet10.setText(String.format("%s%s%s%s", mReps_table[9], DIVIDER, mWeight_table[9], WEIGHT_UNITS));
         }
-
-
-//        Log.e(TAG, "getView: weight1"+weight_table[weight_table.length-weight_table.length+1]);
-
 //        if (task_done.equals("1")){
 //            cbDone.setChecked(true);
 //        } else  if (task_done.equals("0")){

@@ -24,7 +24,6 @@
         android:layout_marginStart="32dp"
         android:text="Hello"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_constraintStart_toEndOf="@+id/task_done"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView

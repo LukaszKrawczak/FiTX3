@@ -53,19 +53,8 @@ public class TrainingListSearchAdapter extends ArrayAdapter<Training> {
         TextView tvId = convertView.findViewById(R.id.task_id);
         TextView tvName = convertView.findViewById(R.id.task_name);
 
-
         tvId.setText(task_id);
         tvName.setText(task_name);
-
-
-
-//        Log.e(TAG, "getView: weight1"+weight_table[weight_table.length-weight_table.length+1]);
-
-//        if (task_done.equals("1")){
-//            cbDone.setChecked(true);
-//        } else  if (task_done.equals("0")){
-//            cbDone.setChecked(false);
-//        }
 
         return convertView;
 

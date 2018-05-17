@@ -59,14 +59,10 @@ public class UserProfileActivity extends AppCompatActivity {
     String wynik;
     String date, day, month, year;
 
-
-
     /* Gettings date */
     Calendar c = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String dateToday = simpleDateFormat.format(c.getTime());
-
-
 
     EditText editTextUserName, editTextUserFirstName, editTextUserbirthday,editTextUserPassword,editTextUserRetypePassword,editTextUserEmail,editTextUserHeight,editTextUserWeight, editTextProteinsRatio, editTextFatsRatio, editTextCarbsRatio;
 
@@ -316,11 +312,9 @@ public class UserProfileActivity extends AppCompatActivity {
                     else if (ratioresult == 100d) {
                         Log.d(TAG, "onResponse: ratio result is good " + ratioresult);
 
-
                         Response.Listener<String> responseListener = new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
                                 if (editTextUserFirstName.length() <= 1 /*|| etPassword.length() <= 2*/ || editTextUserName.length() <= 2) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this);
                                     builder.setMessage("Please enter proper data")
@@ -340,24 +334,16 @@ public class UserProfileActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             UserProfileActivity.this.startActivity(intent);
-                                                            onDestroy();
                                                         }
                                                     })
                                                     .show();
                                         }
-
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-
-
-                                    Log.e(TAG, "response " + response);
                                 }
                             }
-
-
                         };
-
                         UserProfileUpdateRequest userProfileUpdateRequest = new UserProfileUpdateRequest(updatename, username, updateusername, updatebirthday, updatepassword, updateemail, updateheight, updateweight, updatesomatotype, updateproteinsratio, updatefatsratio, updatecarbsratio, dateToday, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(UserProfileActivity.this);
                         queue.add(userProfileUpdateRequest);
@@ -368,7 +354,6 @@ public class UserProfileActivity extends AppCompatActivity {
         buttonProfileLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AlertDialog.Builder alert = new AlertDialog.Builder(UserProfileActivity.this);
                 alert.setTitle("Logout")
                         .setMessage("Do you want to Logout?")
@@ -376,19 +361,8 @@ public class UserProfileActivity extends AppCompatActivity {
                         .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-
-
                                 LoginManager.getInstance().logOut();
-
-
-//                                SharedPreferences preferences = getSharedPreferences("username",0);
-//                                preferences.edit().remove(username).clear().apply();
-
-
                                 SaveSharedPreference.clearUserName(UserProfileActivity.this);
-
-
                                 Log.e(TAG, "onClick: SaveSharedPreference "+SaveSharedPreference.getUserName(UserProfileActivity.this));
                                 Intent intent = new Intent(UserProfileActivity.this,UserLoginActivity.class);
                                 startActivity(intent);
@@ -565,27 +539,15 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-
     boolean userComparison(String actualUsername, String existingUsername){
         if (actualUsername.equals(existingUsername)) return true;
         return false;
     }
 
-
-
-//    public String splitDate(){
-//        String userBirthday = getDate().replaceAll("[\\p{Punct}]"," ");
-//        String[] cUserBirthday;
-//        cUserBirthday = userBirthday.split("\\s+");
-//    }
-
-
-
     public boolean correctDate(String day, String month, String year) {
         if(day.length() == 2 && month.length() == 2 && year.length() == 4) return true;
         return false;
     }
-
 
     public String getDate() {
         return date;

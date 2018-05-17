@@ -40,7 +40,7 @@ public class TrainingSearchActivity extends AppCompatActivity{
 
     private static final String TAG = "TrainingSearchActivity";
 
-    String userFirstName, userName, userUserName, userBirthday, userPassword, userEmail, userMale, dateInsde;
+    String userFirstName, userName, userBirthday, userPassword, userEmail, userMale, dateInsde;
     int userIDint,userAgeint;
     ListView mTaskListView;
 
@@ -101,7 +101,6 @@ public class TrainingSearchActivity extends AppCompatActivity{
                 try {
                     JSONObject jsonObject = new JSONObject(String.valueOf(trainingService.getShowTrainingByName()));
                     JSONArray server_response = jsonObject.getJSONArray("server_response");
-
                     int id;
                     String description;
 
@@ -123,7 +122,6 @@ public class TrainingSearchActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
             }
-
 //                        @Override
 //            public void afterTextChanged(Editable s) {
 //                Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -403,7 +401,6 @@ mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         if (reps.isEmpty() || weight.isEmpty() || trainingSet.isEnteredValue()) {
                             Toast.makeText(TrainingSearchActivity.this, "Add training failed. You need to add atleast one serie. Don't leave empty fields.", Toast.LENGTH_LONG).show();
                         } else {
-
                             TrainingInsertDTO trainingInsertDTO = new TrainingInsertDTO();
                             trainingInsertDTO.id = idd;
                             trainingInsertDTO.done = 0;

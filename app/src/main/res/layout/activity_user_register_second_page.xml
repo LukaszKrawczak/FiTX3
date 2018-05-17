@@ -225,7 +225,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Woman"
+        android:text="Female"
         app:layout_constraintStart_toStartOf="@+id/textView64"
         app:layout_constraintTop_toBottomOf="@+id/textViewBirthday" />
 
@@ -233,7 +233,7 @@
         android:id="@+id/radioButtonMan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Man"
+        android:text="Male"
         app:layout_constraintStart_toStartOf="@+id/radioButtonWoman"
         app:layout_constraintTop_toBottomOf="@+id/radioButtonWoman" />
 

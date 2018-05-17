@@ -105,27 +105,6 @@ public class DietActivity extends AppCompatActivity {
         mTaskListView = findViewById(R.id.list_diet);
         getWindow().setStatusBarColor(ContextCompat.getColor(DietActivity.this,R.color.color_main_activity_statusbar));
 
-//        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButtonTEST);
-//
-//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent searchForMeal = new Intent(DietActivity.this, DietSearchActivity2.class);
-//                searchForMeal.putExtra("userIDint",userIDint);
-//                searchForMeal.putExtra("userFirstName",userFirstName);
-//                searchForMeal.putExtra("userName",userName);
-//                searchForMeal.putExtra("userBirthday",userBirthday);
-//                searchForMeal.putExtra("userAgeint",userAgeint);
-//                searchForMeal.putExtra("userPassword",userPassword);
-//                searchForMeal.putExtra("userEmail", userEmail);
-//                searchForMeal.putExtra("userMale", userMale);
-//                searchForMeal.putExtra("dateInsde", dateInsde);
-//                DietActivity.this.startActivity(searchForMeal);
-//            }
-//        });
-
-
         mTaskListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

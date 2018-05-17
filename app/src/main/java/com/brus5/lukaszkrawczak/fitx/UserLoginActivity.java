@@ -47,21 +47,13 @@ import java.security.NoSuchAlgorithmException;
 
 public class UserLoginActivity extends AppCompatActivity {
 
-//    EditText etLogin;
-//    EditText etPassword;
-//    Button btLogin;
-//    TextView tvRegister;
-//    ProgressBar progressBar;
-
     private static final String TAG = "UserLoginActivity";
-
 
     LoginButton loginButton;
     AccessToken accessToken;
     AccessTokenTracker accessTokenTracker;
     TextView textView;
     CallbackManager callbackManager;
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -73,10 +65,6 @@ public class UserLoginActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(UserLoginActivity.this, R.color.color_main_activity_statusbar));
         Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar8);
         setSupportActionBar(toolbar2);
-
-
-
-
 
         // generate keyhash
         try {
@@ -111,10 +99,6 @@ public class UserLoginActivity extends AppCompatActivity {
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
             }
         };
-
-//        loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends","user_birthday","id"));
-//        loginButton.setReadPermissions("email");
-
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -255,11 +239,8 @@ public class UserLoginActivity extends AppCompatActivity {
             finish();
         }
 
-        if(SaveSharedPreference.getUserName(UserLoginActivity.this).length() == 0)
-
-        {
-
-        tvRegister.setOnClickListener(new View.OnClickListener() {
+        if (SaveSharedPreference.getUserName(UserLoginActivity.this).length() == 0){
+            tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserLoginActivity.this, UserRegisterActivityFirstPage.class);
@@ -270,7 +251,6 @@ public class UserLoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
@@ -310,39 +290,17 @@ public class UserLoginActivity extends AppCompatActivity {
                 final UserLoginRequest userLoginRequest = new UserLoginRequest(userName, password, responseListener);
                 final RequestQueue queue = Volley.newRequestQueue(UserLoginActivity.this);
                 queue.add(userLoginRequest);
-
-
-//                // Showing up progressDialog when trying to Login
-//                ProgressDialog dialog = ProgressDialog.show(UserLoginActivity.this,"Loading...",
-//                        "Loading application View, please wait...", false, false);
-//                dialog.show();
-//
-//                // Pushing username, password to RequestQueue after 2 seconds
-//                handler.postDelayed(new Runnable(){
-//                    @Override
-//                    public void run() {
-//
-//                    }
-//                }, 2000);
             }
 
         });
-
-//        Intent intent = new Intent(UserLoginActivity.this, Main2Activity.class);
-//        intent.putExtra("defaultLogin",true);
-//        UserLoginActivity.this.startActivity(intent);
-
-
             // call Login Activity
         }
-        else
-        {
+        else {
             Intent intent = new Intent(UserLoginActivity.this, MainActivity.class);
             intent.putExtra("defaultLogin",true);
-
             UserLoginActivity.this.startActivity(intent);
+            finish();
         }
-
     }
 
     // running up facebookLogin
@@ -356,24 +314,26 @@ public class UserLoginActivity extends AppCompatActivity {
     // if not connected via Facebook the second handler is gonna run up after one second
     private void updateWithToken(AccessToken currentAccessToken) {
         if (currentAccessToken != null) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e(TAG,"Connected via Facebook");
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId()         "+com.facebook.Profile.getCurrentProfile().getId());
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getFirstName()  "+com.facebook.Profile.getCurrentProfile().getFirstName());
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getMiddleName() "+com.facebook.Profile.getCurrentProfile().getMiddleName());
-                    Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getLastName()   "+com.facebook.Profile.getCurrentProfile().getLastName());
-                }
-            }, 1000);
+            Log.e(TAG,"Connected via Facebook");
+            Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getId()         "+com.facebook.Profile.getCurrentProfile().getId());
+            Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getFirstName()  "+com.facebook.Profile.getCurrentProfile().getFirstName());
+            Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getMiddleName() "+com.facebook.Profile.getCurrentProfile().getMiddleName());
+            Log.e(TAG,"com.facebook.Profile.getCurrentProfile().getLastName()   "+com.facebook.Profile.getCurrentProfile().getLastName());
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                }
+//            }, 1000);
         } else {
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    Log.e(TAG,"Not connected via Facebook");
-                }
-            }, 1000);
+            Log.e(TAG,"Not connected via Facebook");
+//            new Handler().postDelayed(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//
+//                }
+//            }, 1000);
         }
     }
 
