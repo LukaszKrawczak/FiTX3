@@ -21,7 +21,7 @@ public class TrainingListAdapter extends ArrayAdapter<Training> {
 
     final private static String TAG = "TrainingListAdapter";
 
-    public static final String WEIGHT_UNITS = "kg";
+    public static final String WEIGHT_UNITS = "kg ";
     public static final String DIVIDER = "x";
     private Context mContext;
     int mResource;
@@ -72,44 +72,43 @@ public class TrainingListAdapter extends ArrayAdapter<Training> {
 
         if (mWeight_table.length >= 1){
             tvSet1.setVisibility(View.VISIBLE);
-            tvSet1.setText(String.format("%s%s%s%s", mReps_table[0], DIVIDER, mWeight_table[0], WEIGHT_UNITS));
-            tvSet1.setText("asd");
+            tvSet1.setText(mReps_table[0]+DIVIDER+mWeight_table[0]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 2){
             tvSet2.setVisibility(View.VISIBLE);
-            tvSet2.setText(String.format("%s%s%s%s", mReps_table[1], DIVIDER, mWeight_table[1], WEIGHT_UNITS));
+            tvSet2.setText(mReps_table[1]+DIVIDER+mWeight_table[1]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 3){
             tvSet3.setVisibility(View.VISIBLE);
-            tvSet3.setText(String.format("%s%s%s%s", mReps_table[2], DIVIDER, mWeight_table[2], WEIGHT_UNITS));
+            tvSet3.setText(mReps_table[2]+DIVIDER+mWeight_table[2]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 4){
             tvSet4.setVisibility(View.VISIBLE);
-            tvSet4.setText(String.format("%s%s%s%s", mReps_table[3], DIVIDER, mWeight_table[3], WEIGHT_UNITS));
+            tvSet4.setText(mReps_table[3]+DIVIDER+mWeight_table[3]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 5){
             tvSet5.setVisibility(View.VISIBLE);
-            tvSet5.setText(String.format("%s%s%s%s", mReps_table[4], DIVIDER, mWeight_table[4], WEIGHT_UNITS));
+            tvSet5.setText(mReps_table[4]+DIVIDER+mWeight_table[4]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 6){
             tvSet6.setVisibility(View.VISIBLE);
-            tvSet6.setText(String.format("%s%s%s%s", mReps_table[5], DIVIDER, mWeight_table[5], WEIGHT_UNITS));
+            tvSet6.setText(mReps_table[5]+DIVIDER+mWeight_table[5]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 7){
             tvSet7.setVisibility(View.VISIBLE);
-            tvSet7.setText(String.format("%s%s%s%s", mReps_table[6], DIVIDER, mWeight_table[6], WEIGHT_UNITS));
+            tvSet7.setText(mReps_table[6]+DIVIDER+mWeight_table[6]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 8){
             tvSet8.setVisibility(View.VISIBLE);
-            tvSet8.setText(String.format("%s%s%s%s", mReps_table[7], DIVIDER, mWeight_table[7], WEIGHT_UNITS));
+            tvSet8.setText(mReps_table[7]+DIVIDER+mWeight_table[7]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 9){
             tvSet9.setVisibility(View.VISIBLE);
-            tvSet9.setText(String.format("%s%s%s%s", mReps_table[8], DIVIDER, mWeight_table[8], WEIGHT_UNITS));
+            tvSet9.setText(mReps_table[8]+DIVIDER+mWeight_table[8]+WEIGHT_UNITS);
         }
         if (mWeight_table.length >= 10){
             tvSet10.setVisibility(View.VISIBLE);
-            tvSet10.setText(String.format("%s%s%s%s", mReps_table[9], DIVIDER, mWeight_table[9], WEIGHT_UNITS));
+            tvSet10.setText(mReps_table[9]+DIVIDER+mWeight_table[9]+WEIGHT_UNITS);
         }
 //        if (task_done.equals("1")){
 //            cbDone.setChecked(true);

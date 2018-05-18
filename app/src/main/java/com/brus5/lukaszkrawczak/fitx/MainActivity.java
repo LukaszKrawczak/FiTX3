@@ -734,6 +734,9 @@ public class MainActivity extends AppCompatActivity{
         this.canEat = canEat;
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 }
 

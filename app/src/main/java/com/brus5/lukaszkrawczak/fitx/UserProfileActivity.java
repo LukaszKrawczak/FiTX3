@@ -363,7 +363,6 @@ public class UserProfileActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 LoginManager.getInstance().logOut();
                                 SaveSharedPreference.clearUserName(UserProfileActivity.this);
-                                Log.e(TAG, "onClick: SaveSharedPreference "+SaveSharedPreference.getUserName(UserProfileActivity.this));
                                 Intent intent = new Intent(UserProfileActivity.this,UserLoginActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -382,9 +381,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
-
-//                    JSONArray aJsonString = jsonObject.getJSONArray("array()");
-//                    Log.e("CHECK AJSONSTRING",""+aJsonString);
                     if (success) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this);
                         builder.setMessage("username up to date")
